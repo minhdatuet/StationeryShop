@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Harmonia+Sans&display=swap');
 
 .container {
-    height: fit-content;
+    height: 450px;
     width: auto;
     background-color: aqua;
     font-family: 'Harmonia Sans', sans-serif;
@@ -12,10 +12,6 @@
 .footer {
     display: flex;
     justify-content: center;
-}
-
-.footer div {
-    margin-top: 30px;
 }
 
 .footer > * {
@@ -53,17 +49,15 @@ a {
     padding: 4px 0px;
 }
 
-.facebook_icon, 
-.instagram_icon, 
-.github_icon {
+.contact_us i {
     font-size: 40px;
-    cursor: pointer;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .my_company {
     display: flex;
     justify-content: center;
     align-items: center; 
-    margin-top: 80px;
+    margin-top: 100px;
 }
