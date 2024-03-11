@@ -6,6 +6,15 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { PiShoppingCartBold } from "react-icons/pi";
 
 export const Header = () => {
+
+  const addBorderWhenClickSearch = () => {
+    document.querySelector(".searchBarContainer").classList.add("searchBarBordered");
+  }
+
+  const removeSearchBorder = () => {
+    document.querySelector(".searchBarContainer").classList.remove("searchBarBordered");
+  }
+
   return (
     
     <div id="headerContainer">
@@ -15,7 +24,19 @@ export const Header = () => {
           Logo
         </div>
 
-        <div className="searchBarContainer">
+        <div className="searchBarContainer"
+        onClick={
+          () => {
+            addBorderWhenClickSearch();
+          }
+        }
+
+        onBlur={
+          () => {
+            removeSearchBorder();
+          }
+        }
+        >
           <input className="searchBar" type="text" placeholder='Search'/>
 
           <div className="searchBtn">
