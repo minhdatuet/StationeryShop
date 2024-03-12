@@ -1,28 +1,26 @@
 import React from 'react';
 import './Footer.css';
-import { SocialIcon } from 'react-social-icons'
 import { FaFacebook, FaInstagram, FaGithub, FaCopyright } from "react-icons/fa";
-
 
 export const Footer = () => {
   return (
     <div className="container">
       <div className="footer">
         <div className="about_us">
-          <h2>About Us</h2>
-          <a href="">About DDD Shop</a>
-          <a href="">Our Journey</a>
-          <a href="">Team Member</a>
+          <h2>Về chúng tôi</h2>
+          <a href="">Giới thiệu về DDD Shop</a>
+          <a href="">Dự định tương lai</a>
+          <a href="">Thành viên dự án</a>
         </div>
 
         <div className="policy">
-          <h2>Our Policy</h2>
-          <a href="">Privacy Policy</a>
-          <a href="">Refund Policy</a>
+          <h2>Chính sách</h2>
+          <a href="">Chính sách bảo mật</a>
+          <a href="">Chính sách hoàn tiền</a>
         </div>
 
         <div className="contact_us">
-          <h2>Contact Us</h2>
+          <h2>Liên hệ với chúng tôi</h2>
           <FaFacebook className='facebook_icon'/>
           <FaInstagram className='instagram_icon'/>
           <FaGithub className='github_icon'/>

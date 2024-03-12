@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "./conponents/Header/Header";
+import Header from "./components/Header/Header";
 import { Routes, Route } from "react-router-dom";
 import { publicRoutes, adminRoutes, customerRoutes } from "./routes";
-import Footer from "./conponents/Footer/Footer";
+import Footer from "./components/Footer/Footer";
+import AboutUs from "./pages/PublicPage/AboutUs/AboutUs.jsx";
 import "./App.css";
-
 
 function App() {
   return (
@@ -23,6 +23,8 @@ function App() {
             </div>
           }
         />
+
+        <Route path="/about-us" element={<AboutUs />} />
     </Routes>
   );
 }
