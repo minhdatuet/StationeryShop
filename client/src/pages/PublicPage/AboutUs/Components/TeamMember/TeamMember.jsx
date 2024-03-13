@@ -3,8 +3,8 @@ import './TeamMember.css';
 
 const TeamMember = () => {
     return (
-        <div className="container" id="team">
-            <h1>Thành viên nhóm</h1>
+        <div className="team-member-container" id="team">
+            <h1>Team Member</h1>
             <div className="members-container">
                 <div className="specific-member">
                     <img src="https://prodwebimage.ecomexpress.in/Rectangle_1_0deec69ea4.png" alt="" />

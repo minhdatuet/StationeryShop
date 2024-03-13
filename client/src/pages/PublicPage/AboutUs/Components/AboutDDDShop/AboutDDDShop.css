@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Harmonia+Sans&display=swap');
 
-.container {
+.about-ddd-shop-container {
     margin-right: 50px;
     margin-left: 50px;
     font-family: 'Harmonia Sans', sans-serif;
@@ -13,4 +13,14 @@
     flex-direction: column;
     justify-content: space-between;
     text-align: justify;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 20px;
 }

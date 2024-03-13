@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Harmonia+Sans&display=swap');
 
 .container {
-    height: fit-content;
+    height: 38vh;
     width: auto;
     font-family: 'Harmonia Sans', sans-serif;
     color: #000000;
@@ -31,19 +31,22 @@
     margin: 0px 0px 15px;
 }
 
-.about_us {
+.about-us {
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .policy {
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
-.contact_us {
+.contact-us {
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 a {

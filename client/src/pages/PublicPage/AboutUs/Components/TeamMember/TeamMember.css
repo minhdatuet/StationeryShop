@@ -1,7 +1,8 @@
-.container {
+.team-member-container {
     --tw-bg-opacity: 1;
-    margin-bottom: 100px;
+    margin-bottom: 60px;
     font-family: 'Harmonia Sans', sans-serif;
+    text-align: center;
 }
 
 .members-container {
