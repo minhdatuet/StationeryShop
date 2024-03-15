@@ -5,7 +5,7 @@ import { publicRoutes, adminRoutes, customerRoutes } from "./routes";
 import Footer from "./components/Footer/Footer";
 import AboutUs from "./pages/PublicPage/AboutUs/AboutUs.jsx";
 import "./App.css";
-import Slider from "./conponents/Slider/Slider";
+import Slider from "./components/Slider/Slider";
 
 function App() {
   return (
