@@ -2,36 +2,26 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Accounts', {
+    await queryInterface.createTable('Products_In_Carts', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      accountName: {
+      productId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {model: 'products', key: 'id'}
       },
-      accountPhone: {
+      accountId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER,
+        references: {model: 'accounts', key: 'id'}
       },
-      accountPassword: {
+      productsInCartQuantity: {
         allowNull: false,
-        type: Sequelize.STRING
-      },
-      accountType: {
-        allowNull: false,
-        type: Sequelize.ENUM(['ADMIN', 'CUSTOMER' ])
-      },
-      accountAddress: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      accountEmail: {
-        allowNull: true,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +34,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Accounts');
+    await queryInterface.dropTable('Products_In_Carts');
   }
 };

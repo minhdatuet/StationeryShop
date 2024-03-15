@@ -1,7 +1,7 @@
 import {Home} from "../pages/PublicPage/Home/Home";
 import Login from "../pages/PublicPage/Login/Login";
 import Register from "../pages/PublicPage/Register/Register";
-import Construction from "../pages/PublicPage/Construction/Construction"
+import Instruction from "../pages/PublicPage/Instruction/Instruction"
 import AboutUs from "../pages/PublicPage/AboutUs//AboutUs"
 const publicRoutes = [
     {
@@ -13,8 +13,8 @@ const publicRoutes = [
       page: Register
     },
     {
-      path: '/construction',
-      page: Construction
+      path: '/instruction',
+      page: Instruction
     },
     {
       path: '/aboutUs',
@@ -33,6 +33,7 @@ const adminRoutes = [
     
 ]
 const customerRoutes = [
+
 ]
 
 export {publicRoutes, adminRoutes, customerRoutes}

@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import reduxStore from './redux';
 import { BrowserRouter } from 'react-router-dom';
-
+import "tw-elements-react/dist/css/tw-elements-react.min.css";
 
 const {store, persistor} = reduxStore()
 

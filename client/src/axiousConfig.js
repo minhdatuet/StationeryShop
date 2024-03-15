@@ -9,7 +9,7 @@ instance.interceptors.request.use(function (config) {
     const token = window.localStorage.getItem('persist:auth') && JSON.parse(window.localStorage.getItem('persist:auth'))?.token?.slice(1,-1)
     console.log(token)
     config.headers = {
-        Authorization: token ? `${token}` : null 
+        Authorization: token ? `${token}` : 'null' 
     }
     return config;
 }, function (error) {

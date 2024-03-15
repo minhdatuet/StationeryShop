@@ -1,9 +1,9 @@
 import React from 'react'
-import './Construction.css'
+import './Instruction.css'
 
-const Construction = () => {
+const Instruction = () => {
     return(
-        <div id = "construction">
+        <div id = "instruction">
             <h1>Người dùng truy cập trang chủ Home</h1>
             {/* <img id = "imgInstruction" src = {home}></img> */}
             <p>
@@ -15,4 +15,4 @@ const Construction = () => {
     )
 }
 
-export default Construction
+export default Instruction
