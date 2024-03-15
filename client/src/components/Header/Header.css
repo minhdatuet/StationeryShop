@@ -1,0 +1,88 @@
+#headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 36px;
+    padding: 12px;
+    border: #b0b0b0 solid 1px;
+}
+
+#headerContainer p {
+    margin: 0;
+}
+
+.leftPart {
+    margin-left: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoContainer {
+    margin-right: 16px;
+}
+
+.searchBarContainer {
+    display: flex;
+    flex-direction: row;
+    border-radius: 36px;
+    border: 2px solid #aaaaaa;
+    padding: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBarBordered {
+    border: #000 2px solid;
+}
+
+.searchBar {
+    border: none;
+    font-size: 18px;
+    outline: none;
+}
+
+.searchBtn {
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.searchBtn p {
+    font-size: 18px;
+}
+
+.rightPart {
+    margin-right: 24px;
+    display: flex;
+    flex-direction: row;
+}
+
+.accountContainer {
+    justify-self: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin-right: 24px;
+    cursor: pointer;
+}
+
+.accountContainer p {
+    font-size: 20px;
+}
+
+.cartContainer {
+    justify-self: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.cartContainer p {
+    font-size: 20px;
+}
