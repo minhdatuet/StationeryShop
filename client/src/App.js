@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import AboutUs from "./pages/PublicPage/AboutUs/AboutUs.jsx";
 import "./App.css";
 import Slider from "./components/Slider/Slider";
+import Products from "./pages/PublicPage/Products/Products.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           element={
             <div>
               <Header />
+              <Products />
               <Slider />
               <Routes>
                 {publicRoutes.map((route, i) => (

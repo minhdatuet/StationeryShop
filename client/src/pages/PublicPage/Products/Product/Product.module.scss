@@ -1,0 +1,47 @@
+.productContainer {
+    display: flex;
+    flex-direction: row;
+    background-color: #e4e4e4;
+    border-radius: 16px;
+    margin-top: 8px;
+    height: 250px;
+}
+
+.productImg {
+    flex: 1;
+    margin: 12px;
+}
+
+.productImg img {
+    width: auto;
+    height: 100%;
+}
+
+.productName {
+    display: flex;
+    flex: 2;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+.productName p {
+    align-items: center;
+}
+
+.productDemoDes {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.productScore {
+    display: flex;
+    flex-direction: row;
+}
+
+.productReview {
+    text-align: center;
+}
