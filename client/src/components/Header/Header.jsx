@@ -1,30 +1,33 @@
 
-import React from 'react';
-import './Header.css';
+import React, { useState } from 'react';
+import style from './Header.module.scss';
+import clsx from 'clsx';
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { PiShoppingCartBold } from "react-icons/pi";
 
 export const Header = () => {
 
+  const [isSearchBorder, setIsSearchBorder] = useState(false);
+
   const addBorderWhenClickSearch = () => {
-    document.querySelector(".searchBarContainer").classList.add("searchBarBordered");
+    setIsSearchBorder(true);
   }
 
   const removeSearchBorder = () => {
-    document.querySelector(".searchBarContainer").classList.remove("searchBarBordered");
+    setIsSearchBorder(false);
   }
 
   return (
     
-    <div id="headerContainer">
-      <div className="leftPart">
-        <div className="logoContainer">
+    <div id={clsx(style.headerContainer)}>
+      <div className={clsx(style.leftPart)}>
+        <div className={clsx(style.logoContainer)}>
           <img src="" alt="" />
           Logo
         </div>
 
-        <div className="searchBarContainer"
+        <div className={clsx(style.searchBarContainer, {[style.searchBarBordered] : isSearchBorder})}
         onClick={
           () => {
             addBorderWhenClickSearch();
@@ -37,22 +40,22 @@ export const Header = () => {
           }
         }
         >
-          <input className="searchBar" type="text" placeholder='Search'/>
+          <input className={clsx(style.searchBar)} type="text" placeholder='Search'/>
 
-          <div className="searchBtn">
+          <div className={clsx(style.searchBtn)}>
             <FaSearch />
             <p>Search</p>
           </div>
         </div>
       </div>
       
-      <div className="rightPart">
-        <div className="accountContainer">
+      <div className={clsx(style.rightPart)}>
+        <div className={clsx(style.accountContainer)}>
           <MdOutlineAccountCircle />
           <p>Account</p>
         </div>
 
-        <div className="cartContainer">
+        <div className={clsx(style.cartContainer)}>
           <PiShoppingCartBold />
           <p>Cart</p>
         </div>
