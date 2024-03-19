@@ -6,7 +6,7 @@ import Footer from "./components/Footer/Footer";
 import AboutUs from "./pages/PublicPage/AboutUs/AboutUs.jsx";
 import Policy from "./pages/PublicPage/Policy/Policy.jsx";
 import "./App.css";
-import Slider from "./conponents/Slider/Slider";
+import Slider from "./components/Slider/Slider";
 import Products from "./pages/PublicPage/Products/Products.jsx";
 
 function App() {
