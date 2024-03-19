@@ -4,8 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import { publicRoutes, adminRoutes, customerRoutes } from "./routes";
 import Footer from "./components/Footer/Footer";
 import AboutUs from "./pages/PublicPage/AboutUs/AboutUs.jsx";
+import Policy from "./pages/PublicPage/Policy/Policy.jsx";
 import "./App.css";
-import Slider from "./conponents/Slider/Slider";
+import Slider from "./components/Slider/Slider";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         />
 
         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/policy" element={<Policy />} />
     </Routes>
   );
 }
