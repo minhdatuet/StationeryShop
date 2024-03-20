@@ -5,7 +5,7 @@ import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import clsx from 'clsx';
 
 export const Product = (props) => {
-    console.log(props.data);
+    // console.log(props.data);
     const productData = props.data;
     const [arrStars, setArrStars] = useState([]);
 

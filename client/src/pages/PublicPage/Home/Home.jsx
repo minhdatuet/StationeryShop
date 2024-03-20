@@ -7,7 +7,6 @@ export const Home = () => {
   return (
 
     <div id="home">
-      <Products />
       Home
     </div>
   )
