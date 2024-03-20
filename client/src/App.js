@@ -17,8 +17,6 @@ function App() {
           element={
             <div>
               <Header />
-              <Products />
-              <Slider />
               <Routes>
                 {publicRoutes.map((route, i) => (
                   <Route key={i} path={route.path} element={<route.page />} />
@@ -31,6 +29,7 @@ function App() {
 
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/policy" element={<Policy />} />
+        <Route path="/products" element={<Products />} />
     </Routes>
   );
 }
