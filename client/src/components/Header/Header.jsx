@@ -1,11 +1,16 @@
 
-import React from 'react';
+import React, { useEffect, useState} from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import * as actions from '../../store/actions'
 import './Header.css';
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { PiShoppingCartBold } from "react-icons/pi";
 
 export const Header = () => {
+  const dispatch = useDispatch()
+  const { isLogged } = useSelector(state => state.auth)
 
   const addBorderWhenClickSearch = () => {
     document.querySelector(".searchBarContainer").classList.add("searchBarBordered");
@@ -57,7 +62,18 @@ export const Header = () => {
           <p>Cart</p>
         </div>
       </div>
+      
+      {!isLogged && <li>
+            <Link to='/login'>
+              Đăng nhập
+            </Link>
+          </li>}
+          {isLogged  && <li onClick={() => dispatch(actions.logout())}>
 
+            <Link to='/login'>
+              <div>Đăng xuất</div>
+            </Link>
+          </li>} 
     </div>
   )
 }
