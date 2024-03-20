@@ -5,13 +5,15 @@ import clsx from 'clsx';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 
-
+let tmpArray =[];
 
 export const Products = () => {
 
   const [productsList, setProductsList] = useState([]);
   const [productsRenderList, setProductsRenderList] = useState([]);
+  
   const [sortOption, setSortOption] = useState("0");
+  const [rerenderAfterSort, setRerenderAfterSort] = useState(true);
 
   const getProductsList = () => {
     // Test
@@ -59,22 +61,22 @@ export const Products = () => {
         }
       ]
     );
-
-    
   };
 
   const updateProductsRender = () => {
     console.log(sortOption);
+    console.log(tmpArray);
 
     if(sortOption === "0") {
       setProductsRenderList(productsList);
     }
     else {
-      let tmpArray = productsRenderList;
+      
+      tmpArray = productsList;
       if(sortOption === "Sort By Best Selling") {
         for(let i = 0; i < tmpArray.length; i++) {
           for(let j = i + 1; j < tmpArray.length; j++) {
-            if(tmpArray[j].productRvs < tmpArray[i].productRvs) {
+            if(tmpArray[j].productRvs > tmpArray[i].productRvs) {
               let tempObj = tmpArray[i];
               tmpArray[i] = tmpArray[j];
               tmpArray[j] = tempObj;
@@ -128,6 +130,7 @@ export const Products = () => {
       }
       console.log(tmpArray);
       setProductsRenderList(tmpArray);
+      setRerenderAfterSort(!rerenderAfterSort);
     }
   };
 
@@ -137,7 +140,11 @@ export const Products = () => {
 
   useEffect(() => {
     updateProductsRender();
-  }, [sortOption, productsList])
+  }, [sortOption, productsList]);
+
+  useEffect(() => {
+    setProductsRenderList(tmpArray);
+  }, [rerenderAfterSort])
 
   return (
 
