@@ -17,6 +17,8 @@ function App() {
           element={
             <div>
               <Header />
+              {/* <Products /> */}
+              <Slider />
               <Routes>
                 {publicRoutes.map((route, i) => (
                   <Route key={i} path={route.path} element={<route.page />} />
