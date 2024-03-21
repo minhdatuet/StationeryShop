@@ -1,22 +1,23 @@
 import React from "react";
-import './TeamMember.css';
+import style from './TeamMember.module.scss';
+import clsx from "clsx";
 
 const TeamMember = () => {
     return (
-        <div className="team-member-container" id="team">
+        <div className={clsx(style.container)} id="team">
             <h1>Team Member</h1>
-            <div className="members-container">
-                <div className="specific-member">
+            <div className={clsx(style["members-container"])}>
+                <div className={clsx(style["specific-member"])}>
                     <img src="https://prodwebimage.ecomexpress.in/Rectangle_1_0deec69ea4.png" alt="" />
-                    <div className="name-member">Đặng Tiếng Dũng</div>
+                    <div className={clsx(style["name-member"])}>Đặng Tiếng Dũng</div>
                 </div>
-                <div className="specific-member">
+                <div className={clsx(style["specific-member"])}>
                     <img src="https://prodwebimage.ecomexpress.in/Rectangle_1_0deec69ea4.png" alt="" />
-                    <div className="name-member">Lê Minh Đạt</div>
+                    <div className={clsx(style["name-member"])}>Lê Minh Đạt</div>
                 </div>
-                <div className="specific-member">
+                <div className={clsx(style["specific-member"])}>
                     <img src="https://prodwebimage.ecomexpress.in/Rectangle_1_0deec69ea4.png" alt="" />
-                    <div className="name-member">Nguyễn Cao Đức</div>
+                    <div className={clsx(style["name-member"])}>Nguyễn Cao Đức</div>
                 </div>
             </div>
         </div>

@@ -1,13 +1,14 @@
 import React from "react";
-import './AboutDDDShop.css';
+import style from './AboutDDDShop.module.scss';
+import clsx from "clsx";
 
 const AboutDDDShop = () => {
     return (
-        <div className="about-ddd-shop-container">
+        <div className={clsx(style.container)}>
             <h1>
                 About DDD Shop
             </h1>
-            <div className="concept">
+            <div className={clsx(style.concept)}>
                 <ul>
                     <li>Welcome to DDD Shop, where you can find a complete and diverse range of quality office products!</li>
                     <li>We provide everything from basic stationery to specialized equipment, meeting the needs of both businesses and individuals. Our mission is to bring you a convenient, fast and safe shopping experience.</li>

@@ -17,7 +17,7 @@ function App() {
           element={
             <div>
               <Header />
-              <Products />
+              {/* <Products /> */}
               <Slider />
               <Routes>
                 {publicRoutes.map((route, i) => (
