@@ -31,6 +31,7 @@ function App() {
 
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/policy" element={<Policy />} />
+        <Route path="/products" element={<Products />} />
     </Routes>
   );
 }
