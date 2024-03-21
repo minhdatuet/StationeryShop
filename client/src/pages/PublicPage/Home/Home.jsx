@@ -14,11 +14,13 @@ import Nohoo_Frog_Backpack from '../../../assets/images/products/backpack/Nohoo-
 import Spy_x_Family_Anya_Forger_Anime_School_Backpack from '../../../assets/images/products/backpack/Spy-x-Family-Anya-Forger-Anime-School-Backpack.png';
 
 export const Home = () => {
-  const backpackImages = [Baby_Pink_Rabbit_Backpack, Cute_Large_Capacity_Student_Backpack, Day_Pack_Backpack_Grey_Scarab, DKMV_Logo_Backpack_Black, Jansport_Cool_Student_175_Backpack, Jansport_Womens_Cool_Student_Backpack, Lightweight_Solid_Color_High_School_Backpack, Nike_Hayward_Backpack, Nohoo_Frog_Backpack, Spy_x_Family_Anya_Forger_Anime_School_Backpack];
+  const backpackImagePaths = [Baby_Pink_Rabbit_Backpack, Cute_Large_Capacity_Student_Backpack, Day_Pack_Backpack_Grey_Scarab, DKMV_Logo_Backpack_Black, Jansport_Cool_Student_175_Backpack, Jansport_Womens_Cool_Student_Backpack, Lightweight_Solid_Color_High_School_Backpack, Nike_Hayward_Backpack, Nohoo_Frog_Backpack, Spy_x_Family_Anya_Forger_Anime_School_Backpack];
+
+
 
   return (
     <>
-      {backpackImages.map((backpackImagePath, index) => (
+      {backpackImagePaths.map((backpackImagePath, index) => (
         <div className="flex font-sans" key={index}>
           <div className="flex-none w-48 relative">
             <img src={backpackImagePath} alt="" className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
