@@ -1,17 +1,14 @@
-const { sequelize } = require('../config/connectDatabase')
-const { Product } = require('../models/product');
+const productService = require('../services/productServices');
 
-class ProductController {
-    showAllProducts = async (req, res) => {
-        try {
-            await sequelize.authenticate();
-            await sequelize.sync();
-            const products = await sequelize.findAll();
-            res.json(products);
-        } catch (err) {
-            console.log("Cannot get products from database ", err);
-        }
+exports.getBackpackInfo = async (req, res) => {
+    try {
+        const response = await productService.getBackpackInfo();
+        return res.status(200).json(response);
+    }
+    catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller' + error
+        })
     }
 }
-
-module.exports = new ProductController();

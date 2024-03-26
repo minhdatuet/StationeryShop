@@ -56,12 +56,12 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        catalogName: 'School Supplies',
+        catalogName: 'School Supply',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        catalogName: 'Stationery Supplies',
+        catalogName: 'Stationery Supply',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
