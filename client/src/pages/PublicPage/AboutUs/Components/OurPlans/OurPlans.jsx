@@ -1,11 +1,12 @@
 import React from 'react';
-import './OurPlans.css';
+import style from './OurPlans.module.scss';
+import clsx from 'clsx';
 
 const OurPlans = () => {
     return (
-        <div className="our-plans-container">
+        <div className={clsx(style.container)}>
             <h1>Our Future Plans</h1>
-            <div className="concept">
+            <div className={clsx(style.concept)}>
                 <ul>
                     <li>Product Expansion: We will continuously expand our product portfolio to meet the diverse needs of customers. By strengthening cooperation with reliable suppliers, we will provide customers with a more diverse and richer choice.</li>
                     <li>Optimize Shopping Experience: We are committed to enhancing our customers' online shopping experience. From improving the user interface to optimizing the checkout process, we will create a more convenient, easy-to-use and secure shopping environment.</li>

@@ -1,5 +1,4 @@
 import React from 'react'
-import './AboutUs.css'
 import Header from '../../../components/Header/Header'
 import AboutDDDShop from './Components/AboutDDDShop/AboutDDDShop'
 import OurPlans from './Components/OurPlans/OurPlans'

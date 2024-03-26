@@ -1,0 +1,54 @@
+.items-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#item {
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    cursor: pointer;
+    width: calc(20% - 20px);
+}
+
+#item:hover {
+    animation: scaleUp 0.5s ease forwards;
+}
+
+#item:not(:hover) {
+    animation: scaleDown 0.5s ease forwards;
+}
+
+#buy-button:hover {
+    background-color: #333333;
+}
+
+#add-to-cart-button {
+    border-color: #333333;
+}
+
+#add-to-cart-button:hover {
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.02);
+    }
+}
+
+@keyframes scaleDown {
+    0% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1.0);
+    }
+}

@@ -1,0 +1,45 @@
+
+
+.productsListName {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.productsListName p {
+    font-size: 40px;
+    margin: 40px;
+}
+
+.productsListBody {
+    display: flex;
+    margin: 40px;
+}
+
+.sortOption {
+    flex: 1;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 12px;
+    margin-top: 24px;
+    position: relative;
+}
+
+.sortOption > div {
+    margin-top: 8px;
+    padding: 4px 20px;
+    background-color: #d2d2d2;
+    border-radius: 8px;
+}
+
+.sortOption > div:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.ProductsInfo {
+    flex: 4;
+}
+
+// .viewFeature {
+
+// }
