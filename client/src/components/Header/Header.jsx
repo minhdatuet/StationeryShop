@@ -1,5 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState} from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import * as actions from '../../store/actions'
+import './Header.css';
 import style from './Header.module.scss';
 import clsx from 'clsx';
 import { FaSearch } from "react-icons/fa";
@@ -7,6 +11,8 @@ import { MdOutlineAccountCircle } from "react-icons/md";
 import { PiShoppingCartBold } from "react-icons/pi";
 
 export const Header = () => {
+  const dispatch = useDispatch()
+  const { isLogged } = useSelector(state => state.auth)
 
   const [isSearchBorder, setIsSearchBorder] = useState(false);
 
@@ -60,7 +66,18 @@ export const Header = () => {
           <p>Cart</p>
         </div>
       </div>
+      
+      {!isLogged && <li>
+            <Link to='/login'>
+              Đăng nhập
+            </Link>
+          </li>}
+          {isLogged  && <li onClick={() => dispatch(actions.logout())}>
 
+            <Link to='/login'>
+              <div>Đăng xuất</div>
+            </Link>
+          </li>} 
     </div>
   )
 }
