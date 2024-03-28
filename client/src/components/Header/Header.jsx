@@ -3,7 +3,7 @@ import React, { useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import * as actions from '../../store/actions'
-import './Header.css';
+import './Header.module.scss';
 import style from './Header.module.scss';
 import clsx from 'clsx';
 import { FaSearch } from "react-icons/fa";
