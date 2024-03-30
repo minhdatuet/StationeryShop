@@ -36,7 +36,7 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
         useEffect(() => {
             onChange(value)
         }, [value])
-        return <NumberInput aria-label="Quantity Input" min={1} max={99} value={value}
+        return <NumberInput aria-label="Quantity Input" defaultValue={0} min={1} max={99} value={value}
         onChange={(event, val) => setValue(val)} />;
       }
 
