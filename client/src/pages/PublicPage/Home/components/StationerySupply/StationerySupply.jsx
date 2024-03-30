@@ -3,10 +3,12 @@ import style from './StationerySupply.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetStationerySupplyInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const StationerySupply = () => {
+  const CATALOG_ID_OF_STATIONERY_SUPPLY = 8;
+
   const dispatch = useDispatch();
 
   const [stationerySupplyInfos, setStationerySupplyInfos] = useState([]);
@@ -14,7 +16,7 @@ const StationerySupply = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetStationerySupplyInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_STATIONERY_SUPPLY);
       setStationerySupplyInfos(response.data.response);
       setIsFetchedData(true);
     }
@@ -30,7 +32,7 @@ const StationerySupply = () => {
   console.log(stationerySupplyInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Stationery Supply</h2>
         <a>View all</a>

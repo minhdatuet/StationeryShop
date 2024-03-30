@@ -3,10 +3,12 @@ import style from './Desklamp.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetDesklampInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const Desklamp = () => {
+  const CATALOG_ID_OF_DESKLAMP = 4;
+
   const dispatch = useDispatch();
 
   const [desklampInfos, setDesklampInfos] = useState([]);
@@ -14,7 +16,7 @@ const Desklamp = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetDesklampInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_DESKLAMP);
       setDesklampInfos(response.data.response);
       setIsFetchedData(true);
     }
@@ -30,7 +32,7 @@ const Desklamp = () => {
   console.log(desklampInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Desklamp</h2>
         <a>View all</a>

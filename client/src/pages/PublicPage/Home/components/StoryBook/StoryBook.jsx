@@ -3,10 +3,12 @@ import style from './StoryBook.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetStoryBookInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const StoryBook = () => {
+  const CATALOG_ID_OF_STORY_BOOK = 9;
+
   const dispatch = useDispatch();
 
   const [storyBookInfos, setStoryBookInfos] = useState([]);
@@ -14,7 +16,7 @@ const StoryBook = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetStoryBookInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_STORY_BOOK);
       setStoryBookInfos(response.data.response);
       setIsFetchedData(true);
     }
@@ -30,7 +32,7 @@ const StoryBook = () => {
   console.log(storyBookInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Story Book</h2>
         <a>View all</a>

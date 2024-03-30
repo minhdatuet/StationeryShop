@@ -1,5 +1,18 @@
 const productService = require('../services/productServices');
 
+exports.getProductInfoByCatalogId = async (req, res) => {
+    try {
+        const response = await productService.getProductInfoByCatalogId(req.params.id);
+        return res.status(200).json(response);
+    }
+    catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: "Fail at product controller " + error
+        })
+    }
+}
+
 exports.getBackpackInfo = async (req, res) => {
     try {
         const response = await productService.getBackpackInfo();

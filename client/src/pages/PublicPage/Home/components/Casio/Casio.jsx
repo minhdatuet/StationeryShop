@@ -3,10 +3,12 @@ import style from './Casio.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetCasioInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const Casio = () => {
+  const CATALOG_ID_OF_CASIO = 3;
+
   const dispatch = useDispatch();
 
   const [casioInfos, setCasioInfos] = useState([]);
@@ -14,7 +16,7 @@ const Casio = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetCasioInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_CASIO);
       setCasioInfos(response.data.response);
       setIsFetchedData(true);
     }
@@ -30,7 +32,7 @@ const Casio = () => {
   console.log(casioInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Casio</h2>
         <a>View all</a>

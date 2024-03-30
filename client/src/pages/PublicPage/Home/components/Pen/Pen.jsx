@@ -3,10 +3,11 @@ import style from './Pen.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetPenInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const Pen = () => {
+  const CATALOG_ID_OF_PEN = 6;
   const dispatch = useDispatch();
 
   const [penInfos, setPenInfos] = useState([]);
@@ -14,7 +15,7 @@ const Pen = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetPenInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_PEN);
       setPenInfos(response.data.response);
       setIsFetchedData(true);
     }
@@ -30,7 +31,7 @@ const Pen = () => {
   console.log(penInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Pen</h2>
         <a>View all</a>
