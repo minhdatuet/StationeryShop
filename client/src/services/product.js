@@ -132,3 +132,16 @@ export const apiGetTableAndChairInfo = () =>  new Promise(async(resolve, reject)
         reject(error)
     }
 })
+
+
+export const apiGetProductById = (id) =>  new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/product/get/${id}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+})
