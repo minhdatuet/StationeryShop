@@ -3,10 +3,12 @@ import style from './TableAndChair.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetTableAndChairInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const TableAndChair = () => {
+  const CATALOG_ID_OF_TABLE_AND_CHAIR = 10;
+
   const dispatch = useDispatch();
 
   const [tableAndChairInfos, setTableAndChairInfos] = useState([]);
@@ -14,7 +16,7 @@ const TableAndChair = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetTableAndChairInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_TABLE_AND_CHAIR);
       setTableAndChairInfos(response.data.response);
       setIsFetchedData(true);
     }

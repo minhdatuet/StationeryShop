@@ -5,6 +5,23 @@ const jwr = require('jsonwebtoken');
 require('dotenv').config();
 const { Sequelize, DataTypes, Op } = require('sequelize');
 
+exports.getProductInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
+    try {
+        let response = await db.Product.findAll({
+            where: {
+                catalogId: id
+            }
+        })
+        resolve({
+            msg: response ? "Success" : "Unsuccess",
+            response
+        })
+    }
+    catch (err) {
+        reject(err);
+    }
+})
+
 exports.getBackpackInfo = () => new Promise(async(resolve, reject) => {
     try {
         let response = await db.Product.findAll({

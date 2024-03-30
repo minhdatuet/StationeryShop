@@ -4,6 +4,7 @@ const productController = require('../controllers/productController.js')
 
 const router = express.Router();
 
+router.get('/get/get-product-info-by-catalog/:id', productController.getProductInfoByCatalogId);
 router.get('/get/get-all-backpack-info', productController.getBackpackInfo);
 router.get('/get/get-all-book-info', productController.getBookInfo);
 router.get('/get/get-all-casio-info', productController.getCasioInfo);

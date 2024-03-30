@@ -3,10 +3,12 @@ import style from './Notebook.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetNotebookInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const Notebook = () => {
+  const CATALOG_ID_OF_NOTEBOOK = 5;
+
   const dispatch = useDispatch();
 
   const [notebookInfos, setNotebookInfos] = useState([]);
@@ -14,7 +16,7 @@ const Notebook = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetNotebookInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_NOTEBOOK);
       setNotebookInfos(response.data.response);
       setIsFetchedData(true);
     }
