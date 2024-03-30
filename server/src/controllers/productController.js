@@ -129,3 +129,17 @@ exports.getTableAndChairInfo = async (req, res) => {
         })
     }
 }
+
+
+exports.getProductById = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await productService.getProductById(id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller' + error
+        })
+    }
+}

@@ -174,3 +174,19 @@ exports.getTableAndChairInfo = () => new Promise(async(resolve, reject) => {
         reject(err);
     }
 })
+
+
+exports.getProductById = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.findOne({
+            where: {id}
+        })
+        resolve({
+            err: response ? 0 : 2,
+            msg: response ? 'Get product by id is successfully' : 'Get product by id  is unsuccessfully',
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+})

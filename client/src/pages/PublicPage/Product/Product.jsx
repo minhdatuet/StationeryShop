@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import './Product.css'
 import QuantityInput from '../../../components/QuantityInput/QuantityInput'
+import { apiGetProductById } from '../../../services/product'
 
 const Product = () => {
     const [product, setProduct] = useState({
@@ -33,6 +34,26 @@ const Product = () => {
       useEffect(() => {
         console.log(quantity)
       },[quantity])
+      useEffect(() => {
+        const productInfo = apiGetProductById(1);
+        setProduct(productInfo);
+        const fetchProduct = async () => {
+            const id = 2;
+            try {
+              const response = await apiGetProductById(id);
+              const data = response?.data.response;
+              const err = response?.data.err;
+              const msg = response?.data.msg;
+              console.log(data);
+              if (err === 0) {
+                setProduct(data)
+              }
+            } catch (error) {
+              console.error("Error fetching product:", error);
+            }
+          };
+          fetchProduct();
+      }, [])
     return(
         <div>
             <div id="product">
@@ -44,7 +65,7 @@ const Product = () => {
                         {product.productName}
                     </div>
                     <div className="cost">
-                        Price: {product.productCost} VNĐ
+                        Price: {product.productCost} $
                     </div>
                     <div className="inventory">
                         Inventory: {product.productQuantity}
