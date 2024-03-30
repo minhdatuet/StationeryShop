@@ -1,5 +1,5 @@
 import actionTypes from './actionTypes';
-import { apiGetBackpackInfo } from '../../services/product';
+import { apiGetBackpackInfo, apiGetProductById } from '../../services/product';
 
 export const getBackpackInfo = () => async(dispatch) => {
     try {
@@ -24,3 +24,4 @@ export const getBackpackInfo = () => async(dispatch) => {
         })
     }
 }
+
