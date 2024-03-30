@@ -30,7 +30,7 @@ const Desklamp = () => {
   console.log(desklampInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Desklamp</h2>
         <a>View all</a>

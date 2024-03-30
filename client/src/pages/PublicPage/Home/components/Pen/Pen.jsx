@@ -30,7 +30,7 @@ const Pen = () => {
   console.log(penInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Pen</h2>
         <a>View all</a>

@@ -30,7 +30,7 @@ const Notebook = () => {
   console.log(notebookInfos);
 
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>Notebook</h2>
         <a>View all</a>
