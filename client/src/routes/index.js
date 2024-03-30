@@ -3,6 +3,7 @@ import Login from "../pages/PublicPage/Login/Login";
 import Register from "../pages/PublicPage/Register/Register";
 import Instruction from "../pages/PublicPage/Instruction/Instruction"
 import AboutUs from "../pages/PublicPage/AboutUs//AboutUs"
+import Product from "../pages/PublicPage/Product/Product";
 const publicRoutes = [
     {
       path: 'login',
@@ -19,6 +20,10 @@ const publicRoutes = [
     {
       path: '/aboutUs',
       page: AboutUs
+    },
+    {
+      path: '/product',
+      page: Product
     },
     {
       path: '/',
