@@ -4,6 +4,7 @@ import Product from './Product/Product';
 import clsx from 'clsx';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import { useLocation } from 'react-router-dom';
 
 let tmpArray =[];
 
@@ -15,7 +16,12 @@ export const Products = () => {
   const [sortOption, setSortOption] = useState("0");
   const [rerenderAfterSort, setRerenderAfterSort] = useState(true);
 
+  const location = useLocation();
+  const catalogId = new URLSearchParams(location.search).get("catalogId");
+
   const getProductsList = () => {
+
+    
     // Test
     setProductsList(
       [
@@ -53,7 +59,7 @@ export const Products = () => {
           productId: 4,
           productName: "Pen 4",
           productPrice: 4,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
+          productImg: "https://raw.githubusercontent.com/TDungx2k3/Magic_Post/main/frontend/src/assets/images/serviceBg.jpg",
           productQuantity: 10,
           productDescription: "No",
           productRvs: 11,
