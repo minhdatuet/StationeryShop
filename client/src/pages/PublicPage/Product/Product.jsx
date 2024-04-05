@@ -5,12 +5,12 @@ import { apiGetProductById } from '../../../services/product'
 
 const Product = () => {
     const [product, setProduct] = useState({
-        productName: 'Pen',
-        catalogId: 1,
-        productCost: 1000.0,
-        productImage: 'https://m.media-amazon.com/images/I/71LbzzDezeL._AC_UF894,1000_QL80_.jpg',
-        productQuantity: 1000,
-        productDescription: 'This is beautiful pen',
+        productName: '',
+        catalogId: 0,
+        productCost: 0,
+        productImage: '',
+        productQuantity: 0,
+        productDescription: '',
       })
       const [quantity, setQuantity] = useState(null);
       const rates = [{
@@ -38,7 +38,7 @@ const Product = () => {
         const productInfo = apiGetProductById(1);
         setProduct(productInfo);
         const fetchProduct = async () => {
-            const id = 2;
+            const id = 6;
             try {
               const response = await apiGetProductById(id);
               const data = response?.data.response;

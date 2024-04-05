@@ -10,9 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-        Product.hasMany(models.ProductsInCart, {foreignKey: 'productId', sourceKey: 'id'}),
-        Product.hasMany(models.ProductRate, {foreignKey: 'productId', sourceKey: 'id'}),
-        Product.hasMany(models.ProductsBoughtHistory, {foreignKey: 'productId', sourceKey: 'id'}),
+        Product.hasMany(models.Products_In_Cart, {foreignKey: 'productId', sourceKey: 'id'}),
+        Product.hasMany(models.Product_Rate, {foreignKey: 'productId', sourceKey: 'id'}),
+        Product.hasMany(models.Products_Bought_History, {foreignKey: 'productId', sourceKey: 'id'}),
         Product.belongsTo(models.Catalog, {foreignKey: 'catalogId'})
     }
   }
