@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import { useLocation } from 'react-router-dom';
+import { apiGetAllProductInfoByCatalogId, apiGetProductInfoByCatalogId } from '../../../services/product';
 
 let tmpArray =[];
 
@@ -19,54 +20,61 @@ export const Products = () => {
   const location = useLocation();
   const catalogId = new URLSearchParams(location.search).get("catalogId");
 
-  const getProductsList = () => {
+  const getProductsList = async() => {
 
-    
+    try {
+      const response = await apiGetAllProductInfoByCatalogId(catalogId);
+      console.log(response.data.response);
+      setProductsList(response.data.response);
+    } 
+    catch (error) {
+      console.error(error);
+    }
     // Test
-    setProductsList(
-      [
-        {
-          productId: 1,
-          productName: "Pen 1",
-          productPrice: 1,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 1,
-          productScore: 4.5
-        },
-        {
-          productId: 2,
-          productName: "Pen 2",
-          productPrice: 2,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 11,
-          productScore: 5
-        },
-        {
-          productId: 3,
-          productName: "Pen 3",
-          productPrice: 3,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 11,
-          productScore: 5
-        },
-        {
-          productId: 4,
-          productName: "Pen 4",
-          productPrice: 4,
-          productImg: "https://raw.githubusercontent.com/TDungx2k3/Magic_Post/main/frontend/src/assets/images/serviceBg.jpg",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 11,
-          productScore: 5
-        }
-      ]
-    );
+    // setProductsList(
+    //   [
+    //     {
+    //       productId: 1,
+    //       productName: "Pen 1",
+    //       productPrice: 1,
+    //       productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 1,
+    //       productScore: 4.5
+    //     },
+    //     {
+    //       productId: 2,
+    //       productName: "Pen 2",
+    //       productPrice: 2,
+    //       productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 11,
+    //       productScore: 5
+    //     },
+    //     {
+    //       productId: 3,
+    //       productName: "Pen 3",
+    //       productPrice: 3,
+    //       productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 11,
+    //       productScore: 5
+    //     },
+    //     {
+    //       productId: 4,
+    //       productName: "Pen 4",
+    //       productPrice: 4,
+    //       productImg: "https://raw.githubusercontent.com/TDungx2k3/Magic_Post/main/frontend/src/assets/images/serviceBg.jpg",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 11,
+    //       productScore: 5
+    //     }
+    //   ]
+    // );
   };
 
   const updateProductsRender = () => {
