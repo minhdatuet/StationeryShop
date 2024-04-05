@@ -16,5 +16,6 @@ router.get('/get/get-all-stationery-supply-info', productController.getStationer
 router.get('/get/get-all-story-book-info', productController.getStoryBookInfo);
 router.get('/get/get-all-table-and-chair-info', productController.getTableAndChairInfo);
 
-router.get('/get/:id', productController.getProductById)
+router.get('/get/:id', productController.getProductById);
+router.get('/getAllProductsInfoByCatalogId/:id', productController.getProductsDetailInfoByCatalogId);
 module.exports = router;

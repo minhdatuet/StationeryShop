@@ -209,4 +209,31 @@ exports.getProductById = (id) => new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
+
+exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.findAll({
+            attributes: [
+                [Sequelize.fn('AVG', Sequelize.col('product_rates.rateScore')), 'avgScore'],
+                [Sequelize.fn('COUNT', Sequelize.col('product_rates.productId')), 'productRvs'],
+            ],
+            include: {
+                model: db.ProductRate,
+                on: {
+                    productId: Sequelize.col('products.id')
+                }
+            },
+            where: {
+                catalogId: id,
+            }, 
+            group: ["products.id"]
+        })
+        resolve({
+            msg: response ? "Successfully" : "Unsuccessfully",
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+});

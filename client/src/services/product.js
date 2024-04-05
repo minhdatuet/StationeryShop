@@ -144,4 +144,17 @@ export const apiGetProductById = (id) =>  new Promise(async(resolve, reject) => 
     } catch (error) {
         reject(error)
     }
-})
+});
+
+export const apiGetAllProductInfoByCatalogId = (id) =>  new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/product/getAllProductsInfoByCatalogId/${id}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+        console.log(error);
+    }
+});
