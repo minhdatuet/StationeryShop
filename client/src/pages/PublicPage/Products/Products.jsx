@@ -90,7 +90,9 @@ export const Products = () => {
       if(sortOption === "Sort By Best Selling") {
         for(let i = 0; i < tmpArray.length; i++) {
           for(let j = i + 1; j < tmpArray.length; j++) {
-            if(tmpArray[j].productRvs > tmpArray[i].productRvs) {
+            if(tmpArray[j].Product_Rates.length > tmpArray[i].Product_Rates.length
+              || ((tmpArray[j].Product_Rates.length != 0 && tmpArray[i].Product_Rates.length != 0)
+              && tmpArray[j].Product_Rates[0].productRvs > tmpArray[i].Product_Rates[0].productRvs)) {
               let tempObj = tmpArray[i];
               tmpArray[i] = tmpArray[j];
               tmpArray[j] = tempObj;
@@ -123,7 +125,7 @@ export const Products = () => {
       else if(sortOption === "Sort By Price Descending") {
         for(let i = 0; i < tmpArray.length; i++) {
           for(let j = i + 1; j < tmpArray.length; j++) {
-            if(tmpArray[j].productPrice > tmpArray[i].productPrice) {
+            if(tmpArray[j].productCost > tmpArray[i].productCost) {
               let tempObj = tmpArray[i];
               tmpArray[i] = tmpArray[j];
               tmpArray[j] = tempObj;
@@ -134,7 +136,7 @@ export const Products = () => {
       else if(sortOption === "Sort By Price Ascending") {
         for(let i = 0; i < tmpArray.length; i++) {
           for(let j = i + 1; j < tmpArray.length; j++) {
-            if(tmpArray[j].productPrice < tmpArray[i].productPrice) {
+            if(tmpArray[j].productCost < tmpArray[i].productCost) {
               let tempObj = tmpArray[i];
               tmpArray[i] = tmpArray[j];
               tmpArray[j] = tempObj;

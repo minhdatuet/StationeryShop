@@ -155,6 +155,6 @@ export const apiGetAllProductInfoByCatalogId = (id) =>  new Promise(async(resolv
         resolve(response)
     } catch (error) {
         reject(error)
-        console.log(error);
+        // console.log(error);
     }
 });
