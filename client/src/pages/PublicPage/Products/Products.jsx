@@ -4,6 +4,7 @@ import Product from './Product/Product';
 import clsx from 'clsx';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import { useLocation } from 'react-router-dom';
 
 let tmpArray =[];
 
@@ -15,7 +16,12 @@ export const Products = () => {
   const [sortOption, setSortOption] = useState("0");
   const [rerenderAfterSort, setRerenderAfterSort] = useState(true);
 
+  const location = useLocation();
+  const catalogId = new URLSearchParams(location.search).get("catalogId");
+
   const getProductsList = () => {
+
+    
     // Test
     setProductsList(
       [
