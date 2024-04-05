@@ -214,20 +214,18 @@ exports.getProductById = (id) => new Promise(async(resolve, reject) => {
 exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
     try {
         const response = await db.Product.findAll({
-            attributes: [
-                [Sequelize.fn('AVG', Sequelize.col('product_rates.rateScore')), 'avgScore'],
-                [Sequelize.fn('COUNT', Sequelize.col('product_rates.productId')), 'productRvs'],
-            ],
+            
             include: {
-                model: db.ProductRate,
-                on: {
-                    productId: Sequelize.col('products.id')
-                }
+                model: db.Product_Rate,
+                attributes: [
+                    [Sequelize.fn('AVG', Sequelize.col('product_rates.rateScore')), 'avgScore'],
+                    [Sequelize.fn('COUNT', Sequelize.col('product_rates.productId')), 'productRvs'],
+                ],
             },
             where: {
                 catalogId: id,
             }, 
-            group: ["products.id"]
+            group: ["id"]
         })
         resolve({
             msg: response ? "Successfully" : "Unsuccessfully",
@@ -236,4 +234,16 @@ exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, re
     } catch (error) {
         reject(error)
     }
+
+    // try {
+    //     const response = await db.Product_Rate.findAll({
+
+    //     })
+    //     resolve({
+    //         msg: response ? "Successfully" : "Unsuccessfully",
+    //         response
+    //     })
+    // } catch (error) {
+    //     reject(error)
+    // }
 });
