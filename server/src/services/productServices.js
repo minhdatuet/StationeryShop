@@ -179,7 +179,10 @@ exports.getTableAndChairInfo = () => new Promise(async(resolve, reject) => {
 exports.getProductById = (id) => new Promise(async(resolve, reject) => {
     try {
         const response = await db.Product.findOne({
-            where: {id}
+            where: {id},
+            include: {
+                model: db.Products_Bought_History
+            }
         })
         resolve({
             err: response ? 0 : 2,

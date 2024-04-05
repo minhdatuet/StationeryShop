@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     productFeedback: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'ProductRate',
+    modelName: 'Product_Rate',
   });
   return ProductRate;
 };
