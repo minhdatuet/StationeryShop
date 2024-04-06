@@ -1,4 +1,4 @@
-import {Home} from "../pages/PublicPage/Home/Home";
+import Home from "../pages/PublicPage/Home/Home";
 import Login from "../pages/PublicPage/Login/Login";
 import Register from "../pages/PublicPage/Register/Register";
 import Instruction from "../pages/PublicPage/Instruction/Instruction"

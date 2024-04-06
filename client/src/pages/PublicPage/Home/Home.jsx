@@ -12,7 +12,7 @@ import StationerySupply from './components/StationerySupply/StationerySupply';
 import StoryBook from './components/StoryBook/StoryBook';
 import TableAndChair from './components/TableAndChair/TableAndChair';
 
-export const Home = () => {
+function Home() {
   return (
     <Fragment>
       <Backpack />
