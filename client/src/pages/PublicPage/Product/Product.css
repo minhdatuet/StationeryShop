@@ -5,10 +5,13 @@
 
 .image {
     padding: 30px;
-    max-width: 40%;
+    width: 40%;
     border: 1px solid #e8e8e1;
 }
 
+img {
+    width: 100%;
+}
 .infor {
     margin-left: 5%;
     width: 100%;

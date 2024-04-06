@@ -11,18 +11,24 @@ export const Product = (props) => {
 
     const createStars = () => {
         let tmpArr = [];
-        let numStars = productData.productScore;
-        let numFullStars = Math.floor(numStars);
-        let numHalfStar = numStars - numFullStars > 0 ? 1 : 0;
-        for(let i = 0; i < numFullStars; i++) {
-            tmpArr.push(1);
-        }
+        console.log(productData);
+        if(productData.Product_Rates.length > 0) {
+            let numStars = productData.Product_Rates[0].avgScore;
+            let numFullStars = Math.floor(numStars);
+            let numHalfStar = numStars - numFullStars > 0 ? 1 : 0;
+            for(let i = 0; i < numFullStars; i++) {
+                tmpArr.push(1);
+            }
 
-        if (numHalfStar === 1) {
-            tmpArr.push(0);
-        }
+            if (numHalfStar === 1) {
+                tmpArr.push(0);
+            }
 
-        setArrStars(tmpArr);
+            setArrStars(tmpArr);
+        }
+        else {
+
+        }
     }
 
     useEffect(() => {
@@ -32,7 +38,7 @@ export const Product = (props) => {
         
         <div className={clsx(style.productContainer, )}>
             <div className={clsx(style.productImg, )}>
-                <img src={productData.productImg} alt="" />
+                <img src={productData.productImage} alt="" />
             </div>
 
             <div className={clsx(style.productName, )}>
@@ -41,7 +47,7 @@ export const Product = (props) => {
 
             <div className={clsx(style.productDemoDes, )}>
                 <div className={clsx(style.productPrice, )}>
-                    <p>{productData.productPrice} $</p>
+                    <p>{productData.productCost} $</p>
                 </div>
 
                 <div className={clsx(style.productRate, )}>
@@ -63,7 +69,7 @@ export const Product = (props) => {
                     </div>
 
                     <div className={clsx(style.productReview, )}>
-                        <p>{productData.productRvs} {productData.productRvs > 1 ? "reviews" : "review"}</p>
+                        <p>{productData.Product_Rates.length != 0 ? productData.Product_Rates[0].productRvs : 0} {productData.Product_Rates.length != 0 ? (productData.Product_Rates[0].productRvs > 1 ? "reviews" : "review") : "review"}</p>
                     </div>
                 </div>
             </div>

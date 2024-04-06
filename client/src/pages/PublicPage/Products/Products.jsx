@@ -4,6 +4,8 @@ import Product from './Product/Product';
 import clsx from 'clsx';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import { useLocation } from 'react-router-dom';
+import { apiGetAllProductInfoByCatalogId, apiGetProductInfoByCatalogId } from '../../../services/product';
 
 let tmpArray =[];
 
@@ -15,52 +17,64 @@ export const Products = () => {
   const [sortOption, setSortOption] = useState("0");
   const [rerenderAfterSort, setRerenderAfterSort] = useState(true);
 
-  const getProductsList = () => {
+  const location = useLocation();
+  const catalogId = new URLSearchParams(location.search).get("catalogId");
+
+  const getProductsList = async() => {
+
+    try {
+      const response = await apiGetAllProductInfoByCatalogId(catalogId);
+      console.log(response.data.response);
+      setProductsList(response.data.response);
+    } 
+    catch (error) {
+      console.error(error);
+    }
     // Test
-    setProductsList(
-      [
-        {
-          productId: 1,
-          productName: "Pen 1",
-          productPrice: 1,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 1,
-          productScore: 4.5
-        },
-        {
-          productId: 2,
-          productName: "Pen 2",
-          productPrice: 2,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 11,
-          productScore: 5
-        },
-        {
-          productId: 3,
-          productName: "Pen 3",
-          productPrice: 3,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 11,
-          productScore: 5
-        },
-        {
-          productId: 4,
-          productName: "Pen 4",
-          productPrice: 4,
-          productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
-          productQuantity: 10,
-          productDescription: "No",
-          productRvs: 11,
-          productScore: 5
-        }
-      ]
-    );
+    // setProductsList(
+    //   [
+    //     {
+    //       productId: 1,
+    //       productName: "Pen 1",
+    //       productPrice: 1,
+    //       productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 1,
+    //       productScore: 4.5
+    //     },
+    //     {
+    //       productId: 2,
+    //       productName: "Pen 2",
+    //       productPrice: 2,
+    //       productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 11,
+    //       productScore: 5
+    //     },
+    //     {
+    //       productId: 3,
+    //       productName: "Pen 3",
+    //       productPrice: 3,
+    //       productImg: "https://scooboo.in/cdn/shop/products/kaco-tecflow-05mm-roller-gel-pen-gel-pens-scooboo-725290.jpg?v=1691238154&width=1080",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 11,
+    //       productScore: 5
+    //     },
+    //     {
+    //       productId: 4,
+    //       productName: "Pen 4",
+    //       productPrice: 4,
+    //       productImg: "https://raw.githubusercontent.com/TDungx2k3/Magic_Post/main/frontend/src/assets/images/serviceBg.jpg",
+    //       productQuantity: 10,
+    //       productDescription: "No",
+    //       productRvs: 11,
+    //       productScore: 5
+    //     }
+    //   ]
+    // );
   };
 
   const updateProductsRender = () => {
@@ -76,7 +90,9 @@ export const Products = () => {
       if(sortOption === "Sort By Best Selling") {
         for(let i = 0; i < tmpArray.length; i++) {
           for(let j = i + 1; j < tmpArray.length; j++) {
-            if(tmpArray[j].productRvs > tmpArray[i].productRvs) {
+            if(tmpArray[j].Product_Rates.length > tmpArray[i].Product_Rates.length
+              || ((tmpArray[j].Product_Rates.length != 0 && tmpArray[i].Product_Rates.length != 0)
+              && tmpArray[j].Product_Rates[0].productRvs > tmpArray[i].Product_Rates[0].productRvs)) {
               let tempObj = tmpArray[i];
               tmpArray[i] = tmpArray[j];
               tmpArray[j] = tempObj;
@@ -109,7 +125,7 @@ export const Products = () => {
       else if(sortOption === "Sort By Price Descending") {
         for(let i = 0; i < tmpArray.length; i++) {
           for(let j = i + 1; j < tmpArray.length; j++) {
-            if(tmpArray[j].productPrice > tmpArray[i].productPrice) {
+            if(tmpArray[j].productCost > tmpArray[i].productCost) {
               let tempObj = tmpArray[i];
               tmpArray[i] = tmpArray[j];
               tmpArray[j] = tempObj;
@@ -120,7 +136,7 @@ export const Products = () => {
       else if(sortOption === "Sort By Price Ascending") {
         for(let i = 0; i < tmpArray.length; i++) {
           for(let j = i + 1; j < tmpArray.length; j++) {
-            if(tmpArray[j].productPrice < tmpArray[i].productPrice) {
+            if(tmpArray[j].productCost < tmpArray[i].productCost) {
               let tempObj = tmpArray[i];
               tmpArray[i] = tmpArray[j];
               tmpArray[j] = tempObj;
