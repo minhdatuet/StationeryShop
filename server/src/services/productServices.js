@@ -196,7 +196,10 @@ exports.getTableAndChairInfo = () => new Promise(async(resolve, reject) => {
 exports.getProductById = (id) => new Promise(async(resolve, reject) => {
     try {
         const response = await db.Product.findOne({
-            where: {id}
+            where: {id},
+            include: {
+                model: db.Products_Bought_History
+            }
         })
         resolve({
             err: response ? 0 : 2,
@@ -206,4 +209,41 @@ exports.getProductById = (id) => new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
+
+exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.findAll({
+            
+            include: {
+                model: db.Product_Rate,
+                attributes: [
+                    [Sequelize.fn('AVG', Sequelize.col('product_rates.rateScore')), 'avgScore'],
+                    [Sequelize.fn('COUNT', Sequelize.col('product_rates.productId')), 'productRvs'],
+                ],
+            },
+            where: {
+                catalogId: id,
+            }, 
+            group: ["id"]
+        })
+        resolve({
+            msg: response ? "Successfully" : "Unsuccessfully",
+            response
+        })
+    } catch (error) {
+        reject(error)
+    }
+
+    // try {
+    //     const response = await db.Product_Rate.findAll({
+
+    //     })
+    //     resolve({
+    //         msg: response ? "Successfully" : "Unsuccessfully",
+    //         response
+    //     })
+    // } catch (error) {
+    //     reject(error)
+    // }
+});

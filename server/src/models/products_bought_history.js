@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     purchaseTime: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'ProductsBoughtHistory',
+    modelName: 'Products_Bought_History',
   });
   return ProductsBoughtHistory;
 };
