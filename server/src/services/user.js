@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { response } = require('express');
 const jwr = require('jsonwebtoken');
 require('dotenv').config();
-const { Sequelize, DataTypes, Op } = require('sequelize');
+const { Sequelize, DataTypes, Op, where } = require('sequelize');
 
 exports.getUser = (phone) => new Promise(async(resolve, reject) => {
     try {
@@ -137,6 +137,24 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
   
       } catch (error) {
         reject(error)
+    }
+  })
+
+  exports.getAllCustomerInfo = () => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Account.findAll({
+            where: {
+                accountType: 'CUSTOMER'
+            }
+        })
+        resolve({
+            err: response? 0 : 2,
+            msg: response? "Succesfully" : "Unsuccesfully",
+            response
+        })
+    }
+    catch (error) {
+        reject(error);
     }
   })
   

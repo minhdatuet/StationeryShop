@@ -1,5 +1,10 @@
-.container {
-    height: 100vh;
-    width: fit-content;
-    display: flex;
-}
+:root {
+    --navbar-width: fit-content;
+  }
+  
+  .container {
+      height: 100vh;
+      width: var(--navbar-width);
+      display: flex;
+  }
+  

@@ -63,3 +63,16 @@ export const apiUpdateUserById = (payload) =>  new Promise(async(resolve, reject
         reject(error)
     }
 })
+
+export const apiGetAllCustomerInfo = () => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/user/get/get-all-customer-info'
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+})
