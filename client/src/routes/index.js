@@ -4,6 +4,8 @@ import Register from "../pages/PublicPage/Register/Register";
 import Instruction from "../pages/PublicPage/Instruction/Instruction"
 import AboutUs from "../pages/PublicPage/AboutUs//AboutUs"
 import Product from "../pages/PublicPage/Product/Product";
+import Products from "../pages/PublicPage/Products/Products";
+import Personal from "../pages/PublicPage/Personal/Personal";
 const publicRoutes = [
     {
       path: 'login',
@@ -32,6 +34,14 @@ const publicRoutes = [
     {
       path: '*',
       page: Home
+    }, 
+    {
+      path: 'products',
+      page: Products
+    },
+    {
+      path: 'personal',
+      page: Personal
     }
   ];
 const adminRoutes = [
