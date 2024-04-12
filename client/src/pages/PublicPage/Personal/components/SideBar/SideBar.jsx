@@ -1,9 +1,11 @@
 import { useState } from "react"
 import { Sidebar } from "flowbite-react";
 import style from "./SideBar.module.scss";
-import clsx from 'clsx;'
+import clsx from 'clsx';
+import { IoPersonCircleOutline } from "react-icons/io5";
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
-export const Sidebar = (props) => {
+export const PSidebar = (props) => {
     
 
     return (
@@ -12,12 +14,12 @@ export const Sidebar = (props) => {
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
                         <Sidebar.Item href="#" 
-                        icon={MdManageAccounts} 
+                        icon={IoPersonCircleOutline} 
                         onClick={props.func.clickInformationPage}>
                             Information
                         </Sidebar.Item>
                         <Sidebar.Item href="#" 
-                        icon={BsArchiveFill} 
+                        icon={ManageSearchIcon} 
                         onClick={props.func.clickHistoryPage}>
                             Orders History
                         </Sidebar.Item>
@@ -28,4 +30,4 @@ export const Sidebar = (props) => {
     )
 }
 
-export default Sidebar
+export default PSidebar
