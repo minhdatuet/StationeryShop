@@ -29,8 +29,6 @@ const StoryBook = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(storyBookInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>

@@ -29,8 +29,6 @@ const Casio = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(casioInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>

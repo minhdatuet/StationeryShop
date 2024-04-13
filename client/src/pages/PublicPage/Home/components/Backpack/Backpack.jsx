@@ -29,8 +29,6 @@ const Backpack = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(backpackInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
