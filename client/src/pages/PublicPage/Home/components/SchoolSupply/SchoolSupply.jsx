@@ -3,10 +3,12 @@ import style from './SchoolSupply.module.scss';
 import clsx from 'clsx';
 import axios from 'axios';
 import * as actions from '../../../../../store/actions';
-import { apiGetSchoolSupplyInfo } from '../../../../../services/product';
+import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
 
 const SchoolSupply = () => {
+  const CATALOG_ID_OF_SCHOOL_SUPPLY = 7;
+
   const dispatch = useDispatch();
 
   const [schoolSupplyInfos, setSchoolSupplyInfos] = useState([]);
@@ -14,7 +16,7 @@ const SchoolSupply = () => {
 
   const handleGetData = async () => {
     try {
-      const response = await apiGetSchoolSupplyInfo();
+      const response = await apiGetProductInfoByCatalogId(CATALOG_ID_OF_SCHOOL_SUPPLY);
       setSchoolSupplyInfos(response.data.response);
       setIsFetchedData(true);
     }
@@ -27,10 +29,8 @@ const SchoolSupply = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(schoolSupplyInfos);
-
   return (
-    <div className={clsx(style.container)}>
+    <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
         <h2>School Supply</h2>
         <a>View all</a>

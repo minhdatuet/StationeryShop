@@ -1,0 +1,14 @@
+.container {
+    height: 100vh;
+    width: fit-content;
+    display: flex;
+    width: 100%;
+}
+
+.nav-container {
+    flex: 1;
+}
+
+.component-content {
+    flex: 4;
+}

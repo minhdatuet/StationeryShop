@@ -6,6 +6,23 @@ require('dotenv').config();
 const { Sequelize, DataTypes, Op } = require('sequelize');
 const product = require('../models/product');
 
+exports.getProductInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
+    try {
+        let response = await db.Product.findAll({
+            where: {
+                catalogId: id
+            }
+        })
+        resolve({
+            msg: response ? "Success" : "Unsuccess",
+            response
+        })
+    }
+    catch (err) {
+        reject(err);
+    }
+})
+
 exports.getBackpackInfo = () => new Promise(async(resolve, reject) => {
     try {
         let response = await db.Product.findAll({
@@ -242,6 +259,26 @@ exports.getProductsInCart = (id) => new Promise(async(resolve, reject) => {
         resolve({
             err: response ? 0 : 2,
             msg: response ? 'Get products in cart is successfully' : 'Get products in cart is unsuccessfully',
+});
+
+exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.findAll({
+            
+            include: {
+                model: db.Product_Rate,
+                attributes: [
+                    [Sequelize.fn('AVG', Sequelize.col('product_rates.rateScore')), 'avgScore'],
+                    [Sequelize.fn('COUNT', Sequelize.col('product_rates.productId')), 'productRvs'],
+                ],
+            },
+            where: {
+                catalogId: id,
+            }, 
+            group: ["id"]
+        })
+        resolve({
+            msg: response ? "Successfully" : "Unsuccessfully",
             response
         })
     } catch (error) {

@@ -1,5 +1,18 @@
 import axiosConfig from '../axiousConfig'
 
+export const apiGetProductInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/product/get/get-product-info-by-catalog/${id}`
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+})
+
 export const apiGetBackpackInfo = () =>  new Promise(async(resolve, reject) => {
     try {
         const response = await axiosConfig({
@@ -156,4 +169,17 @@ export const apiAddToCart = (payload) => new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
+
+export const apiGetAllProductInfoByCatalogId = (id) =>  new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/product/getAllProductsInfoByCatalogId/${id}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+        // console.log(error);
+    }
+});

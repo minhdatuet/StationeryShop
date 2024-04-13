@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import reduxStore from './redux';
 import { BrowserRouter } from 'react-router-dom';
 import "tw-elements-react/dist/css/tw-elements-react.min.css";
+// import * as mdb from 'mdb-ui-kit'; // lib
+// window.mdb = mdb;
 
 const {store, persistor} = reduxStore()
 
