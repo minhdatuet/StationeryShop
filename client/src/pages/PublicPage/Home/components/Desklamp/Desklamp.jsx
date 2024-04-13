@@ -29,8 +29,6 @@ const Desklamp = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(desklampInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>

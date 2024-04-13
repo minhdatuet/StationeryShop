@@ -4,6 +4,7 @@ const { response } = require('express');
 const jwr = require('jsonwebtoken');
 require('dotenv').config();
 const { Sequelize, DataTypes, Op, where } = require('sequelize');
+const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(12))
 
 exports.getUser = (phone) => new Promise(async(resolve, reject) => {
     try {
@@ -157,4 +158,77 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
         reject(error);
     }
   })
+
+  exports.deleteCustomerAccountById = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Account.destroy({
+            where: {
+                id: id
+            }
+        })
+        resolve({
+            err: response ? 0 : 2,
+            msg: response ? "Delete Account By ID Successfully" : "Delete Account By ID Failure"
+        })
+    }
+    catch (error) {
+        reject(error);
+    }
+  })
+
+  exports.modifyCustomerAccount = (id, data) => new Promise(async (resolve, reject) => {
+    try {
+        const [rowsAffected] = await db.Account.update(data, {
+            where: { 
+                id: id 
+            }
+        });
+        const successMessage = 'Update is successful';
+        const errorMessage = 'Update is failed';
+        const response = {
+            err: rowsAffected > 0 ? 0 : 2,
+            msg: rowsAffected > 0 ? successMessage : errorMessage,
+        };
   
+        resolve(response);
+    } catch (error) {
+        reject(error);
+    }
+  });
+
+  exports.getAccountByPhone = (phone) => new Promise(async (resolve, reject) => {
+    try {
+        const quantityAccount = await db.Account.count({
+            where:  {
+                accountPhone: phone
+            }
+        });
+
+        const duplicateMessage = "Your phone is duplicate";
+        const notDuplicateMessage = "Your phone is not duplicate";
+        const response = {
+            err: quantityAccount > 0 ? 0 : 2,
+            msg: quantityAccount > 0 ? duplicateMessage : notDuplicateMessage,
+        };
+        resolve(response);
+    }
+     catch (error) {
+        reject(error);
+     }
+  })
+
+  exports.createAccountForAnotherAdmin = (body) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Account.create({
+            accountName: body.accountName,
+            accountPassword: hashPassword(body.accountPassword),
+            accountPhone: body.accountPhone,
+            accountEmail: body.accountEmail,
+            accountType: body.accountType
+        })
+
+        resolve(response);
+    } catch (error) {
+        reject(error)
+    }
+})

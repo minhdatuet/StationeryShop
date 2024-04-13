@@ -29,8 +29,6 @@ const StationerySupply = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(stationerySupplyInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>

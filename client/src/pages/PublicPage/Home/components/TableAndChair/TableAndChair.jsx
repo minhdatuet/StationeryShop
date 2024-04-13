@@ -29,8 +29,6 @@ const TableAndChair = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(tableAndChairInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
