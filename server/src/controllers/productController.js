@@ -143,3 +143,34 @@ exports.getProductById = async (req, res) => {
         })
     }
 }
+
+exports.addToCart = async (req, res) => {
+    const {accountId, productId, productsInCartQuantity} = req.body
+    try{
+        // return accountName
+        if(!accountId || !productId || !productsInCartQuantity) return res.status(400).json({
+            err: 1,
+            msg: 'Missing inputs!' + (!accountId ? "accountId " : " ") + (!productId ? "productId " : " ") 
+        })
+        const response = await productService.addToCart(req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller' + error
+        })
+    }
+}
+
+exports.getProductsInCart = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await productService.getProductsInCart(id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller' + error
+        })
+    }
+}
