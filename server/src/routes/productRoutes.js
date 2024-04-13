@@ -16,6 +16,11 @@ router.get('/get/get-all-stationery-supply-info', productController.getStationer
 router.get('/get/get-all-story-book-info', productController.getStoryBookInfo);
 router.get('/get/get-all-table-and-chair-info', productController.getTableAndChairInfo);
 
-router.get('/get/:id', productController.getProductById);
+router.get('/get/get-product-by-id/:id', productController.getProductById)
+
+router.post('/post/add-to-cart', productController.addToCart)
+router.get('/get/get-products-in-cart/:id', productController.getProductsInCart)
+
 router.get('/getAllProductsInfoByCatalogId/:id', productController.getProductsDetailInfoByCatalogId);
+
 module.exports = router;

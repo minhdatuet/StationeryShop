@@ -138,7 +138,32 @@ export const apiGetProductById = (id) =>  new Promise(async(resolve, reject) => 
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: `/api/v1/product/get/${id}`,
+            url: `/api/v1/product/get/get-product-by-id/${id}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const apiGetProductsInCart = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/product/get/get-products-in-cart/${id}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+})
+
+export const apiAddToCart = (payload) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `/api/v1/product/post/add-to-cart`,
+            data: payload
         })
         resolve(response)
     } catch (error) {

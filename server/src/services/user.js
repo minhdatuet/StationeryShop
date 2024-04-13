@@ -6,41 +6,24 @@ require('dotenv').config();
 const { Sequelize, DataTypes, Op, where } = require('sequelize');
 const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(12))
 
-exports.getUser = (phone) => new Promise(async(resolve, reject) => {
+exports.getUser = (accountPhone) => new Promise(async(resolve, reject) => {
     try {
-        let response  = await db.Accounts.findAll({
+        let response  = await db.Account.findOne({
             where: {
-              phone
+              accountPhone
             },
             // raw: true,
-            attributes: ['id','name', 'phone', 'address', 'accountType'],
+            attributes: ['id','accountName', 'accountPhone', 'accountAddress', 'accountEmail'],
             include: [
             {
-                model: db.Warehouse,
-                attributes: ['id','name', 'address'],
+                model: db.Products_In_Cart,
+                attributes: ['id','accountId', 'productId'],
                 required: false,
             },
             {
-                model: db.TransactionPoint,
-                attributes: ['id','name', 'address'],
+                model: db.Products_Bought_History,
+                attributes: ['id','accountId', 'productId'],
                 required: false,
-            },
-            {
-                model: db.Employee,
-                required: false,
-                attributes: ['id'],
-                include: [{
-                    model: db.Warehouse,
-                    attributes: ['id','name', 'address']
-                },
-                {
-                    model: db.TransactionPoint,
-                    attributes: ['id','name', 'address'],
-                    include: [{
-                        model: db.Warehouse,
-                        attributes: ['id','name', 'address']
-                    }]
-                }]
             }]
 
         })
