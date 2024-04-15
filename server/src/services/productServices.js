@@ -259,6 +259,11 @@ exports.getProductsInCart = (id) => new Promise(async(resolve, reject) => {
         resolve({
             err: response ? 0 : 2,
             msg: response ? 'Get products in cart is successfully' : 'Get products in cart is unsuccessfully',
+        })
+    }
+    catch (error) {
+        reject(error);
+    }
 });
 
 exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
