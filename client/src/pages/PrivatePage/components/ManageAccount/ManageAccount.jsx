@@ -5,10 +5,25 @@ import { apiGetAllCustomerInfo, apiDeleteCustomerAccountById, apiModifyCustomerA
 import { IoPersonAddOutline } from "react-icons/io5";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Alert } from "flowbite-react";
+import { Pagination } from "flowbite-react";
 
 function ManageAccount() {
     const [customerInfo, setCustomerInfo] = useState([]); // ARRAY TO STORE CUSTOMER DATA
     const [isFetchedData, setIsFetchedData] = useState(false); // FLAG TO CHECK IS FETCHED CUSTOMER DATA
+
+    // SET UP PAGINATION
+    const [totalPage, setTotalPage] = useState();
+    const [isTotalPageSet, setIsTotalPageSet] = useState(false);
+    const quantityItemsPerpage = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+    const lastIndex = currentPage * quantityItemsPerpage;
+    const firstIndex = lastIndex - quantityItemsPerpage;
+    const displayedCustomers = customerInfo.slice(firstIndex, lastIndex);
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
+    }
+
+    console.log(currentPage);
 
     const [isVisibleAlertSuccess, setIsVisibleAlertSuccess] = useState(false); // FLAG TO CHECK IS VISIBLE ALERT SUCCESS
 
@@ -46,15 +61,29 @@ function ManageAccount() {
             const response = await apiGetAllCustomerInfo();
             setCustomerInfo(response.data.response);
             setIsFetchedData(true);
+            console.log(response.data.response.length);
         }
         catch (err) {
             console.log(err);
         }
     }
 
+    // GET CUSTOMER ACCOUNT DATA
     useEffect(() => {
         handleGetData();
-    }, [isFetchedData]);
+    }, [isFetchedData, currentPage]);
+
+    // SET TOTAL PAGE
+    useEffect(() => {
+        if (customerInfo.length > 0) {
+            if (customerInfo.length % 10 === 0) {
+                setTotalPage(parseInt(customerInfo.length / 10));
+            } else {
+                setTotalPage(parseInt(customerInfo.length / 10 + 1));
+            }
+            setIsTotalPageSet(true);
+        }
+    }, [customerInfo]);
 
     // HANDLE WHEN CLICK ADD NEW ACCOUNT
     const handleVisibleFormAddNewAccount = () => {
@@ -232,6 +261,7 @@ function ManageAccount() {
                     </Alert>
                 </div>
             )}
+
             {/* CONFIRM DELETE ACCOUNT WINDOW */}
             {isVisibleConfirmDeleteAccountWindow && (
                 <div className={clsx(style["confirm-delete-window"])} data-aos="flip-up">
@@ -389,8 +419,8 @@ function ManageAccount() {
             )}
 
             {/* LIST ACCOUNT */}
-            {customerInfo && customerInfo.length > 0 ? (
-                customerInfo.map(customer => (
+            {displayedCustomers && displayedCustomers.length > 0 ? (
+                displayedCustomers.map(customer => (
                     <div key={customer.id} className={clsx(style["sub-container"])}>
                         <div className={clsx(style["account-info-container"])}>
                             <div>
@@ -427,6 +457,13 @@ function ManageAccount() {
                     The system currently has no customer
                 </div>
             )}
+
+            {/* PAGINATION */}
+            {isTotalPageSet && customerInfo.length > 0 ? (
+                <div className="flex overflow-x-auto sm:justify-center">
+                    <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
+                </div>
+            ) : null}
 
             {/* FORM MODIFY ACCOUNT */}
             {isVisibleFormModifyAccount && (
