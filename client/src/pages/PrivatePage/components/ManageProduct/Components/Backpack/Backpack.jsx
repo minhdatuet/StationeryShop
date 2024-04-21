@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import style from "./Backpack.module.scss";
 import { Table } from "flowbite-react";
-import { apiGetProductByCatalogIdForAdmin, apiAdminDeleteProductById } from "../../../../../../services/product";
+import { apiGetProductByCatalogIdForAdmin } from "../../../../../../services/product";
 import { handleAdminDeleteProduct } from "../../ManageProductFunction/DeleteProduct";
 
 function Backpack() {
@@ -23,22 +23,6 @@ function Backpack() {
     useEffect(() => {
         handleGetBackpackInfoForAdmin();
     }, [isFetchedData]);
-
-    // const handleClickDeleteProduct = (productId) => {
-    //     setDeleteId(productId);
-    //     setIsVisibleConfirmDeleteProductWindow(true);
-    // }
-
-    // const handleAdminDeleteProduct = async () => {
-    //     try {
-    //         await apiAdminDeleteProductById(deleteId);
-    //         setBackpackInfoForAdmin(prevBackpackInfoForAdmin => prevBackpackInfoForAdmin.filter(backpackInfoForAdmin => backpackInfoForAdmin.id !== deleteId));
-    //     }
-    //     catch (error) {
-    //         console.log(error);
-    //     }
-    //     setIsVisibleConfirmDeleteProductWindow(false);
-    // }
 
     const handleClickDeleteProduct = (productId) => {
         setDeleteId(productId);
