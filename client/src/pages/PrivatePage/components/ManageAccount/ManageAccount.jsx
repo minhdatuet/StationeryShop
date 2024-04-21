@@ -5,6 +5,7 @@ import { apiGetAllCustomerInfo, apiDeleteCustomerAccountById, apiModifyCustomerA
 import { IoPersonAddOutline } from "react-icons/io5";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Alert } from "flowbite-react";
+import { HiEye, HiInformationCircle } from "react-icons/hi";
 import { Pagination } from "flowbite-react";
 
 function ManageAccount() {
@@ -22,8 +23,6 @@ function ManageAccount() {
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     }
-
-    console.log(currentPage);
 
     const [isVisibleAlertSuccess, setIsVisibleAlertSuccess] = useState(false); // FLAG TO CHECK IS VISIBLE ALERT SUCCESS
 
@@ -61,7 +60,6 @@ function ManageAccount() {
             const response = await apiGetAllCustomerInfo();
             setCustomerInfo(response.data.response);
             setIsFetchedData(true);
-            console.log(response.data.response.length);
         }
         catch (err) {
             console.log(err);

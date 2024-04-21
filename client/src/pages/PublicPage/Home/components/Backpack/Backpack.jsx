@@ -39,7 +39,7 @@ const Backpack = () => {
         {backpackInfos.slice(0, 5).map((backpackInfo, index) => (
           <div className="flex flex-wrap font-sans" key={index} id={clsx(style.item)}>
             <div className="flex-none w-48 relative">
-              <img src={backpackInfo.productImage} alt="" loading="lazy" className={clsx(style['backpack-img'])} />
+              <img src={backpackInfo.productImage} alt="" loading="lazy" className={clsx(style['book-img'])} />
             </div>
             <form className="flex-auto p-6">
               <div className="flex flex-wrap" id={clsx(style['product-name'])}>

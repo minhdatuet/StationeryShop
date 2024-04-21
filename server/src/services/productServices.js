@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { response } = require('express');
 const jwr = require('jsonwebtoken');
 require('dotenv').config();
-const { Sequelize, DataTypes, Op } = require('sequelize');
+const { Sequelize, DataTypes, Op, where } = require('sequelize');
 const product = require('../models/product');
 
 exports.getProductInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
@@ -288,5 +288,40 @@ exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, re
         })
     } catch (error) {
         reject(error)
+    }
+})
+
+exports.getProductByCatalogIdForAdmin = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.findAll({
+            where: { catalogId: id },
+            include: {
+                model: db.Catalog
+            }
+        })
+        resolve({
+            msg: response ? "Successfully" : "Unsuccessfully",
+            response
+        });
+    }
+    catch (error) {
+        reject(error);
+    }
+})
+
+exports.adminDeleteProductById = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.destroy({
+            where: {
+                id: id
+            }
+        })
+        resolve({
+            err: response ? 0 : 2,
+            msg: response ? "Admin Delete Product By ID Successfully" : "ADmin Delete Product By ID Failure"
+        })
+    }
+    catch (error) {
+        reject(error);
     }
 })
