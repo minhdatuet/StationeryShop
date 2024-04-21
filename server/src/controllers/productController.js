@@ -200,3 +200,29 @@ exports.getProductsDetailInfoByCatalogId = async (req, res) => {
         })
     }
 }
+
+exports.getProductByCatalogIdForAdmin = async (req, res) => {
+    try {
+        const id = req.params.id
+        const response = await productService.getProductByCatalogIdForAdmin(id)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller get product by catalog id for admin ' + error
+        })
+    }
+}
+
+exports.adminDeleteProductById = async (req, res) => {
+    try {
+        const response = await productService.adminDeleteProductById(req.params.id);
+        return res.status(200).json(response);
+    }
+    catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: "Fail at user controller admin delete product by id " + error
+        })
+    }
+}

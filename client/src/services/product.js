@@ -183,3 +183,29 @@ export const apiGetAllProductInfoByCatalogId = (id) =>  new Promise(async(resolv
         // console.log(error);
     }
 });
+
+export const apiGetProductByCatalogIdForAdmin = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/product/get/get-product-by-catalog-id-for-admin/${id}`
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+})
+
+export const apiAdminDeleteProductById = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'delete',
+            url: `/api/v1/product/delete/admin-delete-product/${id}`
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+})

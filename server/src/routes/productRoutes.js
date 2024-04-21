@@ -23,4 +23,7 @@ router.get('/get/get-products-in-cart/:id', productController.getProductsInCart)
 
 router.get('/getAllProductsInfoByCatalogId/:id', productController.getProductsDetailInfoByCatalogId);
 
+router.get('/get/get-product-by-catalog-id-for-admin/:id', productController.getProductByCatalogIdForAdmin);
+router.delete('/delete/admin-delete-product/:id', productController.adminDeleteProductById);
+
 module.exports = router;
