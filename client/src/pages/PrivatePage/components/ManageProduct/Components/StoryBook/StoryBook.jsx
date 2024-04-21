@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import style from "./StoryBook.module.scss";
 import { Table } from "flowbite-react";
-import { apiGetProductByCatalogIdForAdmin, apiAdminDeleteProductById } from "../../../../../../services/product";
+import { apiGetProductByCatalogIdForAdmin } from "../../../../../../services/product";
+import { handleAdminDeleteProduct } from "../../ManageProductFunction/DeleteProduct";
 
 function StoryBook() {
     const STORYBOOK_CATALOG_ID = 9;
@@ -28,17 +29,6 @@ function StoryBook() {
         setIsVisibleConfirmDeleteProductWindow(true);
     }
 
-    const handleAdminDeleteProduct = async () => {
-        try {
-            await apiAdminDeleteProductById(deleteId);
-            setStorybookInfoForAdmin(prevStorybookInfoForAdmin => prevStorybookInfoForAdmin.filter(storybookInfoForAdmin => storybookInfoForAdmin.id !== deleteId));
-        }
-        catch (error) {
-            console.log(error);
-        }
-        setIsVisibleConfirmDeleteProductWindow(false);
-    }
-
     return (
         <div>
             {/* CONFIRM DELETE ACCOUNT WINDOW */}
@@ -48,7 +38,7 @@ function StoryBook() {
                     <div className={clsx(style["button-confirm-window"])}>
                         <button
                             id={clsx(style["confirm-delete-product-button"])}
-                            onClick={handleAdminDeleteProduct}
+                            onClick={() => {handleAdminDeleteProduct(deleteId, setStorybookInfoForAdmin, setIsVisibleConfirmDeleteProductWindow)}}
                         >
                             Confirm
                         </button>
