@@ -140,6 +140,21 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
     catch (error) {
         reject(error);
     }
+
+  });
+
+  exports.getDetailInfoByID = (uId) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Account.findOne({
+            where: {
+                id: uId
+            }
+        })
+        resolve({
+            err: response? 0 : 2,
+            msg: response? "Succesfully" : "Unsuccesfully",
+            response
+
   })
 
   exports.deleteCustomerAccountById = (id) => new Promise(async(resolve, reject) => {
@@ -152,11 +167,16 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
         resolve({
             err: response ? 0 : 2,
             msg: response ? "Delete Account By ID Successfully" : "Delete Account By ID Failure"
+
         })
     }
     catch (error) {
         reject(error);
     }
+
+  });
+  
+
   })
 
   exports.modifyCustomerAccount = (id, data) => new Promise(async (resolve, reject) => {
@@ -215,3 +235,4 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
         reject(error)
     }
 })
+

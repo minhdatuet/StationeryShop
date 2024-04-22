@@ -1,0 +1,154 @@
+.nameContainer {
+    margin: 8px 20px;
+    display: flex;
+}
+
+.nameContainer label {
+    font-weight: bold;
+    min-width: 200px;
+    display: flex;
+}
+
+.nameInp {
+    width: 100%;
+    border-radius: 24px;
+}
+
+.phoneContainer {
+    margin: 8px 20px;
+    display: flex;
+}
+
+.phoneContainer label {
+    font-weight: bold;
+    min-width: 200px;
+    display: flex;
+}
+
+.phoneInp {
+    width: 100%;
+    border-radius: 24px;
+}
+
+.emailContainer {
+    margin: 8px 20px;
+    display: flex;
+}
+
+.emailContainer label {
+    font-weight: bold;
+    min-width: 200px;
+    display: flex;
+}
+
+.mailInp {
+    width: 100%;
+    border-radius: 24px;
+}
+
+.addressContainer {
+    margin: 8px 20px;
+    display: flex;
+}
+
+.addressContainer label {
+    font-weight: bold;
+    min-width: 200px;
+    display: flex;
+}
+
+.addressInp {
+    width: 100%;
+    border-radius: 24px;
+}
+
+.changePasswordContainer {
+    margin: 8px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.oldPass {
+    margin: 8px 0px;
+    display: flex;
+}
+
+.oldPass label {
+    font-weight: bold;
+    min-width: 200px;
+    display: flex;
+}
+
+.oldPassInp {
+    width: 100%;
+    border-radius: 24px;
+}
+
+.newPass {
+    margin: 8px 0px;
+    display: flex;
+}
+
+.newPass label {
+    font-weight: bold;
+    min-width: 200px;
+    display: flex;
+}
+
+.newPassInp {
+    width: 100%;
+    border-radius: 24px;
+}
+
+.confirmPass {
+    margin: 8px 0px;
+    display: flex;
+}
+
+.confirmPass label {
+    font-weight: bold;
+    min-width: 200px;
+    display: flex;
+}
+
+.cfPassInp {
+    width: 100%;
+    border-radius: 24px;
+}
+
+.fieldErr p {
+    color: red;
+    margin: 0px 220px;
+}
+
+.nameErr {
+    height: 30px;
+}
+
+.PhoneErr {
+    height: 30px;
+}
+
+.emailErr {
+    height: 30px;
+}
+
+.addressErr {
+    height: 30px;
+}
+
+.oldPassErr {
+    height: 30px;
+}
+
+.newPassErr {
+    height: 30px;
+}
+
+.cfPassErr {
+    height: 30px;
+}
+
+.disableErr {
+    display: none;
+}

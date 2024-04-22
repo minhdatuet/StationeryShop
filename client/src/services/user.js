@@ -75,6 +75,15 @@ export const apiGetAllCustomerInfo = () => new Promise(async(resolve, reject) =>
     catch (error) {
         reject(error);
     }
+
+});
+
+export const apiGetDetailInfoByID = (uId) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/user/get/getDetailInfoByID/${uId}`
+
 })
 
 export const apiDeleteCustomerAccountById = (id) => new Promise(async(resolve, reject) => {
@@ -121,10 +130,13 @@ export const apiCreateAccountForAnotherAdmin = (payload) => new Promise(async (r
             method: 'post',
             url: `/api/v1/user/post/create-account-for-another-admin`,
             data: payload
+
         })
         resolve(response);
     }
     catch (error) {
         reject(error);
     }
+
+});
 })

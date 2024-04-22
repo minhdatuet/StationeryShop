@@ -12,7 +12,10 @@ router.get('/get/user', userController.getUser);
 router.put('/update/:id', userController.updateById);
 router.get('/get/all', userController.getAll);
 router.delete('/delete/:id',userController.deleteById);
+
+router.get('/get/getDetailInfoByID/:uId', userController.getDetailInfoByID);
 router.get('/get/get-account-by-phone/:phone', userController.getAccountByPhone);
 router.post('/post/create-account-for-another-admin', userController.createAccountForAnotherAdmin);
+
 
 module.exports = router;
