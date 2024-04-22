@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const { response } = require('express');
 const jwr = require('jsonwebtoken');
 require('dotenv').config();
-const { Sequelize, DataTypes, Op } = require('sequelize');
+const { Sequelize, DataTypes, Op, where } = require('sequelize');
+const product = require('../models/product');
 
 exports.getProductInfoByCatalogId = (id) => new Promise(async(resolve, reject) => {
     try {
@@ -198,7 +199,10 @@ exports.getProductById = (id) => new Promise(async(resolve, reject) => {
         const response = await db.Product.findOne({
             where: {id},
             include: {
-                model: db.Products_Bought_History
+                model: db.Product_Rate,
+                include: {
+                    model: db.Account
+                }
             }
         })
         resolve({
@@ -208,6 +212,57 @@ exports.getProductById = (id) => new Promise(async(resolve, reject) => {
         })
     } catch (error) {
         reject(error)
+    }
+})
+
+exports.addToCart = (body) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Products_In_Cart.findOrCreate({
+            where: {productId: body.productId,
+            accountId: body.accountId},
+            defaults: {
+                accountId: body.accountId,
+                productId: body.productId,
+                productsInCartQuantity: body.productsInCartQuantity
+            }
+        })
+        if (!response[1]) {
+            const quantity = parseInt(response[0].productsInCartQuantity) + parseInt(body.productsInCartQuantity)
+            if (quantity > 0) {
+                response[0].productsInCartQuantity = quantity
+                await response[0].save({ fields: ['productsInCartQuantity'] });
+            } else {
+                await db.Products_In_Cart.destroy({
+                    where: {productId: body.productId},
+                })
+            }
+            
+            
+        }
+        resolve({
+            err: response? 0 : 2,
+            msg: response? 'Add to cart is successfully!' : 'You must login first',
+        })
+    } catch (error) {
+        reject(error)
+    }
+})
+
+exports.getProductsInCart = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Products_In_Cart.findAll({
+            where: {accountId: id},
+            include: {
+                model: db.Product,
+            }
+        })
+        resolve({
+            err: response ? 0 : 2,
+            msg: response ? 'Get products in cart is successfully' : 'Get products in cart is unsuccessfully',
+        })
+    }
+    catch (error) {
+        reject(error);
     }
 });
 
@@ -234,16 +289,39 @@ exports.getProductsDetailInfoByCatalogId = (id) => new Promise(async(resolve, re
     } catch (error) {
         reject(error)
     }
+})
 
-    // try {
-    //     const response = await db.Product_Rate.findAll({
+exports.getProductByCatalogIdForAdmin = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.findAll({
+            where: { catalogId: id },
+            include: {
+                model: db.Catalog
+            }
+        })
+        resolve({
+            msg: response ? "Successfully" : "Unsuccessfully",
+            response
+        });
+    }
+    catch (error) {
+        reject(error);
+    }
+})
 
-    //     })
-    //     resolve({
-    //         msg: response ? "Successfully" : "Unsuccessfully",
-    //         response
-    //     })
-    // } catch (error) {
-    //     reject(error)
-    // }
-});
+exports.adminDeleteProductById = (id) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.destroy({
+            where: {
+                id: id
+            }
+        })
+        resolve({
+            err: response ? 0 : 2,
+            msg: response ? "Admin Delete Product By ID Successfully" : "ADmin Delete Product By ID Failure"
+        })
+    }
+    catch (error) {
+        reject(error);
+    }
+})

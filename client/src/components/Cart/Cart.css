@@ -1,0 +1,41 @@
+.content {
+    position: relative;
+    max-width: 350px;
+
+}
+.cart-icon {
+    width: 10%;
+}
+
+.product-image {    
+    width: 100px;
+    /* height: 100px; */
+}
+
+li {
+    display: flex;
+    border-bottom: 1px solid #e8e8e1;;
+    padding: 10px;
+}
+
+.product-content {
+    margin-left: 10px;
+}
+
+.cart-content {
+    min-width: 300px;
+    border: 3px solid #e8e8e1;
+    padding: 10px;
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    left: -200%;
+}
+
+.product-name {
+    max-width: 220px;
+    font-size: 22px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

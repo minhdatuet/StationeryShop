@@ -28,8 +28,6 @@ const Pen = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(penInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>

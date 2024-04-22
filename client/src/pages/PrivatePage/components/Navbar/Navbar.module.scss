@@ -1,10 +1,14 @@
-:root {
-    --navbar-width: fit-content;
-  }
-  
-  .container {
-      height: 100vh;
-      width: var(--navbar-width);
-      display: flex;
-  }
-  
+.container {
+    height: 100vh;
+    width: fit-content;
+    display: flex;
+    width: 100%;
+}
+
+.nav-container {
+    flex: 1;
+}
+
+.component-content {
+    flex: 4;
+}

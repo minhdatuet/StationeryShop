@@ -29,8 +29,6 @@ const Notebook = () => {
     handleGetData();
   }, [isFetchedData]);
 
-  console.log(notebookInfos);
-
   return (
     <div className={clsx(style.container)} data-aos="fade-up">
       <div className={clsx(style['heading-item'])}>
