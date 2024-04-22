@@ -75,4 +75,17 @@ export const apiGetAllCustomerInfo = () => new Promise(async(resolve, reject) =>
     catch (error) {
         reject(error);
     }
-})
+});
+
+export const apiGetDetailInfoByID = (uId) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/user/get/getDetailInfoByID/${uId}`
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});

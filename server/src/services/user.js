@@ -156,5 +156,23 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
     catch (error) {
         reject(error);
     }
-  })
+  });
+
+  exports.getDetailInfoByID = (uId) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Account.findOne({
+            where: {
+                id: uId
+            }
+        })
+        resolve({
+            err: response? 0 : 2,
+            msg: response? "Succesfully" : "Unsuccesfully",
+            response
+        })
+    }
+    catch (error) {
+        reject(error);
+    }
+  });
   

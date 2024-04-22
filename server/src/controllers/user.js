@@ -66,3 +66,16 @@ exports.getAllCustomerInfo = async (req, res) => {
         })
     }
 }
+
+exports.getDetailInfoByID = async (req, res) => {
+    try {
+        const userId = req.params.uId;
+        const response = await userService.getDetailInfoByID(userId);
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at user controller' + error
+        })
+    }
+}

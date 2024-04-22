@@ -6,7 +6,7 @@ export const History = () => {
 
     return (
         <Fragment>
-            
+            Hi
         </Fragment>
     );
 }

@@ -13,15 +13,23 @@ export const PSidebar = (props) => {
             <Sidebar aria-label="Default sidebar example">
                 <Sidebar.Items>
                     <Sidebar.ItemGroup>
-                        <Sidebar.Item href="#" 
+                        <Sidebar.Item 
+                        // className = {clsx=(style.sideBarItems)}
+                        // href="#" 
                         icon={IoPersonCircleOutline} 
                         onClick={props.func.clickInformationPage}>
-                            Information
+                            <div className={clsx(style.sideBarItems)}>
+                                Information
+                            </div>
                         </Sidebar.Item>
-                        <Sidebar.Item href="#" 
+                        <Sidebar.Item 
+                        // className = {clsx=(style.sideBarItems)}
+                        // href="#" 
                         icon={ManageSearchIcon} 
                         onClick={props.func.clickHistoryPage}>
-                            Orders History
+                            <div className={clsx(style.sideBarItems)}>
+                                Orders History
+                            </div>
                         </Sidebar.Item>
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>
