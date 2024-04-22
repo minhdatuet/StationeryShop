@@ -8,15 +8,7 @@ import { apiGetDetailInfoByID } from "../../../services/user";
 
 export const Personal = () => {
 
-    const [pInfo, setPInfo] = useState({
-        aId: "",
-        aName: "",
-        aPhone: "",
-        aEmail: null,
-        aAddress: "",
-        aPassword: "",
-
-    })
+    const accId = 1;
 
     const [pState, setPState] = useState({
         isInformationPage: true,
@@ -25,6 +17,7 @@ export const Personal = () => {
 
     const clickInformationPage = () => {
         // console.log(1);
+        // getInformationData();
         setPState({
             isInformationPage: true,
             isHistoryPage : false
@@ -39,18 +32,27 @@ export const Personal = () => {
         })
     }
 
-    const getInformationData = async() => {
-        try {
-            const response = await apiGetDetailInfoByID(1);
-            console.log(response.data.response);
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // const getInformationData = async() => {
+    //     try {
+    //         const response = await apiGetDetailInfoByID(1);
+    //         console.log(response.data.response.accountName);
+    //         setPInfo({
+    //             aId: response.data.response.id,
+    //             aName: response.data.response.accountName,
+    //             aPhone: response.data.response.accountPhone,
+    //             aEmail: response.data.response.accountEmail,
+    //             aAddress: response.data.response.accountAddress,
+    //             aPassword: response.data.response.accountPassword,
+    //         });
+    //         console.log(pInfo);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
-    useEffect(() => {
-        getInformationData();
-    }, [1]);
+    // useEffect(() => {
+    //     getInformationData();
+    // }, [1]);
 
     return (
         <Fragment>
@@ -63,7 +65,7 @@ export const Personal = () => {
 
                 <div className={clsx(style.contentContainer)}>
                     <div className={clsx(style.informationPageContainer, {[style.hidden] : !pState.isInformationPage})}>
-                        <Information pData = {pInfo} />
+                        <Information pData = {accId} />
                     </div>
 
                     <div className={clsx(style.historyPageContainer, {[style.hidden] : !pState.isHistoryPage})}>
