@@ -7,7 +7,7 @@ import { TfiBarChart } from "react-icons/tfi";
 import { BsArchiveFill } from "react-icons/bs";
 import { TbShoppingCartCog } from "react-icons/tb";
 import ManageAccount from "../ManageAccount/ManageAccount";
-import ManageProduct from "../ManageProduct/ManageProduct"; 
+import ManageProduct from "../ManageProduct/ManageProduct";
 import ManageOrder from "../ManageOrder/ManageOrder";
 import OrderStatistics from "../OrderStatistics/OrderStatistics";
 
@@ -57,28 +57,32 @@ function Navbar() {
 
     return (
         <div className={clsx(style.container)}>
-            <Sidebar aria-label="Default sidebar example">
-                <Sidebar.Items>
-                    <Sidebar.ItemGroup>
-                        <Sidebar.Item href="#" icon={MdManageAccounts} onClick={handleClickStateManageAccount}>
-                            Manage Account
-                        </Sidebar.Item>
-                        <Sidebar.Item href="#" icon={BsArchiveFill} onClick={handleClickStateManageProduct}>
-                            Manage Product
-                        </Sidebar.Item>
-                        <Sidebar.Item href="#" icon={TbShoppingCartCog} onClick={handleClickStateManageOrder}>
-                            Manage Order
-                        </Sidebar.Item>
-                        <Sidebar.Item href="#" icon={TfiBarChart} onClick={handleClickOrderStatistics}>
-                            Order Statistics
-                        </Sidebar.Item>
-                    </Sidebar.ItemGroup>
-                </Sidebar.Items>
-            </Sidebar>
-            {clickState.manageAccount && <ManageAccount />}
-            {clickState.manageProduct && <ManageProduct />}
-            {clickState.manageOrder && <ManageOrder />}
-            {clickState.orderStatistics && <OrderStatistics />}
+            <div className={clsx(style["nav-container"])}>
+                <Sidebar aria-label="Default sidebar example">
+                    <Sidebar.Items>
+                        <Sidebar.ItemGroup>
+                            <Sidebar.Item href="#" icon={MdManageAccounts} onClick={handleClickStateManageAccount}>
+                                Manage Account
+                            </Sidebar.Item>
+                            <Sidebar.Item href="#" icon={BsArchiveFill} onClick={handleClickStateManageProduct}>
+                                Manage Product
+                            </Sidebar.Item>
+                            <Sidebar.Item href="#" icon={TbShoppingCartCog} onClick={handleClickStateManageOrder}>
+                                Manage Order
+                            </Sidebar.Item>
+                            <Sidebar.Item href="#" icon={TfiBarChart} onClick={handleClickOrderStatistics}>
+                                Order Statistics
+                            </Sidebar.Item>
+                        </Sidebar.ItemGroup>
+                    </Sidebar.Items>
+                </Sidebar>
+            </div>
+            <div className={clsx(style["component-content"])}>
+                {clickState.manageAccount && <ManageAccount />}
+                {clickState.manageProduct && <ManageProduct />}
+                {clickState.manageOrder && <ManageOrder />}
+                {clickState.orderStatistics && <OrderStatistics />}
+            </div>
         </div>
     );
 }

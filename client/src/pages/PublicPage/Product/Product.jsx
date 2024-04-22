@@ -1,9 +1,14 @@
 import React, { useEffect, useState} from 'react'
 import './Product.css'
-import QuantityInput from '../../../components/QuantityInput/QuantityInput'
-import { apiGetProductById } from '../../../services/product'
+import { apiGetProductById, apiAddToCart } from '../../../services/product'
+import NumberInput from '../../../components/QuantityInput/NumberInput'
+import * as actions from '../../../store/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Product = () => {
+    const dispatch = useDispatch();
+    const { userData } = useSelector(state => state.user)
+    const {cartData} = useSelector(state => state.cart)
     const [product, setProduct] = useState({
         productName: '',
         catalogId: 0,
@@ -12,22 +17,8 @@ const Product = () => {
         productQuantity: 0,
         productDescription: '',
       })
-      const [quantity, setQuantity] = useState(null);
-      const rates = [{
-        userName: "Dat",
-        rateScore: 5,
-        productFeedback: "Good product"
-      },
-      {
-        userName: "Duc",
-        rateScore: 4,
-        productFeedback: "Normal product"
-      },
-      {
-        userName: "Dung",
-        rateScore: 3,
-        productFeedback: "Bad product"
-      }];
+      const [quantity, setQuantity] = useState(1);
+      const [rates, setRates] = useState([]);
       const handleQuantityChange = (value) => {
         setQuantity(value);
       };
@@ -35,10 +26,8 @@ const Product = () => {
         console.log(quantity)
       },[quantity])
       useEffect(() => {
-        const productInfo = apiGetProductById(1);
-        setProduct(productInfo);
         const fetchProduct = async () => {
-            const id = 6;
+            const id = 1;
             try {
               const response = await apiGetProductById(id);
               const data = response?.data.response;
@@ -46,7 +35,8 @@ const Product = () => {
               const msg = response?.data.msg;
               console.log(data);
               if (err === 0) {
-                setProduct(data)
+                setProduct(data);
+                setRates(data.Product_Rates);
               }
             } catch (error) {
               console.error("Error fetching product:", error);
@@ -54,6 +44,22 @@ const Product = () => {
           };
           fetchProduct();
       }, [])
+
+      const handleAddProduct = async (productId, productsInCartQuantity) => {
+        try {
+            const payload = {
+                accountId: localStorage.getItem('id'),
+                productId,
+                productsInCartQuantity
+            }
+            console.log(payload)
+            const response = await apiAddToCart(payload);
+            dispatch(actions.getCart(localStorage.getItem('id')));
+        } catch (error) {
+          console.log('Add to cart error!');
+        }
+      }
+
     return(
         <div>
             <div id="product">
@@ -75,10 +81,11 @@ const Product = () => {
                     </div>
                     <div className="quantity">
                     <div>Quantity: </div>
-                    <div id='quantityInput'><QuantityInput value={quantity} onChange={handleQuantityChange}/></div>
+                    {/* <div id='quantityInput'><QuantityInput value={quantity} onChange={handleQuantityChange} startNum={2}/></div> */}
+                    <div id="quantityInput"><NumberInput startNum={quantity} handleAdd={() => setQuantity(quantity+1)} handleRemove={quantity > 1 ? () => setQuantity(quantity-1) : () => setQuantity(quantity)}/></div>
                     </div>
-                    <div className="add-to-cart">
-                        <button>
+                    <div className="add-to-cart" onClick={() => handleAddProduct(product.id, quantity)}>
+                        <button >
                             Add to cart
                         </button>
                     </div>
@@ -96,7 +103,7 @@ const Product = () => {
                 <ul>
                     {rates.map((rate) => (
                         <>
-                            <div className="user-name">{rate.userName}</div>
+                            <div className="user-name">{rate.Account.accountName}</div>
                             <div className="score">
                             {new Array(rate.rateScore).fill(null).map(() => (
                                 <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">

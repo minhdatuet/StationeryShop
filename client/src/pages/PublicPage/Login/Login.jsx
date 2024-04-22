@@ -21,8 +21,32 @@ export default function Login() {
   const [errorPasswordMessage, setErrorPasswordMessage] = useState('');
 
   useEffect(() => {
-    isLogged && navigate('/')
+    isLogged  && setTimeout(() => {
+      dispatch(actions.getUser())
+      
+      // if (!(Object.keys(userData).length === 0) && !(userData.length === 0)) {
+      //     localStorage.setItem('id', userData[0].id);
+      //     localStorage.setItem('name', userData[0].userName);
+      //     window.location.reload();
+      // }
+      // navigate('/')
+  }, 100);
+
   }, [isLogged])
+
+  useEffect(() => {
+    userData && setTimeout(() => {
+      if (!(Object.keys(userData).length === 0) && !(userData.length === 0)) {
+          localStorage.setItem('id', userData.id);
+          localStorage.setItem('name', userData.accountName);
+          dispatch(actions.getCart(localStorage.getItem('id')));
+          navigate('/')
+      }
+
+    }, 200);
+
+    console.log(userData)
+  }, [userData])
 
   const handleSubmit = async () => {
     try {

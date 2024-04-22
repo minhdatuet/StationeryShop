@@ -6,6 +6,7 @@ const actionTypes = {
     LOGIN_FAIL: 'REGISTER_FAIL',
     LOGOUT: 'LOGOUT',
     GET_USER: 'GET_USER',
+    GET_CART: 'GET_CART',
     GET_BACKPACK_INFO: 'GET_BACKPACK_INFO',
 }
 

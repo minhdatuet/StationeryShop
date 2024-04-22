@@ -12,7 +12,8 @@ module.exports = {
       productId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'products', key: 'id'}
+        references: {model: 'products', key: 'id'},
+        onDelete: 'CASCADE'
       },
       accountId: {
         allowNull: false,
