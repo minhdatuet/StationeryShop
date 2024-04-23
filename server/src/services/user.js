@@ -154,8 +154,13 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
             err: response? 0 : 2,
             msg: response? "Succesfully" : "Unsuccesfully",
             response
+        })
+  } catch (error) {
+    reject(error);
+}
 
-  })
+});
+
 
   exports.deleteCustomerAccountById = (id) => new Promise(async(resolve, reject) => {
     try {
@@ -177,7 +182,7 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
   });
   
 
-  })
+
 
   exports.modifyCustomerAccount = (id, data) => new Promise(async (resolve, reject) => {
     try {
@@ -218,7 +223,7 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
      catch (error) {
         reject(error);
      }
-  })
+  });
 
   exports.createAccountForAnotherAdmin = (body) => new Promise(async(resolve, reject) => {
     try {
@@ -234,5 +239,5 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
 
