@@ -8,6 +8,7 @@ import Product from "../pages/PublicPage/Product/Product";
 import Cart from "../components/Cart/Cart";
 import Products from "../pages/PublicPage/Products/Products";
 import Personal from "../pages/PublicPage/Personal/Personal";
+import Payment from "../components/Payment/Payment";
 const publicRoutes = [
     {
       path: 'login',
@@ -48,6 +49,10 @@ const publicRoutes = [
     {
       path: 'personal',
       page: Personal
+    },
+    {
+      path: 'payment',
+      page: Payment
     }
   ];
 const adminRoutes = [

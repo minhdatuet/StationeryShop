@@ -75,7 +75,7 @@ export const apiGetAllCustomerInfo = () => new Promise(async(resolve, reject) =>
     catch (error) {
         reject(error);
     }
-
+    
 });
 
 export const apiGetDetailInfoByID = (uId) => new Promise(async(resolve, reject) => {
@@ -83,8 +83,13 @@ export const apiGetDetailInfoByID = (uId) => new Promise(async(resolve, reject) 
         const response = await axiosConfig({
             method: 'get',
             url: `/api/v1/user/get/getDetailInfoByID/${uId}`
-
-})
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});
 
 export const apiDeleteCustomerAccountById = (id) => new Promise(async(resolve, reject) => {
     try {
@@ -97,7 +102,7 @@ export const apiDeleteCustomerAccountById = (id) => new Promise(async(resolve, r
     catch (error) {
         reject(error);
     }
-})
+});
 
 export const apiModifyCustomerAccount = (payload) =>  new Promise(async(resolve, reject) => {
     try {
@@ -110,7 +115,7 @@ export const apiModifyCustomerAccount = (payload) =>  new Promise(async(resolve,
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetAccountByPhone = (phone) =>  new Promise(async(resolve, reject) => {
     try {
@@ -122,7 +127,7 @@ export const apiGetAccountByPhone = (phone) =>  new Promise(async(resolve, rejec
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiCreateAccountForAnotherAdmin = (payload) => new Promise(async (resolve, reject) => {
     try {
@@ -139,4 +144,3 @@ export const apiCreateAccountForAnotherAdmin = (payload) => new Promise(async (r
     }
 
 });
-})
