@@ -2,7 +2,8 @@ import { Fragment, useEffect, useState } from "react";
 import clsx from 'clsx';
 import style from './Information.module.scss'
 import { apiGetDetailInfoByID } from "../../../../../services/user";
-
+import { FaRegSave } from "react-icons/fa";
+import { ImCancelCircle } from "react-icons/im";
 
 export const Information = (props) => {
 
@@ -19,7 +20,8 @@ export const Information = (props) => {
     const [isValidPhone, setIsValidPhone] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
     const [isValidAddress, setIsValidAddress] = useState(true);
-    const [isValidPass, setIsValidPass] = useState(true);
+    const [isValidOldPass, setIsValidOldPass] = useState(true);
+    const [isValidNewPass, setIsValidNewPass] = useState(true);
     const [isValidCfPass, setIsValidCfPass] = useState(true);
 
     const [inputForm, setInputForm] = useState({
@@ -105,6 +107,34 @@ export const Information = (props) => {
         }
     };
 
+    const checkValidPassword = (p) => {
+        if (p.length == 0) return true;
+        else if(p.length < 6 || p.length > 30) {
+            return false;
+        }
+        else return true;
+    };
+
+    const checkValidOldPassword = () => {
+        setIsValidOldPass(checkValidPassword(inputForm.oldPassword));
+    };
+
+    const checkValidNewPassword = () => {
+        setIsValidNewPass(checkValidPassword(inputForm.newPassword));
+    };
+
+    const checkValidCfPassword = () => {
+        if(checkValidPassword(inputForm.cfPassword)) {
+            if(inputForm.newPassword === inputForm.cfPassword) {
+                setIsValidCfPass(true);
+            }
+            else setIsValidCfPass(false);
+        }
+        else {
+            setIsValidCfPass(false);
+        }
+    }
+ 
     const handleChangeInputForm = (e) => {
         setInputForm((prev) => {
             return {
@@ -203,31 +233,66 @@ export const Information = (props) => {
                 <div className={style.oldPass}>
                     <label htmlFor={style.oldPassInp}>Old Password: </label>
                     <input type="password" className={style.oldPassInp} 
+                    name="oldPassword"
+                    onBlur={checkValidOldPassword}
+                    onFocus={() => {
+                        setIsValidOldPass(true);
+                    }}
+                    onInput={(e) => {
+                        handleChangeInputForm(e)
+                    }}
                     placeholder="Enter your old password"></input>
                 </div>
 
                 <div className={clsx(style.fieldErr, style.oldPassErr)}>
-                    <p>Invalid Password!</p>
+                    <p className={clsx({[style.disableErr] : isValidOldPass})}>Invalid Password!</p>
                 </div>
 
                 <div className={style.newPass}>
                     <label htmlFor={style.newPassInp}>New Password: </label>
                     <input type="password" className={style.newPassInp} 
+                    name="newPassword"
+                    onBlur={checkValidNewPassword}
+                    onFocus={() => {
+                        setIsValidNewPass(true);
+                    }}
+                    onInput={(e) => {
+                        handleChangeInputForm(e)
+                    }}
                     placeholder="Enter your new password"></input>
                 </div>
 
                 <div className={clsx(style.fieldErr, style.newPassErr)}>
-                    <p>Invalid Password!</p>
+                    <p className={clsx({[style.disableErr] : isValidNewPass})}>Invalid Password!</p>
                 </div>
 
                 <div className={style.confirmPass}>
                     <label htmlFor={style.cfPassInp}>Confirm Password: </label>
                     <input type="password" className={style.cfPassInp} 
+                    name="cfPassword"
+                    onBlur={checkValidCfPassword}
+                    onFocus={() => {
+                        setIsValidCfPass(true);
+                    }}
+                    onInput={(e) => {
+                        handleChangeInputForm(e)
+                    }}
                     placeholder="Enter your confirm password"></input>
                 </div>
 
                 <div className={clsx(style.fieldErr, style.cfPassErr)}>
-                    <p>Invalid Confirm Password!</p>
+                    <p className={clsx({[style.disableErr] : isValidCfPass})}>Invalid Confirm Password!</p>
+                </div>
+            </div>
+
+            <div className= {clsx(style.actBtns)}>
+                <div className= {clsx(style.saveBtn)}>
+                    <div className={clsx(style.saveIcon)}><FaRegSave /></div>
+                    <div className={clsx(style.saveP)}> Save</div>
+                </div>
+                <div className= {clsx(style.cancelBtn)}>
+                    <div className= {clsx(style.cancelIcon)}><ImCancelCircle /></div>
+                    <div className= {clsx(style.cancelP)}> Cancel</div>
                 </div>
             </div>
         </Fragment>

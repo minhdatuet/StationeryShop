@@ -149,6 +149,60 @@
     height: 30px;
 }
 
+.actBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.saveBtn {
+    background-color: #00d820;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: #333 solid 1px;
+    border-radius: 40px;
+    padding: 0px 20px;
+    color: #000000;
+}
+
+.saveBtn:hover {
+    cursor: pointer;
+    background-color: #00ff1e;
+    color: #fff;
+    opacity: .8;
+}
+
+.saveBtn > div {
+    margin: 8px;
+}
+
+.cancelBtn {
+    background-color: #dd0000;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: #333 solid 1px;
+    border-radius: 40px;
+    padding: 0px 20px;
+    color: #000000;    
+}
+
+.cancelBtn:hover {
+    cursor: pointer;
+    background-color: #ff0000;
+    color: #fff;
+    opacity: .8;
+}
+
+.cancelBtn > div {
+    margin: 8px;
+}
+
+
 .disableErr {
     display: none;
+
 }
