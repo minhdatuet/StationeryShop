@@ -4,7 +4,7 @@ const verifyToken = require('../middleware/verifytoken.js');
 
 const router = express.Router();
 
-// router.use(verifyToken)
+router.use(verifyToken)
 router.get('/get/get-all-customer-info', userController.getAllCustomerInfo);
 router.delete('/delete-customer-account/:id',userController.deleteCustomerAccountById);
 router.put('/modify-customer-account/:id', userController.modifyCustomerAccount);
