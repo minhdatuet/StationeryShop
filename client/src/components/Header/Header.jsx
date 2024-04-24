@@ -62,10 +62,11 @@ export const Header = () => {
           <p>Account</p>
         </div>
 
-        <Link to='/cart' className={clsx(style.cartContainer)}>
-          <div ><Cart /></div>
-          <p>Cart</p>
-        </Link>
+          <div className={clsx(style.cartContainer)}>
+            <div ><Cart /></div>
+            <p>Cart</p>
+          </div>
+
       </div>
 
       {!isLogged && <li>
