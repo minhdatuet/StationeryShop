@@ -284,9 +284,11 @@ function ManageAccount() {
             {/* BUTTON ADD NEW ACCOUNT */}
             <div
                 className={clsx(style["add-new-account-button-container"])}
-                onClick={handleVisibleFormAddNewAccount}
-            >
-                <Button color="success" className={clsx(style["add-new-account-button"])}>
+                >
+                <Button 
+                    color="success"
+                    onClick={handleVisibleFormAddNewAccount}
+                >
                     <IoPersonAddOutline className="mr-2 h-5 w-5" />
                     Add New Account
                 </Button>
@@ -360,7 +362,7 @@ function ManageAccount() {
                                     !errorForPhoneInAddAccountForm ? style["error-for-phone-hidden"] : style[""]
                                 )}
                             >
-                                Your phone is invalid or duplicate. Please try again
+                                Your phone is invalid or duplicate
                             </div>
                         </div>
                         <div>

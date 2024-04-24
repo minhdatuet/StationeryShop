@@ -25,5 +25,6 @@ router.get('/getAllProductsInfoByCatalogId/:id', productController.getProductsDe
 
 router.get('/get/get-product-by-catalog-id-for-admin/:id', productController.getProductByCatalogIdForAdmin);
 router.delete('/delete/admin-delete-product/:id', productController.adminDeleteProductById);
+router.post('/post/create-new-product', productController.createNewProduct);
 
 module.exports = router;

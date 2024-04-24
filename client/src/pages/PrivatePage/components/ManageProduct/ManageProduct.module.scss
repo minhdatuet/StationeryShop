@@ -1,3 +1,76 @@
 .container {
-    // margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.add-new-product-button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    z-index: 1;
+}
+
+.form-add-new-container {
+    width: 30rem;
+    padding: 10px 20px;
+    position: fixed;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #E0E0E0;
+    border: 2px solid beige;
+    border-radius: 15px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+#submit-button {
+    background-color: rgb(14, 116, 144);
+    padding: 10px 50px;
+    color: beige;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#cancel-button {
+    background-color: #FF4500;
+    padding: 10px 50px;
+    color: beige;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+}
+
+#error-for-name-hidden {
+    visibility: hidden;
+}
+
+#error-for-url-hidden {
+    visibility: hidden;
+}
+
+#error-for-quantity-hidden {
+    visibility: hidden;
+}
+
+#error-for-cost-hidden {
+    visibility: hidden;
+}
+
+#error-for-description-hidden {
+    visibility: hidden;
 }

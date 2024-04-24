@@ -209,3 +209,17 @@ export const apiAdminDeleteProductById = (id) => new Promise(async(resolve, reje
         reject(error);
     }
 })
+
+export const apiCreateNewProduct = (payload) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/product/post/create-new-product',
+            data: payload
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+})
