@@ -5,6 +5,7 @@ import * as actions from '../../store/actions'
 import { display } from '@mui/system';
 import { useDispatch, useSelector } from 'react-redux'
 import { apiAddToCart, apiGetProductsInCart } from '../../services/product';
+import { Link } from 'react-router-dom'
 import NumberInput from '../QuantityInput/NumberInput';
 
 const Cart = () => {
@@ -60,6 +61,7 @@ const Cart = () => {
     return (
         <>
             <div className="content">
+                <Link to='/cart'>
                 <div
                     className='cart-icon'
                     onMouseEnter={handleMouseEnter}
@@ -67,6 +69,8 @@ const Cart = () => {
                 >
                     <PiShoppingCartBold size={40} />
                 </div>
+                </Link>
+                
                 {isHovered && (
                     <div className='cart-content' onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}>

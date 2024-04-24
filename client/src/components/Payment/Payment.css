@@ -1,0 +1,41 @@
+.p-address, .p-cost {
+    display: flex;
+    margin: 10px 0;
+}
+
+.p-cost-value {
+    margin-left: 20%;
+}
+
+.change-address {
+    margin-left: 10%;
+    color: blue;
+    text-decoration: underline;
+}
+
+.pay {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+}
+.method-list {
+    display: flex;
+}
+
+.method-list > div {
+    cursor: pointer;
+    display: flex;
+    margin-right: 3%;
+    border: 1px black solid;
+    padding: 5px;
+    width: 200px;
+}
+
+.method-list img {
+    max-width: 30px;
+    margin-right: 5px;
+}
+.cod-method {
+    justify-content: center; /* Horizontally center the text */
+    align-items: center;
+}
