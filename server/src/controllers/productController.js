@@ -226,3 +226,22 @@ exports.adminDeleteProductById = async (req, res) => {
         })
     }
 }
+
+exports.createNewProduct = async (req, res) => {
+    const {productName, productImage, productQuantity, productCost, productDescription, catalogId} = req.body
+    try {
+        if (!productName || !productImage || !productQuantity || !productCost || !productDescription || !catalogId) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing inputs!' + (!productName ? "productName " : " ") + (!productImage ? "productImage " : " ") + (!productQuantity ? "productQuantity " : " ") + (!productCost ? "productCost " : " ") + (!productDescription ? "productDesctiption " : " ") + (!catalogId ? "catalogId " : " ")
+            })   
+        }
+        const response = await productService.createNewProduct(req.body)
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at user controller create new product ' + error
+        })
+    }
+}

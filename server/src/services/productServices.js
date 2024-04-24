@@ -326,3 +326,19 @@ exports.adminDeleteProductById = (id) => new Promise(async(resolve, reject) => {
         reject(error);
     }
 })
+
+exports.createNewProduct = (body) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.create({
+            productName: body.productName,
+            productCost: body.productCost,
+            productImage: body.productImage,
+            productQuantity: body.productQuantity,
+            productDescription: body.productDescription,
+            catalogId: body.catalogId
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error)
+    }
+});
