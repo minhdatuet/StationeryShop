@@ -1,11 +1,15 @@
 import { Fragment, useEffect, useState } from "react";
 import clsx from 'clsx';
 import style from './Information.module.scss'
-import { apiGetDetailInfoByID } from "../../../../../services/user";
+import { apiGetDetailInfoByID, apiUpdateUserInPersonalPage } from "../../../../../services/user";
 import { FaRegSave } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
+const bcrypt = require('bcryptjs');
 
 export const Information = (props) => {
+
+    // const uId = localStorage.getItem('id');
+    // console.log(uId);
 
     const [info, setInfo] = useState({
         aId: "",
@@ -23,6 +27,7 @@ export const Information = (props) => {
     const [isValidOldPass, setIsValidOldPass] = useState(true);
     const [isValidNewPass, setIsValidNewPass] = useState(true);
     const [isValidCfPass, setIsValidCfPass] = useState(true);
+    const [isClickCancel, setIsClickCancel] = useState(false);
 
     const [inputForm, setInputForm] = useState({
         id: "",
@@ -38,7 +43,7 @@ export const Information = (props) => {
     const getInformationData = async() => {
         try {
             const response = await apiGetDetailInfoByID(props.pData);
-            console.log(response.data.response.accountName);
+            // console.log(response.data.response.accountName);
             setInfo({
                 aId: response.data.response.id,
                 aName: response.data.response.accountName,
@@ -75,7 +80,7 @@ export const Information = (props) => {
 
     const checkValidPhone = () => {
         const phoneRegex = /^0\d{9}$/;
-        console.log(inputForm.phone);
+        // console.log(inputForm.phone);
         setIsValidPhone(phoneRegex.test(inputForm.phone)); 
     };
 
@@ -116,11 +121,42 @@ export const Information = (props) => {
     };
 
     const checkValidOldPassword = () => {
-        setIsValidOldPass(checkValidPassword(inputForm.oldPassword));
+        if(inputForm.newPassword == "") {
+            if(inputForm.oldPassword == "") {
+                setIsValidOldPass(true);
+            }
+            else {
+                if(bcrypt.compareSync(inputForm.oldPassword, info.aPassword)) {
+                    setIsValidOldPass(true);
+                }
+                else {
+                    setIsValidOldPass(false);
+                }
+            }
+        }
+        else {
+            // compare with old password
+            if(bcrypt.compareSync(inputForm.oldPassword, info.aPassword)) {
+                setIsValidOldPass(true);
+            }
+            else {
+                setIsValidOldPass(false);
+            }
+        }
     };
 
     const checkValidNewPassword = () => {
-        setIsValidNewPass(checkValidPassword(inputForm.newPassword));
+        if(inputForm.oldPassword == "") {
+            setIsValidNewPass(checkValidPassword(inputForm.newPassword));
+        }
+        else {
+            if(inputForm.newPassword == "") {
+                setIsValidNewPass(false);
+            }
+            else {
+                setIsValidNewPass(checkValidPassword(inputForm.newPassword))
+            }
+        }
     };
 
     const checkValidCfPassword = () => {
@@ -145,7 +181,73 @@ export const Information = (props) => {
         // console.log(inputForm);
     }
 
-    
+    const handleSaveBtn = async() => {
+        checkValidName();
+        checkValidPhone();
+        checkValidAddress();
+        checkValidEmail();
+        checkValidOldPassword();
+        checkValidNewPassword();
+        checkValidCfPassword();
+
+        if(isValidName && isValidPhone
+        && isValidAddress && isValidEmail
+        && isValidOldPass && isValidNewPass && isValidCfPass) {
+            console.log("Save");
+            // call api update and setInfo
+            await apiUpdateUserInPersonalPage(inputForm);
+        }
+    }
+
+    const setDefaultValue = async() => {
+        setInputForm({
+            id: info.aId,
+            name: info.aName,
+            phone: info.aPhone,
+            email: info.aEmail,
+            address: info.aAddress,
+            oldPassword: "",
+            newPassword: "",
+            cfPassword: ""
+        });
+    }
+
+    const setDefaultInput = () => {
+        // console.log(info.aName);
+        document.getElementsByName('name')[0].value = info.aName;
+        document.getElementsByName('phone')[0].value = info.aPhone;
+        document.getElementsByName('email')[0].value = info.aEmail;
+        document.getElementsByName('address')[0].value = info.aAddress;
+        document.getElementsByName('oldPassword')[0].value = "";
+        document.getElementsByName('newPassword')[0].value = "";
+        document.getElementsByName('cfPassword')[0].value = "";
+    }
+
+    const setDefaultState = () => {
+        setIsValidName(true);
+        setIsValidPhone(true);
+        setIsValidEmail(true);
+        setIsValidAddress(true);
+        setIsValidOldPass(true);
+        setIsValidNewPass(true);
+        setIsValidCfPass(true);
+    }
+
+    const handleCancelBtn = async () => {
+        await setDefaultValue();
+        setDefaultInput();
+        setDefaultState();
+        // setIsClickCancel(!isClickCancel)
+    };
+
+    // useEffect(() => {
+    //     for(let i in inputForm) {
+    //         console.log(inputForm[i]);
+    //         document.getElementsByName(i)[0].value = inputForm[i];
+    //     }
+    // }, [isClickCancel])
+
+
 
     useEffect(() => {
         getInformationData();
@@ -155,7 +257,7 @@ export const Information = (props) => {
         <Fragment>
             <div className={style.nameContainer}>
                 <label htmlFor={style.nameInp}>Customer Name: </label>
-                <input type="text" className={style.nameInp}
+                <input type="text" className={clsx(style.nameInp, {[style.errInp] : !isValidName})}
                 defaultValue={info.aName}
                 name="name"
                 onBlur={checkValidName}
@@ -174,7 +276,7 @@ export const Information = (props) => {
             
             <div className={style.phoneContainer}>
                 <label htmlFor={style.phoneInp}>Customer Phone: </label>
-                <input type="text" className={style.phoneInp}
+                <input type="text" className={clsx(style.phoneInp, {[style.errInp] : !isValidPhone})}
                 defaultValue={info.aPhone}
                 name="phone"
                 onBlur={checkValidPhone}
@@ -193,7 +295,7 @@ export const Information = (props) => {
 
             <div className={style.emailContainer}>
                 <label htmlFor={style.mailInp}>Email: </label>
-                <input type="text" className={style.mailInp} 
+                <input type="text" className={clsx(style.mailInp, {[style.errInp] : !isValidEmail})} 
                 defaultValue={info.aEmail}
                 name="email"
                 onBlur={checkValidEmail}
@@ -212,7 +314,7 @@ export const Information = (props) => {
 
             <div className={style.addressContainer}>
                 <label htmlFor={style.addressInp}>Address: </label>
-                <input type="text" className={style.addressInp} 
+                <input type="text" className={clsx(style.addressInp, {[style.errInp] : !isValidAddress})} 
                 defaultValue={info.aAddress}
                 name="address"
                 onBlur={checkValidAddress}
@@ -232,7 +334,7 @@ export const Information = (props) => {
             <div className={style.changePasswordContainer}>
                 <div className={style.oldPass}>
                     <label htmlFor={style.oldPassInp}>Old Password: </label>
-                    <input type="password" className={style.oldPassInp} 
+                    <input type="password" className={clsx(style.oldPassInp, {[style.errInp] : !isValidOldPass})} 
                     name="oldPassword"
                     onBlur={checkValidOldPassword}
                     onFocus={() => {
@@ -241,16 +343,17 @@ export const Information = (props) => {
                     onInput={(e) => {
                         handleChangeInputForm(e)
                     }}
+                    defaultValue={""}
                     placeholder="Enter your old password"></input>
                 </div>
 
                 <div className={clsx(style.fieldErr, style.oldPassErr)}>
-                    <p className={clsx({[style.disableErr] : isValidOldPass})}>Invalid Password!</p>
+                    <p className={clsx({[style.disableErr] : isValidOldPass})}>Password not match!</p>
                 </div>
 
                 <div className={style.newPass}>
                     <label htmlFor={style.newPassInp}>New Password: </label>
-                    <input type="password" className={style.newPassInp} 
+                    <input type="password" className={clsx(style.newPassInp, {[style.errInp] : !isValidNewPass})} 
                     name="newPassword"
                     onBlur={checkValidNewPassword}
                     onFocus={() => {
@@ -259,6 +362,7 @@ export const Information = (props) => {
                     onInput={(e) => {
                         handleChangeInputForm(e)
                     }}
+                    defaultValue={""}
                     placeholder="Enter your new password"></input>
                 </div>
 
@@ -268,7 +372,7 @@ export const Information = (props) => {
 
                 <div className={style.confirmPass}>
                     <label htmlFor={style.cfPassInp}>Confirm Password: </label>
-                    <input type="password" className={style.cfPassInp} 
+                    <input type="password" className={clsx(style.cfPassInp, {[style.errInp] : !isValidCfPass})} 
                     name="cfPassword"
                     onBlur={checkValidCfPassword}
                     onFocus={() => {
@@ -277,6 +381,7 @@ export const Information = (props) => {
                     onInput={(e) => {
                         handleChangeInputForm(e)
                     }}
+                    defaultValue={""}
                     placeholder="Enter your confirm password"></input>
                 </div>
 
@@ -286,11 +391,13 @@ export const Information = (props) => {
             </div>
 
             <div className= {clsx(style.actBtns)}>
-                <div className= {clsx(style.saveBtn)}>
+                <div className= {clsx(style.saveBtn)}
+                onClick={handleSaveBtn}>
                     <div className={clsx(style.saveIcon)}><FaRegSave /></div>
                     <div className={clsx(style.saveP)}> Save</div>
                 </div>
-                <div className= {clsx(style.cancelBtn)}>
+                <div className= {clsx(style.cancelBtn)}
+                onClick={handleCancelBtn}>
                     <div className= {clsx(style.cancelIcon)}><ImCancelCircle /></div>
                     <div className= {clsx(style.cancelP)}> Cancel</div>
                 </div>
