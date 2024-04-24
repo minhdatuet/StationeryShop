@@ -137,4 +137,19 @@ exports.getDetailInfoByID = async (req, res) => {
             msg: 'Fail at user controller' + error
         })
     }
+};
+
+exports.updateUserInPersonalPage = async (req, res) => {
+    const data = req.body
+    try {
+        // console.log(!data.email);
+        
+        const response = await userService.updateUserInPersonalPage(data)
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at user controller update information in personal page ' + error
+        })
+    }
 }

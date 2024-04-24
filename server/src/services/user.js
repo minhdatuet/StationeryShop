@@ -241,3 +241,43 @@ exports.deleteService = (id) => new Promise(async(resolve, reject) => {
     }
 });
 
+exports.updateUserInPersonalPage = (data) => new Promise(async(resolve, reject) => {
+    try {
+        console.log(data);
+        if(data.newPassword == "") {
+            const response = await db.Account.update({
+                accountName: data.name,
+                accountPhone: data.phone,
+                accountEmail: data.email,
+            },
+            {
+                where: {
+                    id: data.id,
+                }
+            }
+            );
+            resolve(response);
+        }
+        else {
+            const response = await db.Account.update({
+                accountName: data.name,
+                accountPassword: hashPassword(data.newPassword),
+                accountPhone: data.phone,
+                accountEmail: data.email,
+            },
+            {
+                where: {
+                    id: data.id,
+                }
+            }
+            );
+            resolve(response);
+        }
+        
+
+        
+    } catch (error) {
+        reject(error)
+    }
+});
+
