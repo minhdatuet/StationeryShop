@@ -23,13 +23,6 @@ export default function Login() {
   useEffect(() => {
     isLogged  && setTimeout(() => {
       dispatch(actions.getUser())
-      
-      // if (!(Object.keys(userData).length === 0) && !(userData.length === 0)) {
-      //     localStorage.setItem('id', userData[0].id);
-      //     localStorage.setItem('name', userData[0].userName);
-      //     window.location.reload();
-      // }
-      // navigate('/')
   }, 100);
 
   }, [isLogged])
