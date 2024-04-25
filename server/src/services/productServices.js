@@ -342,3 +342,23 @@ exports.createNewProduct = (body) => new Promise(async(resolve, reject) => {
         reject(error)
     }
 });
+
+exports.editProduct = (id, data) => new Promise(async (resolve, reject) => {
+    try {
+        const [rowsAffected] = await db.Product.update(data, {
+            where: { 
+                id: id 
+            }
+        });
+        const successMessage = 'Update is successful';
+        const errorMessage = 'Update is failed';
+        const response = {
+            err: rowsAffected > 0 ? 0 : 2,
+            msg: rowsAffected > 0 ? successMessage : errorMessage,
+        };
+  
+        resolve(response);
+    } catch (error) {
+        reject(error);
+    }
+  });
