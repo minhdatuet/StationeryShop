@@ -245,3 +245,17 @@ exports.createNewProduct = async (req, res) => {
         })
     }
 }
+
+exports.editProduct = async (req, res) => {
+    
+    try{
+        const id = req.params.id
+        const response = await productService.editProduct(id, req.body)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at user controller edit product ' + error
+        })
+    }
+}
