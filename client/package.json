@@ -12,6 +12,7 @@
     "aos": "^2.3.4",
     "apexcharts": "^3.48.0",
     "axios": "^1.6.1",
+    "bcryptjs": "^2.4.3",
     "clsx": "^2.1.0",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.8.0",

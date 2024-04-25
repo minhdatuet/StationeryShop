@@ -8,7 +8,7 @@ import { apiGetDetailInfoByID } from "../../../services/user";
 
 export const Personal = () => {
 
-    const accId = 1;
+    const accId = localStorage.getItem('id');;
 
     const [pState, setPState] = useState({
         isInformationPage: true,

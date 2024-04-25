@@ -144,3 +144,20 @@ export const apiCreateAccountForAnotherAdmin = (payload) => new Promise(async (r
     }
 
 });
+
+
+export const apiUpdateUserInPersonalPage = (payload) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: `/api/v1/user/post/updateUserInPersonalPage`,
+            data: payload
+
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+
+});

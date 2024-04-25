@@ -16,6 +16,6 @@ router.delete('/delete/:id',userController.deleteById);
 router.get('/get/getDetailInfoByID/:uId', userController.getDetailInfoByID);
 router.get('/get/get-account-by-phone/:phone', userController.getAccountByPhone);
 router.post('/post/create-account-for-another-admin', userController.createAccountForAnotherAdmin);
-
+router.post('/post/updateUserInPersonalPage', userController.updateUserInPersonalPage);
 
 module.exports = router;
