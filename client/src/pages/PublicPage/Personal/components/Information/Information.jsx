@@ -196,6 +196,7 @@ export const Information = (props) => {
             console.log("Save");
             // call api update and setInfo
             await apiUpdateUserInPersonalPage(inputForm);
+            alert("Save successfully");
         }
     }
 

@@ -6,7 +6,9 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 export const PSidebar = (props) => {
-    
+    const redStyle = {
+        color: 'red',
+    };
 
     return (
         <div className= {clsx(style.container)}>
