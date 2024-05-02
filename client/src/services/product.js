@@ -222,4 +222,4 @@ export const apiCreateNewProduct = (payload) => new Promise(async(resolve, rejec
     catch (error) {
         reject(error);
     }
-})
+});
