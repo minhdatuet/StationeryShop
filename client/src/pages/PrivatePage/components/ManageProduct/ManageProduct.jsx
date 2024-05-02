@@ -40,8 +40,6 @@ function ManageProduct() {
         "Table and Chair": 10
     }
 
-    const [backpackInfoForAdmin, setBackpackInfoForAdmin] = useState([]);
-
     const [isVisibleAddNewProductForm, setIsVisibleAddNewProductForm] = useState(false);
 
     const [selectedCategory, setSelectedCategory] = useState("Backpack");
