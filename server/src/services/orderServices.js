@@ -59,3 +59,20 @@ exports.getCompletedOrderById = (id) => new Promise(async(resolve, reject) => {
         reject(err);
     }
 });
+
+exports.getProductsInOrderByOId = (id) => new Promise(async(resolve, reject) => {
+    try {
+        let response = await db.Product_In_Order.findAll({
+            where: {
+                orderId: id,
+            }
+        })
+        resolve({
+            msg: response ? "Success" : "Unsuccess",
+            response
+        })
+    }
+    catch (err) {
+        reject(err);
+    }
+});

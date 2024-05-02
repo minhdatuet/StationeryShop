@@ -41,3 +41,17 @@ exports.getCompletedOrderById = async (req, res) => {
         })
     }
 };
+
+exports.getProductsInOrderByOId = async (req, res) => {
+    const data = req.params.oId;
+    // console.log(data);
+    try{
+        const response = await orderService.getProductsInOrderByOId(data)
+        return res.status(200).json(response)    
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at auth controller' + error
+        })
+    }
+};
