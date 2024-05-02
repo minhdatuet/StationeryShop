@@ -1,0 +1,71 @@
+.container {
+    border: 1px solid black;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    background-color: #eaeaea;
+    display: flex;
+    flex-direction: row;
+}
+
+.container:hover {
+    cursor: pointer;
+    background-color: #eaeaeaa7;
+}
+
+.infoContainer {
+    flex: 2;
+}
+
+.totalPrice {
+
+}
+
+.dateInfo {
+
+}
+
+.orderStatus {
+
+}
+
+.viewDetail {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.viewBtn {
+    min-width: 200px;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewBtn:hover {
+    opacity: 0.8;
+}
+
+.viewGeneralBtn {
+    min-width: 200px;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.viewGeneralBtn:hover {
+    opacity: 0.8;
+}
+
+.hide {
+    display: none;
+}
