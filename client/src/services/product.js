@@ -11,7 +11,7 @@ export const apiGetProductInfoByCatalogId = (id) => new Promise(async(resolve, r
     catch (error) {
         reject(error);
     }
-})
+});
 
 export const apiGetBackpackInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -23,7 +23,7 @@ export const apiGetBackpackInfo = () =>  new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetBookInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -35,7 +35,7 @@ export const apiGetBookInfo = () =>  new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetCasioInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -47,7 +47,7 @@ export const apiGetCasioInfo = () =>  new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetDesklampInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -59,7 +59,7 @@ export const apiGetDesklampInfo = () =>  new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetNotebookInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -71,7 +71,7 @@ export const apiGetNotebookInfo = () =>  new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetPenInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -83,7 +83,7 @@ export const apiGetPenInfo = () =>  new Promise(async(resolve, reject) => {
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetSchoolSupplyInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -95,7 +95,7 @@ export const apiGetSchoolSupplyInfo = () =>  new Promise(async(resolve, reject) 
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetStationerySupplyInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -107,7 +107,7 @@ export const apiGetStationerySupplyInfo = () =>  new Promise(async(resolve, reje
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetStoryBookInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -119,7 +119,7 @@ export const apiGetStoryBookInfo = () =>  new Promise(async(resolve, reject) => 
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetTableAndChairInfo = () =>  new Promise(async(resolve, reject) => {
     try {
@@ -131,7 +131,7 @@ export const apiGetTableAndChairInfo = () =>  new Promise(async(resolve, reject)
     } catch (error) {
         reject(error)
     }
-})
+});
 
 
 export const apiGetProductById = (id) =>  new Promise(async(resolve, reject) => {
@@ -144,7 +144,7 @@ export const apiGetProductById = (id) =>  new Promise(async(resolve, reject) => 
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiGetProductsInCart = (id) => new Promise(async(resolve, reject) => {
     try {
@@ -156,7 +156,7 @@ export const apiGetProductsInCart = (id) => new Promise(async(resolve, reject) =
     } catch (error) {
         reject(error)
     }
-})
+});
 
 export const apiAddToCart = (payload) => new Promise(async(resolve, reject) => {
     try {
@@ -195,7 +195,7 @@ export const apiGetProductByCatalogIdForAdmin = (id) => new Promise(async(resolv
     catch (error) {
         reject(error);
     }
-})
+});
 
 export const apiAdminDeleteProductById = (id) => new Promise(async(resolve, reject) => {
     try {
@@ -208,7 +208,7 @@ export const apiAdminDeleteProductById = (id) => new Promise(async(resolve, reje
     catch (error) {
         reject(error);
     }
-})
+});
 
 export const apiCreateNewProduct = (payload) => new Promise(async(resolve, reject) => {
     try {
@@ -221,5 +221,18 @@ export const apiCreateNewProduct = (payload) => new Promise(async(resolve, rejec
     }
     catch (error) {
         reject(error);
+    }
+});
+
+export const apiEditProduct = (payload) =>  new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'put',
+            url: `/api/v1/product/update/edit-product/${payload.id}`,
+            data: payload
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
     }
 });
