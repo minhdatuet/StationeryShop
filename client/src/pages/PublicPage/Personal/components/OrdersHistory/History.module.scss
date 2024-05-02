@@ -1,17 +1,39 @@
 .historyNav {
-
+    display: flex;
+    flex-direction: row;
 }
 
 .confirmingStatus {
+    flex: 1;
+    font-size: 30px;
+    text-align: center;
+}
 
+.confirmingStatus:hover {
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 .pendingStatus {
+    flex: 1;
+    font-size: 30px;
+    text-align: center;
+}
 
+.pendingStatus:hover {
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 .completedStatus {
+    flex: 1;
+    font-size: 30px;
+    text-align: center;
+}
 
+.completedStatus:hover {
+    cursor: pointer;
+    opacity: 0.5;
 }
 
 .contentConatainer {
@@ -32,4 +54,12 @@
 
 .itemContainer {
 
+}
+
+.bottomBorder {
+    border-bottom: 3px solid black;
+}
+
+.hidden {
+    display: none;
 }
