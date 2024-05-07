@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at auth controller' + error
+            msg: 'Fail at auth controller login ' + error
         })
     }
 }
@@ -31,7 +31,7 @@ exports.createAccount = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at auth controller' + error
+            msg: 'Fail at auth controller createAccount ' + error
         })
     }
 }

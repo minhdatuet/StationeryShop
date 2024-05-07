@@ -8,7 +8,7 @@ exports.getProductInfoByCatalogId = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: "Fail at product controller " + error
+            msg: "Fail at product controller getProductInfoByCatalogId " + error
         })
     }
 }
@@ -21,7 +21,7 @@ exports.getBackpackInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getBackpackInfo ' + error
         })
     }
 }
@@ -34,7 +34,7 @@ exports.getBookInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getBookInfo ' + error
         })
     }
 }
@@ -47,7 +47,7 @@ exports.getCasioInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getCasioInfo ' + error
         })
     }
 }
@@ -60,7 +60,7 @@ exports.getDesklampInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getDesklampInfo ' + error
         })
     }
 }
@@ -73,7 +73,7 @@ exports.getNotebookInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getNotebookInfo ' + error
         })
     }
 }
@@ -86,7 +86,7 @@ exports.getPenInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getPenInfo ' + error
         })
     }
 }
@@ -99,7 +99,7 @@ exports.getSchoolSupplyInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getSchoolSupplyInfo ' + error
         })
     }
 }
@@ -112,7 +112,7 @@ exports.getStationerySupplyInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getStationerySupplyInfo ' + error
         })
     }
 }
@@ -125,7 +125,7 @@ exports.getStoryBookInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getStoryBookInfo ' + error
         })
     }
 }
@@ -138,7 +138,7 @@ exports.getTableAndChairInfo = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getTableAndChairInfo ' + error
         })
     }
 }
@@ -152,7 +152,7 @@ exports.getProductById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getProductById ' + error
         })
     }
 }
@@ -170,7 +170,7 @@ exports.addToCart = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller addToCart ' + error
         })
     }
 }
@@ -183,7 +183,7 @@ exports.getProductsInCart = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getProductsInCart ' + error
         })
     }
 }
@@ -196,7 +196,7 @@ exports.getProductsDetailInfoByCatalogId = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at product controller' + error
+            msg: 'Fail at product controller getProductsDetailInfoByCatalogId ' + error
         })
     }
 }

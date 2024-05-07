@@ -76,3 +76,57 @@ exports.getProductsInOrderByOId = (id) => new Promise(async(resolve, reject) => 
         reject(err);
     }
 });
+
+exports.getOrderInfoForAdmin = () => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Order.findAll({
+            attributes: ['id', 'totalPrice', 'status'],
+            include: [
+                { model: db.Account, attributes: ['accountName', 'accountPhone', 'accountAddress'] },
+                { 
+                    model: db.Product_In_Order, 
+                    include: [
+                        { 
+                            model: db.Product, 
+                            attributes: ['productName'],
+                            include: [
+                                { model: db.Catalog, attributes: ['catalogName'] }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        });
+        resolve({
+            msg: response ? "Success" : "Unsuccess",
+            response
+        })
+    }
+    catch (error) {
+        reject(error);
+    }
+})
+
+exports.confirmOrder = (id) => new Promise(async (resolve, reject) => {
+    try {
+        const [rowsAffected] = await db.Order.update(
+            {
+                status: 'COMPLETED'
+            }, 
+            {
+            where: { 
+                id: id 
+            }
+        });
+        const successMessage = 'Update is successful';
+        const errorMessage = 'Update is failed';
+        const response = {
+            err: rowsAffected > 0 ? 0 : 2,
+            msg: rowsAffected > 0 ? successMessage : errorMessage,
+        };
+  
+        resolve(response);
+    } catch (error) {
+        reject(error);
+    }
+  });

@@ -460,9 +460,9 @@ function ManageAccount() {
 
             {/* PAGINATION */}
             {isTotalPageSet && customerInfo.length > 0 ? (
-                <div className="flex overflow-x-auto sm:justify-center">
-                    <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
-                </div>
+                <div className="flex justify-center">
+                <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
+            </div>
             ) : null}
 
             {/* FORM MODIFY ACCOUNT */}

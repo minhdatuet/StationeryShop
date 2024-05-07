@@ -107,3 +107,17 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+    #submit-button,
+    #cancel-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .confirm-delete-window {
+        width: 400px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}

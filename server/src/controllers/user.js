@@ -11,7 +11,7 @@ exports.getUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at auth controller' + error
+            msg: 'Fail at auth controller getUser ' + error
         })
     }
 }
@@ -23,7 +23,7 @@ exports.getAll = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at user controller' + error
+            msg: 'Fail at user controller getAll ' + error
         })
     }
 }
@@ -37,7 +37,7 @@ exports.updateById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at user controller' + error
+            msg: 'Fail at user controller updateById ' + error
         })
     }
 }
@@ -50,7 +50,7 @@ exports.deleteById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at user controller' + error
+            msg: 'Fail at user controller deleteById ' + error
         })
     }
 }
@@ -134,7 +134,7 @@ exports.getDetailInfoByID = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at user controller' + error
+            msg: 'Fail at user controller getDetailInfoByID ' + error
         })
     }
 };
