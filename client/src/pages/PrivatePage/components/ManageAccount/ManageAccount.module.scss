@@ -193,9 +193,45 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
+    .container {
+        width: auto;
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     .sub-container {
         flex-direction: column;
         width: 90vw;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .form-modify-container,
+    .form-add-new-container {
+        width: 500px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    
+    #confirm-delete-account-button,
+    #cancel-delete-account-button {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+    
+    #submit-button,
+    #cancel-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .confirm-delete-window {
+        width: 400px;
         margin-left: 5%;
         margin-right: 5%;
     }
