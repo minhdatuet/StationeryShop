@@ -69,7 +69,7 @@ export const Information = (props) => {
     }
 
     
-    const checkValidName = () => {
+    const checkValidName = async() => {
         if(inputForm.name != "") {
             setIsValidName(true);
         }
@@ -78,13 +78,13 @@ export const Information = (props) => {
         }
     };
 
-    const checkValidPhone = () => {
+    const checkValidPhone = async() => {
         const phoneRegex = /^0\d{9}$/;
         // console.log(inputForm.phone);
         setIsValidPhone(phoneRegex.test(inputForm.phone)); 
     };
 
-    const checkValidAddress = () => {
+    const checkValidAddress = async() => {
         
         if(inputForm.address != "") {
             setIsValidAddress(true);
@@ -94,7 +94,7 @@ export const Information = (props) => {
         }
     };
 
-    const checkValidEmail = () => {
+    const checkValidEmail = async() => {
         if(inputForm.email === null) {
             setIsValidEmail(true);
         }
@@ -120,32 +120,39 @@ export const Information = (props) => {
         else return true;
     };
 
-    const checkValidOldPassword = () => {
+    const checkValidOldPassword = async() => {
         if(inputForm.newPassword == "") {
             if(inputForm.oldPassword == "") {
                 setIsValidOldPass(true);
+                return true;
             }
             else {
                 if(bcrypt.compareSync(inputForm.oldPassword, info.aPassword)) {
                     setIsValidOldPass(true);
+                    return true;
                 }
                 else {
                     setIsValidOldPass(false);
+                    return false;
                 }
             }
         }
         else {
             // compare with old password
+            // console.log("abc");
             if(bcrypt.compareSync(inputForm.oldPassword, info.aPassword)) {
                 setIsValidOldPass(true);
+                return true;
+                // console.log("aaa");
             }
             else {
                 setIsValidOldPass(false);
+                return false;
             }
         }
     };
 
-    const checkValidNewPassword = () => {
+    const checkValidNewPassword = async() => {
         if(inputForm.oldPassword == "") {
             setIsValidNewPass(checkValidPassword(inputForm.newPassword));
         }
@@ -159,7 +166,7 @@ export const Information = (props) => {
         }
     };
 
-    const checkValidCfPassword = () => {
+    const checkValidCfPassword = async() => {
         if(checkValidPassword(inputForm.cfPassword)) {
             if(inputForm.newPassword === inputForm.cfPassword) {
                 setIsValidCfPass(true);
@@ -182,22 +189,29 @@ export const Information = (props) => {
     }
 
     const handleSaveBtn = async() => {
-        checkValidName();
-        checkValidPhone();
-        checkValidAddress();
-        checkValidEmail();
-        checkValidOldPassword();
-        checkValidNewPassword();
-        checkValidCfPassword();
+        await checkValidName();
+        await checkValidPhone();
+        await checkValidAddress();
+        await checkValidEmail();
+        await checkValidOldPassword();
+        await checkValidNewPassword();
+        await checkValidCfPassword();
 
+        // console.log(checkValidOldPassword());
+        let oldRs = await checkValidOldPassword();
+        console.log(oldRs);
         if(isValidName && isValidPhone
         && isValidAddress && isValidEmail
-        && isValidOldPass && isValidNewPass && isValidCfPass) {
-            console.log("Save");
-            // call api update and setInfo
-            await apiUpdateUserInPersonalPage(inputForm);
-            alert("Save successfully");
+        && oldRs && isValidNewPass && isValidCfPass) {
+            await submitInfo();
         }
+    };
+
+    const submitInfo = async() => {
+        console.log("Save");
+        // call api update and setInfo
+        await apiUpdateUserInPersonalPage(inputForm);
+        alert("Save successfully");
     }
 
     const setDefaultValue = async() => {
