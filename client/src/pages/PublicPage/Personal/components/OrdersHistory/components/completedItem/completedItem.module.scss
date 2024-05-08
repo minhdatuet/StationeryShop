@@ -6,14 +6,6 @@
     // border: solid 1px #333;
 }
 
-.container:hover > *:not(.viewFeedbackBtn) {
-    opacity: 0.5;
-}
-
-.container:hover > *:not(.giveFeedbackBtn) {
-    opacity: 0.5;
-}
-
 .itemImg {
     flex: 1;
 }
@@ -64,8 +56,14 @@
 
 .viewFeedbackBtn:hover {
     opacity: 0.5;
+    cursor: pointer;
 }
 
 .giveFeedbackBtn:hover {
     opacity: 0.5;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
 }
