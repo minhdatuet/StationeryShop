@@ -11,7 +11,7 @@ exports.getUser = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at auth controller getUser ' + error
+            msg: 'Fail at user controller getUser ' + error
         })
     }
 }
