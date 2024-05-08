@@ -10,14 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-        ProductsBoughtHistory.belongsTo(models.Product, {foreignKey: 'id'}),
-        ProductsBoughtHistory.belongsTo(models.Account, {foreignKey: 'accountId'})
+        ProductsBoughtHistory.belongsTo(models.Product_In_Order, {foreignKey: 'productInOrderId'})
     }
   }
   ProductsBoughtHistory.init({
-    productId: DataTypes.INTEGER,
-    accountId: DataTypes.INTEGER,
-    productsBoughtQuantity: DataTypes.INTEGER,
+    productInOrderId: DataTypes.INTEGER,
+    isRated: DataTypes.INTEGER,
     purchaseTime: DataTypes.DATE
   }, {
     sequelize,

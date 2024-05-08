@@ -19,12 +19,14 @@ exports.getUser = (accountPhone) => new Promise(async(resolve, reject) => {
                 model: db.Products_In_Cart,
                 attributes: ['id','accountId', 'productId'],
                 required: false,
-            },
-            {
-                model: db.Products_Bought_History,
-                attributes: ['id','accountId', 'productId'],
-                required: false,
-            }]
+            }
+            // ,
+            // {
+            //     model: db.Products_Bought_History,
+            //     attributes: ['id','accountId', 'productId'],
+            //     required: false,
+            // }
+            ]
 
         })
         

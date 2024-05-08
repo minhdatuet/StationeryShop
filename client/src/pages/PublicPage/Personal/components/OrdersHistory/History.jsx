@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import style from './History.module.scss'
 import ConfirmingOrder from "./components/confirmingItem/confirmingOrder";
 import PendingOrder from "./components/pendingOrder/pendingOrder";
-import CompletedItem from "./components/completedItem/completetedItem";
-import { apiGetComfirmingOrderByID, apiGetPendingOrderByID } from "../../../../../services/order";
+import CompletedItem from "./components/completedItem/completedItem";
+import { apiGetBoughtHistoryByAID, apiGetComfirmingOrderByID, apiGetPendingOrderByID } from "../../../../../services/order";
 
 export const History = () => {
 
@@ -31,7 +31,9 @@ export const History = () => {
                 setPendingData(response.data.response);
             }
             else { // orderState === "Completed"
-    
+                const response = await apiGetBoughtHistoryByAID(accountId);
+                console.log(response);
+                setCompletedData(response.data.response);
             }
         } catch (error) {
             console.log(error);
