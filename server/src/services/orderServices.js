@@ -83,12 +83,20 @@ exports.getProductsInOrderByOId = (id) => new Promise(async(resolve, reject) => 
 exports.getBoughtHistoryByAId = (aId) => new Promise(async(resolve, reject) => {
     try {
         let response = await db.Products_Bought_History.findAll({
-            // include: [{
-            //     model: db.Product,
-            // }],
-            where: {
-                accountId: aId,
-            }
+            include: [{
+                model: db.Product_In_Order,
+                include: [{
+                    model: db.Order,
+                    where: {
+                        accountId: aId,
+                        status: "COMPLETED"
+                    }
+                },
+                {
+                    model: db.Product
+                }]
+            }]
+            
         })
         resolve({
             msg: response ? "Success" : "Unsuccess",

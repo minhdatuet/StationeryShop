@@ -11,6 +11,17 @@ export const PendingOrder = (props) => {
     const [products, setProducts] = useState([]);
     const [isViewDetail, setIsViewDetail] = useState(false);
 
+    const formattedDate = new Date(props.data.createdAt).toLocaleString('en-US', {
+        timeZone: 'UTC',
+        hour12: false,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+        });
+
     // console.log(props);
     const getProductsInOrder = async() => {
         try {
@@ -35,7 +46,7 @@ export const PendingOrder = (props) => {
                     </div>
 
                     <div className={clsx(style.dateInfo)}>
-                        <p>Order Date: {props.data.createdAt}</p> 
+                        <p>Order Date: {formattedDate}</p> 
                         {/* Change format */}
                     </div>
 
