@@ -27,6 +27,19 @@ export const apiGetPendingOrderByID = (id) =>  new Promise(async(resolve, reject
     }
 });
 
+export const apiGetBoughtHistoryByAID = (aId) =>  new Promise(async(resolve, reject) => {
+    try {
+        // console.log(id);
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/order/getBoughtHistoryById/${aId}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+});
+
 export const apiGetProductsInOrderByOId = (oId) =>  new Promise(async(resolve, reject) => {
     try {
         // console.log(id);

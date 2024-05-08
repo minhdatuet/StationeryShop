@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      pIOId: {
+      productInOrderId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'products', key: 'id'}

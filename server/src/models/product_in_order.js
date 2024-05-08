@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     //   Order.belongsTo(models.Product, { foreignKey: 'productId', onDelete: 'CASCADE' }),
       ProductInOrder.belongsTo(models.Order, {foreignKey: 'orderId'}),
       ProductInOrder.hasOne(models.Product, { foreignKey: 'id', sourceKey: 'productId'}),
-      ProductInOrder.hasOne(models.Products_Bought_History, {foreignKey: 'pIOId', sourceKey: 'id'})
+      ProductInOrder.hasOne(models.Products_Bought_History, {foreignKey: 'productInOrderId', sourceKey: 'id'})
     }
   }
   ProductInOrder.init({
