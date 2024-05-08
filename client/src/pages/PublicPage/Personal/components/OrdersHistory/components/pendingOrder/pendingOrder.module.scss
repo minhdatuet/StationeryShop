@@ -4,13 +4,16 @@
     margin: 10px;
     border-radius: 20px;
     background-color: #eaeaea;
-    display: flex;
-    flex-direction: row;
 }
 
 .container:hover {
     cursor: pointer;
     background-color: #eaeaeaa7;
+}
+
+.ovrContainer {
+    display: flex;
+    flex-direction: row;
 }
 
 .infoContainer {
@@ -64,6 +67,17 @@
 
 .viewGeneralBtn:hover {
     opacity: 0.8;
+}
+
+.noAvailable {
+    text-align: center;
+}
+
+.productsInOrder {
+    background-color: #fff;
+    padding: 12px 0px ;
+    margin-top: 12px;
+    border-radius: 20px;
 }
 
 .hide {

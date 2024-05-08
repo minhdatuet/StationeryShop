@@ -63,6 +63,9 @@ exports.getCompletedOrderById = (id) => new Promise(async(resolve, reject) => {
 exports.getProductsInOrderByOId = (id) => new Promise(async(resolve, reject) => {
     try {
         let response = await db.Product_In_Order.findAll({
+            include: [{
+                model: db.Product,
+            }],
             where: {
                 orderId: id,
             }
