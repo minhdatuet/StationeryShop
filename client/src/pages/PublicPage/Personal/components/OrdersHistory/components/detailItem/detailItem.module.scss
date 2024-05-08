@@ -1,0 +1,55 @@
+.container {
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    margin: 8px 20px;
+    // border: solid 1px #333;
+}
+
+.container:hover > *:not(.viewDetailItem) {
+    opacity: 0.5;
+}
+
+.itemImg {
+    flex: 1;
+}
+
+.itemImg img {
+    height: 100%;
+    width: auto;
+}
+
+.itemInfo {
+    flex: 2;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.itemName {
+
+}
+
+.itemQuantity {
+
+}
+
+.viewDetailItem {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.viewDetailItemBtn {
+    text-align: center;
+    background-color: #b0b0b0a7;
+    padding: 8px 20px;
+    width: fit-content;
+    border-radius: 20px;
+}
+
+.viewDetailItemBtn:hover {
+    opacity: 0.5;
+}
