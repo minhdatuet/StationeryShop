@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
         Product.hasMany(models.Products_In_Cart, {foreignKey: 'productId', sourceKey: 'id'}),
         Product.hasMany(models.Product_Rate, {foreignKey: 'productId', sourceKey: 'id'}),
-        Product.hasMany(models.Products_Bought_History, {foreignKey: 'productId', sourceKey: 'id'}),
         Product.belongsTo(models.Catalog, {foreignKey: 'catalogId'}),
         Product.belongsTo(models.Product_In_Order, {foreignKey: 'id'})
     }

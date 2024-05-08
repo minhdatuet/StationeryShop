@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Account.hasMany(models.Products_In_Cart, {foreignKey: 'accountId', sourceKey: 'id'}),
       Account.hasMany(models.Product_Rate, {foreignKey: 'accountId', sourceKey: 'id'}),
-      Account.hasMany(models.Products_Bought_History, {foreignKey: 'accountId', sourceKey: 'id'}),
       Account.hasMany(models.Order, {foreignKey: 'accountId', sourceKey: 'id'})
     }
   }

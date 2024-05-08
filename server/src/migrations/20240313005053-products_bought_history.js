@@ -9,17 +9,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      productId: {
+      pIOId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {model: 'products', key: 'id'}
       },
-      accountId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {model: 'accounts', key: 'id'}
-      },
-      productsBoughtQuantity: {
+      isRated: {
         allowNull: false,
         type: Sequelize.INTEGER
       },

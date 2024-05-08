@@ -56,6 +56,20 @@ exports.getProductsInOrderByOId = async (req, res) => {
     }
 };
 
+exports.getBoughtHistoryByAId = async (req, res) => {
+    const data = req.params.aId;
+    // console.log(data);
+    try{
+        const response = await orderService.getBoughtHistoryByAId(data)
+        return res.status(200).json(response)    
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at auth controller getBoughtHistoryByAId ' + error
+        })
+    }
+};
+
 exports.getOrderInfoForAdmin = async (req, res) => {
     try{
         const response = await orderService.getOrderInfoForAdmin()
