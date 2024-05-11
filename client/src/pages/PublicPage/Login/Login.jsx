@@ -80,7 +80,7 @@ export default function Login() {
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">
-              Sign up
+              Sign In
             </h1>
             <div className="w-full flex-1 mt-8">
               <div className="flex flex-col items-center">
@@ -103,7 +103,7 @@ export default function Login() {
                     </svg>
                   </div>
                   <span className="ml-4">
-                    Sign Up with Google
+                    Sign In with Google
                   </span>
                 </button>
               </div>
@@ -111,7 +111,7 @@ export default function Login() {
               <div className="my-12 border-b text-center">
                 <div
                   className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-                  Or sign up with your account
+                  Or sign in with your account
                 </div>
               </div>
 
@@ -142,7 +142,7 @@ export default function Login() {
                     <path d="M20 8v6M23 11h-6" />
                   </svg>
                   <span className="ml-3">
-                    Sign Up
+                    Sign In
                   </span>
                 </button>
                 <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
