@@ -12,7 +12,7 @@ module.exports = {
       productInOrderId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: {model: 'products', key: 'id'}
+        references: {model: 'product_in_orders', key: 'id'}
       },
       isRated: {
         allowNull: false,

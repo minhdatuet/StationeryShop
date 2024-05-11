@@ -20,6 +20,15 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {model: 'accounts', key: 'id'}
       },
+      productInOrder: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'product_in_orders',
+          key: 'id'
+        }
+      }
+      ,
       rateScore: {
         allowNull: false,
         type: Sequelize.INTEGER
