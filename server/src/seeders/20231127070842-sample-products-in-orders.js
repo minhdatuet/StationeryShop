@@ -54,6 +54,20 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        orderId: 3,
+        productId: 1,
+        quantity: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        orderId: 3,
+        productId: 2,
+        quantity: 2,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
   down: async (queryInterface, Sequelize) => {

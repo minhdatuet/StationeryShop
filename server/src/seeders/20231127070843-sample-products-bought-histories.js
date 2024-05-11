@@ -11,25 +11,18 @@ function generateRandomPhoneNumber() {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Orders', [
+    await queryInterface.bulkInsert('Products_Bought_Histories', [
       {
-        accountId: 2,
-        status: 'WAITING',
-        totalPrice: 999,
+        productInOrderId: 7,
+        isRated: 1,
+        purchaseTime: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        accountId: 2,
-        status: 'WAITING',
-        totalPrice: 998,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        accountId: 2,
-        status: 'COMPLETED',
-        totalPrice: 100,
+        productInOrderId: 8,
+        isRated: 0,
+        purchaseTime: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -37,6 +30,6 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     // Remove the seeded data
-    await queryInterface.bulkDelete('Orders', null, {});
+    await queryInterface.bulkDelete('Product_In_Orders', null, {});
   },
 };
