@@ -1,2 +1,11 @@
 .container {
 }
+
+.alert-container {
+    position: fixed;
+    z-index: 2;
+    left: 50%;
+    top: 0%;
+    transform: translate(-50%, -0%);
+    width: 100%;
+}

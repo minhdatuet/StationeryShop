@@ -5,7 +5,7 @@ import { apiGetAllCustomerInfo, apiDeleteCustomerAccountById, apiModifyCustomerA
 import { IoPersonAddOutline } from "react-icons/io5";
 import { Button, Label, TextInput } from "flowbite-react";
 import { Alert } from "flowbite-react";
-import { HiEye, HiInformationCircle } from "react-icons/hi";
+import { Table } from "flowbite-react";
 import { Pagination } from "flowbite-react";
 
 function ManageAccount() {
@@ -15,7 +15,7 @@ function ManageAccount() {
     // SET UP PAGINATION
     const [totalPage, setTotalPage] = useState();
     const [isTotalPageSet, setIsTotalPageSet] = useState(false);
-    const quantityItemsPerpage = 10;
+    const quantityItemsPerpage = 5;
     const [currentPage, setCurrentPage] = useState(1);
     const lastIndex = currentPage * quantityItemsPerpage;
     const firstIndex = lastIndex - quantityItemsPerpage;
@@ -284,8 +284,8 @@ function ManageAccount() {
             {/* BUTTON ADD NEW ACCOUNT */}
             <div
                 className={clsx(style["add-new-account-button-container"])}
-                >
-                <Button 
+            >
+                <Button
                     color="success"
                     onClick={handleVisibleFormAddNewAccount}
                 >
@@ -419,50 +419,57 @@ function ManageAccount() {
             )}
 
             {/* LIST ACCOUNT */}
-            {displayedCustomers && displayedCustomers.length > 0 ? (
-                displayedCustomers.map(customer => (
-                    <div key={customer.id} className={clsx(style["sub-container"])}>
-                        <div className={clsx(style["account-info-container"])}>
-                            <div>
-                                <label htmlFor="">Account Name: </label>
-                                <span>{customer.accountName}</span>
-                            </div>
-                            <div>
-                                <label htmlFor="">Account Phone: </label>
-                                <span>{customer.accountPhone}</span>
-                            </div>
-                            <div>
-                                <label htmlFor="">Account Email: </label>
-                                <span>{customer.accountEmail}</span>
-                            </div>
+            <Table className="min-w-full divide-y divide-gray-200">
+                <Table.Head>
+                    <Table.HeadCell>Account ID</Table.HeadCell>
+                    <Table.HeadCell>Account Name</Table.HeadCell>
+                    <Table.HeadCell>Account Phone</Table.HeadCell>
+                    <Table.HeadCell>Account Email</Table.HeadCell>
+                    <Table.HeadCell>
+                        <span className="sr-only">Edit</span>
+                    </Table.HeadCell>
+                    <Table.HeadCell>
+                        <span className="sr-only">Delete</span>
+                    </Table.HeadCell>
+                </Table.Head>
+                <Table.Body className="divide-y">
+                    {displayedCustomers && displayedCustomers.length > 0 ? (
+                        displayedCustomers.map(customer => (
+                            <Table.Row key={customer.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Cell>{customer.id}</Table.Cell>
+                                <Table.Cell>{customer.accountName}</Table.Cell>
+                                <Table.Cell>{customer.accountPhone}</Table.Cell>
+                                <Table.Cell>{customer.accountEmail}</Table.Cell>
+                                <Table.Cell>
+                                    <a href="#"
+                                        className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                                        onClick={() => handleVisibleFormModifyAccount(customer.id)}
+                                    >
+                                        Edit
+                                    </a>
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                                        onClick={() => handleDeleteCustomerAccountById(customer.id)}
+                                    >
+                                        Delete
+                                    </a>
+                                </Table.Cell>
+                            </Table.Row>
+                        ))
+                    ) : (
+                        <div className={clsx(style["no-customer-case"])}>
+                            The system currently has no customer
                         </div>
-                        <div className={clsx(style["button-container"])}>
-                            <button
-                                id={clsx(style["modify-button"])}
-                                onClick={() => handleVisibleFormModifyAccount(customer.id)}
-                            >
-                                Modify
-                            </button>
-                            <button
-                                id={clsx(style["delete-button"])}
-                                onClick={() => handleDeleteCustomerAccountById(customer.id)}
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                ))
-            ) : (
-                <div className={clsx(style["no-customer-case"])}>
-                    The system currently has no customer
-                </div>
-            )}
+                    )}
+                </Table.Body>
+            </Table>
 
             {/* PAGINATION */}
             {isTotalPageSet && customerInfo.length > 0 ? (
                 <div className="flex justify-center">
-                <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
-            </div>
+                    <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
+                </div>
             ) : null}
 
             {/* FORM MODIFY ACCOUNT */}
