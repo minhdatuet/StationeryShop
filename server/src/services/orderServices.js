@@ -6,7 +6,7 @@ require('dotenv').config();
 const { Sequelize, DataTypes, Op, where } = require('sequelize');
 const product = require('../models/order');
 
-exports.getConfirmingOrderById = (id) => new Promise(async(resolve, reject) => {
+exports.getConfirmingOrderById = (id) => new Promise(async (resolve, reject) => {
     try {
         let response = await db.Order.findAll({
             where: {
@@ -24,7 +24,7 @@ exports.getConfirmingOrderById = (id) => new Promise(async(resolve, reject) => {
     }
 });
 
-exports.getPendingOrderById = (id) => new Promise(async(resolve, reject) => {
+exports.getPendingOrderById = (id) => new Promise(async (resolve, reject) => {
     try {
         let response = await db.Order.findAll({
             where: {
@@ -42,7 +42,7 @@ exports.getPendingOrderById = (id) => new Promise(async(resolve, reject) => {
     }
 });
 
-exports.getCompletedOrderById = (id) => new Promise(async(resolve, reject) => {
+exports.getCompletedOrderById = (id) => new Promise(async (resolve, reject) => {
     try {
         let response = await db.Order.findAll({
             where: {
@@ -60,7 +60,7 @@ exports.getCompletedOrderById = (id) => new Promise(async(resolve, reject) => {
     }
 });
 
-exports.getProductsInOrderByOId = (id) => new Promise(async(resolve, reject) => {
+exports.getProductsInOrderByOId = (id) => new Promise(async (resolve, reject) => {
     try {
         let response = await db.Product_In_Order.findAll({
             include: [{
@@ -80,7 +80,7 @@ exports.getProductsInOrderByOId = (id) => new Promise(async(resolve, reject) => 
     }
 });
 
-exports.getBoughtHistoryByAId = (aId) => new Promise(async(resolve, reject) => {
+exports.getBoughtHistoryByAId = (aId) => new Promise(async (resolve, reject) => {
     try {
         let response = await db.Products_Bought_History.findAll({
             include: [{
@@ -96,7 +96,7 @@ exports.getBoughtHistoryByAId = (aId) => new Promise(async(resolve, reject) => {
                     model: db.Product
                 }]
             }]
-            
+
         })
         resolve({
             msg: response ? "Success" : "Unsuccess",
@@ -108,17 +108,17 @@ exports.getBoughtHistoryByAId = (aId) => new Promise(async(resolve, reject) => {
     }
 });
 
-exports.getOrderInfoForAdmin = () => new Promise(async(resolve, reject) => {
+exports.getOrderInfoForAdmin = () => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Order.findAll({
             attributes: ['id', 'totalPrice', 'status'],
             include: [
                 { model: db.Account, attributes: ['accountName', 'accountPhone', 'accountAddress'] },
-                { 
-                    model: db.Product_In_Order, 
+                {
+                    model: db.Product_In_Order,
                     include: [
-                        { 
-                            model: db.Product, 
+                        {
+                            model: db.Product,
                             attributes: ['productName'],
                             include: [
                                 { model: db.Catalog, attributes: ['catalogName'] }
@@ -143,21 +143,34 @@ exports.confirmOrder = (id) => new Promise(async (resolve, reject) => {
         const [rowsAffected] = await db.Order.update(
             {
                 status: 'COMPLETED'
-            }, 
+            },
             {
-            where: { 
-                id: id 
-            }
-        });
+                where: {
+                    id: id
+                }
+            });
         const successMessage = 'Update is successful';
         const errorMessage = 'Update is failed';
         const response = {
             err: rowsAffected > 0 ? 0 : 2,
             msg: rowsAffected > 0 ? successMessage : errorMessage,
         };
-  
+
         resolve(response);
     } catch (error) {
         reject(error);
     }
-  });
+});
+
+exports.addToBoughtHistoryWhenConfirm = (body) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Products_Bought_History.create({
+            productInOrderId: body.productInOrderId,
+            isRated: body.isRated,
+            purchaseTime: body.purchaseTime
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error)
+    }
+});

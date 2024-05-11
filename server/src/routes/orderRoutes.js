@@ -11,5 +11,6 @@ router.get('/getBoughtHistoryById/:aId', orderController.getBoughtHistoryByAId)
 
 router.get('/get/get-order-info-for-admin', orderController.getOrderInfoForAdmin);
 router.put('/update/confirm-order/:id', orderController.confirmOrder);
+router.post('/post/add-to-bought-history-when-confirmed', orderController.addToBoughtHistoryWhenConfirm);
 
 module.exports = router;

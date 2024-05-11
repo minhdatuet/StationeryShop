@@ -6,7 +6,36 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert('Accounts', [
       {
-        // Sample data for the first record
+        accountName: 'Nguyễn Cao Đức',
+        accountPhone: '0362124865',
+        accountPassword: hashPassword('123456'),
+        accountType: 'ADMIN',
+        accountAddress: 'BN',
+        accountEmail: 'iamduc3024@gmail.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        accountName: 'Đặng Tiến Dũng',
+        accountPhone: '0329579903',
+        accountPassword: hashPassword('123456'),
+        accountType: 'ADMIN',
+        accountAddress: 'HN',
+        accountEmail: 'dungpgpma2k3@gmail.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        accountName: 'Lê Minh Đạt',
+        accountPhone: '0393516203',
+        accountPassword: hashPassword('123456'),
+        accountType: 'ADMIN',
+        accountAddress: 'TN',
+        accountEmail: 'minhdatuet@gmail.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
         accountName: 'Nguyễn Cao Đức',
         accountPhone: '0000000001',
         accountPassword: hashPassword('123456'),
@@ -17,7 +46,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        // Sample data for the first record
         accountName: 'Đặng Tiến Dũng',
         accountPhone: '0000000002',
         accountPassword: hashPassword('123456'),
@@ -28,7 +56,6 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        // Sample data for the first record
         accountName: 'Lê Minh Đạt',
         accountPhone: '0000000003',
         accountPassword: hashPassword('123456'),
