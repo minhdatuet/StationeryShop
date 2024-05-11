@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import style from "./ManageOrder.module.scss";
 import { Table } from "flowbite-react";
-import { apiGetOrderInfoForAdmin, apiConfirmOrder } from "../../../../services/order";
+import { apiGetOrderInfoForAdmin, apiConfirmOrder, apiAddToBoughtHistoryWhenConfirmed } from "../../../../services/order";
 import { Pagination, Alert } from "flowbite-react";
 
 function ManageOrder() {
@@ -30,7 +30,6 @@ function ManageOrder() {
             const orders = orderInfo.data.response;
             setOrderInfoForAdmin(orders);
             setIsFetchedData(true);
-            console.log(orders);
         }
         catch (err) {
             console.log(err);
@@ -44,6 +43,7 @@ function ManageOrder() {
     // PAGINATION
     useEffect(() => {
         if (isFetchedData) {
+            console.log(orderInfoForAdmin);
             const totalPages = Math.ceil(orderInfoForAdmin.length / quantityItemsPerpage);
             setTotalPage(totalPages);
             setIsTotalPageSet(true);
@@ -54,6 +54,19 @@ function ManageOrder() {
     const handleConfirmOrder = async (orderId) => {
         try {
             await apiConfirmOrder(orderId);
+
+            const confirmedOrder = orderInfoForAdmin.find(order => order.id === orderId);
+
+            for (let i = 0; i < confirmedOrder.Product_In_Orders.length; i++) {
+                const payload = {
+                    productInOrderId: confirmedOrder.Product_In_Orders[i].id,
+                    isRated: 0,
+                    purchaseTime: new Date(),
+                };
+
+                await apiAddToBoughtHistoryWhenConfirmed(payload);
+            }
+
             const updatedOrderInfo = orderInfoForAdmin.map(order => {
                 if (order.id === orderId) {
                     return {
@@ -94,6 +107,7 @@ function ManageOrder() {
                     <Table.HeadCell>Account Address</Table.HeadCell>
                     <Table.HeadCell>Product Name</Table.HeadCell>
                     <Table.HeadCell>Category</Table.HeadCell>
+                    <Table.HeadCell>Quantity</Table.HeadCell>
                     <Table.HeadCell>Total Price</Table.HeadCell>
                     <Table.HeadCell>Status</Table.HeadCell>
                     <Table.HeadCell>
@@ -113,6 +127,7 @@ function ManageOrder() {
                                             <Table.Cell>{productOrder.id === order.Product_In_Orders[0].id ? order.Account.accountAddress : null}</Table.Cell>
                                             <Table.Cell>{productOrder.Product.productName}</Table.Cell>
                                             <Table.Cell>{productOrder.Product.Catalog.catalogName}</Table.Cell>
+                                            <Table.Cell>{productOrder.quantity}</Table.Cell>
                                             <Table.Cell>{productOrder.id === order.Product_In_Orders[0].id ? order.totalPrice : null}</Table.Cell>
                                             <Table.Cell>{productOrder.id === order.Product_In_Orders[0].id ? order.status : null}</Table.Cell>
                                             <Table.Cell>

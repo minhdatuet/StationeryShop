@@ -419,51 +419,53 @@ function ManageAccount() {
             )}
 
             {/* LIST ACCOUNT */}
-            <Table className="min-w-full divide-y divide-gray-200">
-                <Table.Head>
-                    <Table.HeadCell>Account ID</Table.HeadCell>
-                    <Table.HeadCell>Account Name</Table.HeadCell>
-                    <Table.HeadCell>Account Phone</Table.HeadCell>
-                    <Table.HeadCell>Account Email</Table.HeadCell>
-                    <Table.HeadCell>
-                        <span className="sr-only">Edit</span>
-                    </Table.HeadCell>
-                    <Table.HeadCell>
-                        <span className="sr-only">Delete</span>
-                    </Table.HeadCell>
-                </Table.Head>
-                <Table.Body className="divide-y">
-                    {displayedCustomers && displayedCustomers.length > 0 ? (
-                        displayedCustomers.map(customer => (
-                            <Table.Row key={customer.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                <Table.Cell>{customer.id}</Table.Cell>
-                                <Table.Cell>{customer.accountName}</Table.Cell>
-                                <Table.Cell>{customer.accountPhone}</Table.Cell>
-                                <Table.Cell>{customer.accountEmail}</Table.Cell>
-                                <Table.Cell>
-                                    <a href="#"
-                                        className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                                        onClick={() => handleVisibleFormModifyAccount(customer.id)}
-                                    >
-                                        Edit
-                                    </a>
-                                </Table.Cell>
-                                <Table.Cell>
-                                    <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
-                                        onClick={() => handleDeleteCustomerAccountById(customer.id)}
-                                    >
-                                        Delete
-                                    </a>
-                                </Table.Cell>
-                            </Table.Row>
-                        ))
-                    ) : (
-                        <div className={clsx(style["no-customer-case"])}>
-                            The system currently has no customer
-                        </div>
-                    )}
-                </Table.Body>
-            </Table>
+            {displayedCustomers ? (
+                <Table className="min-w-full divide-y divide-gray-200">
+                    <Table.Head>
+                        <Table.HeadCell>Account ID</Table.HeadCell>
+                        <Table.HeadCell>Account Name</Table.HeadCell>
+                        <Table.HeadCell>Account Phone</Table.HeadCell>
+                        <Table.HeadCell>Account Email</Table.HeadCell>
+                        <Table.HeadCell>
+                            <span className="sr-only">Edit</span>
+                        </Table.HeadCell>
+                        <Table.HeadCell>
+                            <span className="sr-only">Delete</span>
+                        </Table.HeadCell>
+                    </Table.Head>
+                    <Table.Body className="divide-y">
+                        {displayedCustomers && displayedCustomers.length > 0 ? (
+                            displayedCustomers.map(customer => (
+                                <Table.Row key={customer.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell>{customer.id}</Table.Cell>
+                                    <Table.Cell>{customer.accountName}</Table.Cell>
+                                    <Table.Cell>{customer.accountPhone}</Table.Cell>
+                                    <Table.Cell>{customer.accountEmail}</Table.Cell>
+                                    <Table.Cell>
+                                        <a href="#"
+                                            className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                                            onClick={() => handleVisibleFormModifyAccount(customer.id)}
+                                        >
+                                            Edit
+                                        </a>
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
+                                            onClick={() => handleDeleteCustomerAccountById(customer.id)}
+                                        >
+                                            Delete
+                                        </a>
+                                    </Table.Cell>
+                                </Table.Row>
+                            ))
+                        ) : null}
+                    </Table.Body>
+                </Table>
+            ) : (
+                <div className={clsx(style["no-customer-case"])}>
+                    The system currently has no customer
+                </div>
+            )}
 
             {/* PAGINATION */}
             {isTotalPageSet && customerInfo.length > 0 ? (
