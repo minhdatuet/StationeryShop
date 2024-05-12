@@ -76,3 +76,17 @@ export const apiConfirmOrder = (id) =>  new Promise(async(resolve, reject) => {
         reject(error)
     }
 });
+
+export const apiAddToBoughtHistoryWhenConfirmed = (payload) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/order/post/add-to-bought-history-when-confirmed',
+            data: payload
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});
