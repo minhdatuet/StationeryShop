@@ -90,3 +90,15 @@ export const apiAddToBoughtHistoryWhenConfirmed = (payload) => new Promise(async
         reject(error);
     }
 });
+
+export const apiGetQuantityStatistic = () =>  new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: '/api/v1/order/get/get-statistic-data',
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+});

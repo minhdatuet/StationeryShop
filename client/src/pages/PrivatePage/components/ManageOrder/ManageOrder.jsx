@@ -43,7 +43,6 @@ function ManageOrder() {
     // PAGINATION
     useEffect(() => {
         if (isFetchedData) {
-            console.log(orderInfoForAdmin);
             const totalPages = Math.ceil(orderInfoForAdmin.length / quantityItemsPerpage);
             setTotalPage(totalPages);
             setIsTotalPageSet(true);

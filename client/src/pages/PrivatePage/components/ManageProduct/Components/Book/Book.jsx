@@ -34,7 +34,6 @@ function Book() {
     const handleGetBookInfoForAdmin = async () => {
         const response = await apiGetProductByCatalogIdForAdmin(BOOK_CATALOG_ID);
         setBookInfoForAdmin(response.data.response);
-        console.log(bookInfoForAdmin);
         setIsFetchedData(true);
     }
 
