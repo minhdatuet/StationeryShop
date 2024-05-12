@@ -1,21 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import style from "./OrderStatistics.module.scss";
 import ReactApexCharts from "react-apexcharts";
 import { Button } from "flowbite-react";
+import { apiGetQuantityStatistic } from "../../../../services/order";
 
 function OrderStatistics() {
-    const [isClickChartQuantity, setIsClickChartQuantity] = useState(true);
-    const [isClickChartMoney, setIsClickChartMoney] = useState(false);
+    const [isClickChartQuantity, setIsClickChartQuantity] = useState(true); // FLAG TO CHECK IS CLICK CHART QUANTITY?
+    const [isClickChartMoney, setIsClickChartMoney] = useState(false); // FLAG TO CHECK IS CLICK CHART MONEY?
+
+    const [quantityStatistic, setQuantityStatistic] = useState([]); // ARRAY TO STORE VALUE OF QUANTITY
+    const [quantityStatisticLabel, setQuantityStatisticLabel] = useState([]); // ARRAY TO STORE LABEL OF QUANTITY
+
+    const [moneyStatistic, setMoneyStatistic] = useState([]); // ARRAY TO STORE VALUE OF MONEY
+    const [moneyStatisticLabel, setMoneyStatisticLabel] = useState([]); // ARRAY TO STORE LABEL OF MONEY
+
+    useEffect(() => {
+        const quantityStatisticTemp = [];
+        const quantityStatisticLabel = [];
+
+        const moneyStatisticTemp = [];
+        const moneyStatisticLabel = [];
+
+        const fetchData = async () => {
+            const response = await apiGetQuantityStatistic();
+            const fetchedData = response.data;
+
+            for (let i = 0; i < fetchedData.length; i++) {
+                quantityStatisticTemp.push(parseInt(fetchedData[i].totalQuantity));
+                quantityStatisticLabel.push(fetchedData[i].Product.Catalog.catalogName);
+
+                moneyStatisticTemp.push(parseFloat(fetchedData[i].totalValue));
+                moneyStatisticLabel.push(fetchedData[i].Product.Catalog.catalogName);
+            }
+
+            setQuantityStatistic(quantityStatisticTemp);
+            setQuantityStatisticLabel(quantityStatisticLabel);
+
+            setMoneyStatistic(moneyStatisticTemp);
+            setMoneyStatisticLabel(moneyStatisticLabel);
+        };
+
+        fetchData();
+    }, []);
 
     const [chartDataOfQuantity, setChartDataOfQuantity] = useState({
-        series: [44, 55, 13, 43, 22, 30, 11, 20, 24, 17],
+        series: quantityStatistic,
         options: {
             chart: {
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Backpack', 'Book', 'Casio', 'Desklamp', 'Notebook', 'Pen', 'School Supply', 'Stationery Supply', 'Story Book', 'Table And Chair'],
+            labels: quantityStatisticLabel,
             responsive: [{
                 breakpoint: 480,
                 options: {
@@ -38,14 +74,50 @@ function OrderStatistics() {
         },
     });
 
+    const handleIsClickChartQuantity = () => {
+        if (!isClickChartQuantity) {
+            setChartDataOfQuantity({
+                series: quantityStatistic,
+                options: {
+                    chart: {
+                        width: 380,
+                        type: 'pie',
+                    },
+                    labels: quantityStatisticLabel,
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }],
+                    tooltip: {
+                        enabled: true,
+                        y: {
+                            formatter: function (value) {
+                                return value + " items";
+                            }
+                        }
+                    }
+                },
+            });
+            setIsClickChartQuantity(true);
+            setIsClickChartMoney(false);
+        }
+    }
+
     const [chartDataOfMoney, setChartDataOfMoney] = useState({
-        series: [44, 55, 13, 43, 22, 30, 11, 20, 24, 17],
+        series: moneyStatistic,
         options: {
             chart: {
                 width: 380,
                 type: 'pie',
             },
-            labels: ['Backpack', 'Book', 'Casio', 'Desklamp', 'Notebook', 'Pen', 'School Supply', 'Stationery Supply', 'Story Book', 'Table And Chair'],
+            labels: moneyStatisticLabel,
             responsive: [{
                 breakpoint: 480,
                 options: {
@@ -68,53 +140,16 @@ function OrderStatistics() {
         },
     });
 
-
-    const handleIsClickChartQuantity = () => {
-        if (!isClickChartQuantity) {
-            setChartDataOfQuantity({
-                series: [44, 55, 13, 43, 22, 30, 11, 20, 24, 17],
-                options: {
-                    chart: {
-                        width: 380,
-                        type: 'pie',
-                    },
-                    labels: ['Backpack', 'Book', 'Casio', 'Desklamp', 'Notebook', 'Pen', 'School Supply', 'Stationery Supply', 'Story Book', 'Table And Chair'],
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200
-                            },
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }],
-                    tooltip: {
-                        enabled: true,
-                        y: {
-                            formatter: function (value) {
-                                return value + " items";
-                            }
-                        }
-                    }
-                },
-            });
-        }
-        setIsClickChartQuantity(true);
-        setIsClickChartMoney(false);
-    }
-
     const handleIsClickChartMoney = () => {
         if (!isClickChartMoney) {
             setChartDataOfMoney({
-                series: [44, 55, 13, 43, 22, 30, 11, 20, 24, 17],
+                series: moneyStatistic,
                 options: {
                     chart: {
                         width: 380,
                         type: 'pie',
                     },
-                    labels: ['Backpack', 'Book', 'Casio', 'Desklamp', 'Notebook', 'Pen', 'School Supply', 'Stationery Supply', 'Story Book', 'Table And Chair'],
+                    labels: moneyStatisticLabel,
                     responsive: [{
                         breakpoint: 480,
                         options: {
@@ -136,9 +171,9 @@ function OrderStatistics() {
                     }
                 },
             });
+            setIsClickChartMoney(true);
+            setIsClickChartQuantity(false);
         }
-        setIsClickChartMoney(true);
-        setIsClickChartQuantity(false);
     }
 
     return (
@@ -162,11 +197,52 @@ function OrderStatistics() {
 
             <div className={clsx(style["chart-container"])}>
                 {isClickChartQuantity && (
-                    <ReactApexCharts options={chartDataOfQuantity.options} series={chartDataOfQuantity.series} type="pie" width={500} />
+                    <ReactApexCharts
+                        type="pie"
+                        options={{
+                            chart: {
+                                width: 500,
+                                type: 'pie',
+                            },
+                            labels: quantityStatisticLabel,
+                            tooltip: {
+                                enabled: true,
+                                y: {
+                                    formatter: function (value) {
+                                        return value + " items";
+                                    }
+                                }
+                            },
+                            noData: { text: "Empty Data" }
+                        }}
+                        series={quantityStatistic}
+                        width={500}
+                    />
+
                 )}
 
                 {isClickChartMoney && (
-                    <ReactApexCharts options={chartDataOfMoney.options} series={chartDataOfMoney.series} type="pie" width={500} />
+                    <ReactApexCharts
+                        type="pie"
+                        options={{
+                            chart: {
+                                width: 500,
+                                type: 'pie',
+                            },
+                            labels: moneyStatisticLabel,
+                            tooltip: {
+                                enabled: true,
+                                y: {
+                                    formatter: function (value) {
+                                        return value + " $";
+                                    }
+                                }
+                            },
+                            noData: { text: "Empty Data" }
+                        }}
+                        series={moneyStatistic}
+                        width={500}
+                    />
                 )}
             </div>
         </div>

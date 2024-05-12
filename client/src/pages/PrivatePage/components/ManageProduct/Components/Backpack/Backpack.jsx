@@ -34,7 +34,6 @@ function Backpack() {
     const handleGetBackpackInfoForAdmin = async () => {
         const response = await apiGetProductByCatalogIdForAdmin(BACKPACK_CATALOG_ID);
         setBackpackInfoForAdmin(response.data.response);
-        console.log(backpackInfoForAdmin);
         setIsFetchedData(true);
     }
 
