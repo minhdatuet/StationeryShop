@@ -6,14 +6,14 @@ import { Button } from "flowbite-react";
 import { apiGetQuantityStatistic } from "../../../../services/order";
 
 function OrderStatistics() {
-    const [isClickChartQuantity, setIsClickChartQuantity] = useState(true);
-    const [isClickChartMoney, setIsClickChartMoney] = useState(false);
+    const [isClickChartQuantity, setIsClickChartQuantity] = useState(true); // FLAG TO CHECK IS CLICK CHART QUANTITY?
+    const [isClickChartMoney, setIsClickChartMoney] = useState(false); // FLAG TO CHECK IS CLICK CHART MONEY?
 
-    const [quantityStatistic, setQuantityStatistic] = useState([]);
-    const [quantityStatisticLabel, setQuantityStatisticLabel] = useState([]);
+    const [quantityStatistic, setQuantityStatistic] = useState([]); // ARRAY TO STORE VALUE OF QUANTITY
+    const [quantityStatisticLabel, setQuantityStatisticLabel] = useState([]); // ARRAY TO STORE LABEL OF QUANTITY
 
-    const [moneyStatistic, setMoneyStatistic] = useState([]);
-    const [moneyStatisticLabel, setMoneyStatisticLabel] = useState([]);
+    const [moneyStatistic, setMoneyStatistic] = useState([]); // ARRAY TO STORE VALUE OF MONEY
+    const [moneyStatisticLabel, setMoneyStatisticLabel] = useState([]); // ARRAY TO STORE LABEL OF MONEY
 
     useEffect(() => {
         const quantityStatisticTemp = [];
