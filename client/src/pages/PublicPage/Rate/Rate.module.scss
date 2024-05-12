@@ -1,0 +1,121 @@
+.container {
+    width: 50%;
+    margin: auto;
+    min-width: 600px;
+    background-color: #cbcbcb;
+    padding: 24px;
+    border-radius: 24px;
+}
+
+.productDetailContainer {
+
+}
+
+.imageContainer {
+
+}
+
+.infoContainer {
+
+}
+
+.nameContainer {
+
+}
+
+.priceContainer {
+
+}
+
+.descriptionContainer {
+
+}
+
+.starRateContainer {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: row;
+}
+
+.starLabel {
+    min-width: 280px;
+}
+
+.whiteStarElement {
+    cursor: pointer;
+}
+
+.yellowStarElement {
+    cursor: pointer;
+    color: yellow;
+    inline-size: 24px;
+}
+
+.starRate {
+    display: flex;
+    flex-direction: row;
+    font-size: 24px;
+}
+
+.commentRateContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 12px;
+}
+
+.commentLabel {
+    min-width: 100px;
+    // flex: 1;
+}
+
+.commentRate {
+    width: 100%;
+}   
+
+.commentRateInput {
+    width: 100%;
+}
+
+.rateBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.submitBtn {
+    background-color: #00d820;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: #333 solid 1px;
+    border-radius: 40px;
+    padding: 0px 20px;
+    color: #000000;
+}
+
+.submitBtn:hover {
+    cursor: pointer;
+    background-color: #00ff1e;
+    color: #fff;
+    opacity: .8;
+}
+
+.cancelBtn {
+    background-color: #dd0000;
+    font-size: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: #333 solid 1px;
+    border-radius: 40px;
+    padding: 0px 20px;
+    color: #000000;    
+}
+
+.cancelBtn:hover {
+    cursor: pointer;
+    background-color: #ff0000;
+    color: #fff;
+    opacity: .8;
+}

@@ -1,9 +1,12 @@
 
 import style from "./completedItem.module.scss";
 import clsx from 'clsx';
+import { useNavigate } from "react-router-dom";
 
 export const CompletedItem = (props) => {
-    // console.log(props.data.isRated === 1);
+    console.log(props.data);
+
+    const navigate = useNavigate()
     const formattedDate = new Date(props.data.purchaseTime).toLocaleString('en-US', {
     timeZone: 'UTC',
     hour12: false,
@@ -31,7 +34,11 @@ export const CompletedItem = (props) => {
             </div>
 
             <div className={clsx(style.viewFeedback)}>
-                <div className={clsx(style.viewFeedbackBtn, {[style.hidden]: props.data.isRated === 0})}>
+                <div className={clsx(style.viewFeedbackBtn, {[style.hidden]: props.data.isRated === 0})}
+                onClick={() => {
+                    navigate("/customerRate?pIOId=" + props.data.productInOrderId);
+                }}
+                >
                     View My Feedback
                 </div>
 
