@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Login.css'
 import * as actions from '../../../store/actions'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { TEInput, TERipple } from "tw-elements-react";
 
@@ -147,12 +147,9 @@ export default function Login() {
                 </button>
                 <p className="mb-0 mt-2 pt-1 text-sm font-semibold">
                   Don't have an account?{" "}
-                  <a
-                    href="/register"
-                    className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700"
-                  >
+                  <Link to="/register" className="text-danger transition duration-150 ease-in-out hover:text-danger-600 focus:text-danger-600 active:text-danger-700">
                     Register
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
