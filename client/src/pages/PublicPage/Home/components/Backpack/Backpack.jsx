@@ -5,6 +5,7 @@ import axios from 'axios';
 import * as actions from '../../../../../store/actions';
 import { apiGetProductInfoByCatalogId } from '../../../../../services/product';
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Backpack = () => {
   const CATALOG_ID_OF_BACKPACK = 1;
@@ -37,7 +38,8 @@ const Backpack = () => {
       </div>
       <div className={clsx(style['items-container'])}>
         {backpackInfos.slice(0, 5).map((backpackInfo, index) => (
-          <div className="flex flex-wrap font-sans" key={index} id={clsx(style.item)}>
+          <Link className="flex flex-wrap font-sans" id={clsx(style.item)} to={`/product/${backpackInfo.id}`}>
+              <div  key={index} >
             <div className="flex-none w-48 relative">
               <img src={backpackInfo.productImage} alt="" loading="lazy" className={clsx(style['backpack-img'])} />
             </div>
@@ -63,6 +65,8 @@ const Backpack = () => {
               </div>
             </form>
           </div>
+          </Link>
+          
         ))}
       </div>
     </div>

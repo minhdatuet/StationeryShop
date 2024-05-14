@@ -254,6 +254,7 @@ exports.getProductsInCart = (id) => new Promise(async(resolve, reject) => {
             where: {accountId: id},
             include: {
                 model: db.Product,
+                where: { id: db.Sequelize.col('Products_In_Cart.productId') }
             }
         })
         resolve({
