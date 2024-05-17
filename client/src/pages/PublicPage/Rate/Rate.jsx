@@ -2,19 +2,30 @@ import { Fragment, useEffect, useState } from "react";
 import clsx from 'clsx';
 import style from './Rate.module.scss';
 import { FaStar } from "react-icons/fa";
-import { apiGetBoughtHistoryByAID } from "../../../services/order";
+import { apiGetDetailProductByPIOID } from "../../../services/order";
 
 export const Rate = () => {
 
     const accId = localStorage.getItem('id');
     const [pIOId, setPIOId] = useState(0);
-    
+    const [productDetail, setProductDetail] = useState(
+        {
+            Product: {
+                productImage: "",
+                productName: "",
+                productCost: "",
+                productDescription: ""
+            }
+        }
+    )
 
     const [stars, setStars] = useState([0,0,0,0,0])
     const [numStar, setNumStar] = useState(0)
 
-    const getProductDetail = async() => {
-        const response = await apiGetBoughtHistoryByAID(accId);
+    const getProductDetail = async(data) => {
+        const response = await apiGetDetailProductByPIOID(data);
+        console.log(response.data[0]);
+        setProductDetail(response.data[0]);
     }
 
     const setStarsByIndex = (index) => {
@@ -30,33 +41,40 @@ export const Rate = () => {
 
     const handleSubmit = () => {
         const comment = document.querySelector('.' + style.commentRateInput).value;
-
+        // call api
     }
 
     useEffect(() => {
         var url = new URL(window.location.href);
         var pIOIdValue = url.searchParams.get("pIOId");
         setPIOId(pIOIdValue);
+        getProductDetail(pIOIdValue);
     }, [0]);
 
     return (
         <div className={clsx(style.container)}>
             <div className={clsx(style.productDetailContainer)}>
                 <div className={clsx(style.imageContainer)}>
-                    
+                    <img src= {productDetail.Product.productImage} alt="" />
                 </div>
 
                 <div className={clsx(style.infoContainer)}>
                     <div className={clsx(style.nameContainer)}>
-
+                        {productDetail.Product.productName}
                     </div>
 
                     <div className={clsx(style.priceContainer)}>
-
+                        {productDetail.Product.productCost} $
                     </div>
 
                     <div className={clsx(style.descriptionContainer)}>
+                        {productDetail.Product.productDescription}
+                    </div>
+                </div>
 
+                <div className={clsx(style.viewDetailContainer)}>
+                    <div className={clsx(style.viewDetailBtn)}>
+                        View Detail
                     </div>
                 </div>
             </div>

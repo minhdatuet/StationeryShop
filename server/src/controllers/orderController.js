@@ -130,7 +130,9 @@ exports.getStatisticGroupByCategory = async (req, res) => {
 
 exports.getDetailByPIOID = async (req, res) => {
     try {
-        const response = await orderService.getDetailByPIOID()
+        const data = req.params.pIOId;
+        // console.log(data);
+        const response = await orderService.getDetailByPIOID(data)
         return res.status(200).json(response)
     }
     catch (error) {

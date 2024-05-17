@@ -18,14 +18,14 @@ export const CompletedItem = (props) => {
     second: '2-digit'
     });
     return (
-        <div className= {clsx(style.container)}>
+        <div className= {clsx(style.container, {[style.hidden] : props.data.Product_In_Order == null})}>
             <div className={clsx(style.itemImg)}>
-                <img src={props.data.Product_In_Order.Product.productImage} alt="" />
+                <img src={props.data.Product_In_Order == null ? null : props.data.Product_In_Order.Product.productImage} alt="" />
             </div>
 
             <div className={clsx(style.itemInfo)}>
                 <div className={clsx(style.itemName)}>
-                    <p>Name: {props.data.Product_In_Order.Product.productName}</p>
+                    <p>Name: {props.data.Product_In_Order == null ? null : props.data.Product_In_Order.Product.productName}</p>
                 </div>
 
                 <div className={clsx(style.purchaseTime)}>

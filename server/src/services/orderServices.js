@@ -210,10 +210,18 @@ exports.getStatisticGroupByCategory = () => new Promise(async (resolve, reject) 
     }
 });
 
-exports.getDetailByPIOID = () => new Promise(async (resolve, reject) => {
+exports.getDetailByPIOID = (pIOId) => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Product_In_Order.findAll({
             // 
+            include: [
+                {
+                    model: db.Product
+                }
+            ],
+            where: {
+                id: pIOId
+            }
         })
         resolve(response);
     }
