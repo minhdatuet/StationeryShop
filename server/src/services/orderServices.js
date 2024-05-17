@@ -209,3 +209,15 @@ exports.getStatisticGroupByCategory = () => new Promise(async (resolve, reject) 
         reject(error);
     }
 });
+
+exports.getDetailByPIOID = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Product_In_Order.findAll({
+            // 
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});

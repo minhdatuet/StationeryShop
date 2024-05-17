@@ -126,4 +126,17 @@ exports.getStatisticGroupByCategory = async (req, res) => {
             msg: 'Fail at auth controller getStatisticQuantityGroupByCategory ' + error
         })
     }
-}
+};
+
+exports.getDetailByPIOID = async (req, res) => {
+    try {
+        const response = await orderService.getDetailByPIOID()
+        return res.status(200).json(response)
+    }
+    catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at auth controller getDetailByPIOID ' + error
+        })
+    }
+};
