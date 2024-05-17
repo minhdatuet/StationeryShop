@@ -2,6 +2,7 @@ import React, { useEffect, useState} from 'react'
 import './Product.css'
 import { apiGetProductById, apiAddToCart } from '../../../services/product'
 import NumberInput from '../../../components/QuantityInput/NumberInput'
+import { useParams } from 'react-router-dom';
 import * as actions from '../../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -19,6 +20,7 @@ const Product = () => {
       })
       const [quantity, setQuantity] = useState(1);
       const [rates, setRates] = useState([]);
+      const { id } = useParams();
       const handleQuantityChange = (value) => {
         setQuantity(value);
       };
@@ -27,7 +29,6 @@ const Product = () => {
       },[quantity])
       useEffect(() => {
         const fetchProduct = async () => {
-            const id = 1;
             try {
               const response = await apiGetProductById(id);
               const data = response?.data.response;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import './Register.css'
 import * as actions from '../../../store/actions'
+import authReducer from '../../../store/reducers/authReducer'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { TEInput, TERipple } from "tw-elements-react";
@@ -14,16 +15,19 @@ export default function Login() {
   const [payload, setPayload] = useState({
     accountName: '',
     accountPhone: '',
+    accountEmail: '',
     accountPassword: '',
+    rePassword: '',
     accountAddress: '',
     accountType: 'CUSTOMER'
   })
 
   const [errorPhoneMessage, setErrorPhoneMessage] = useState('');
   const [errorPasswordMessage, setErrorPasswordMessage] = useState('');
+  const [errorRePasswordMessage, setErrorRePasswordMessage] = useState('');
   const [errorNameMessage, setErrorNameMessage] = useState('');
   const [errorAddressMessage, setErrorAddressMessage] = useState('');
-
+  const [errorEmailMessage, setErrorEmailMessage] = useState('');
   useEffect(() => {
     isLogged && navigate('/') 
     
@@ -38,31 +42,59 @@ export default function Login() {
       }
       if (!payload.accountPhone) {
         setErrorPhoneMessage('Vui lòng nhập số điện thoại!');
-      } else if (payload.accountPhone[0] !== '0' || !(payload.accountPhone.match('[0-9]{10}'))) {
+      } else if (payload.accountPhone[0] !== '0' || !(payload.accountPhone.match(/^\d{10}$/))) {
         setErrorPhoneMessage('Số điện thoại không hợp lệ!');
       } else {
         setErrorPhoneMessage('');
       }
+      if (!payload.accountEmail) {
+        setErrorEmailMessage('Vui lòng nhập email!');
+      } else if (!payload.accountEmail.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )) {
+        setErrorEmailMessage('Email không hợp lệ');
+      }  else {
+        setErrorEmailMessage('');
+      }
       if (!payload.accountPassword) {
         setErrorPasswordMessage('Vui lòng nhập mật khẩu!');
+      } else if (!payload.accountPassword.match(
+        /^(?=.*[A-Z])(?=.*[0-9]).{8,}$/
+      )) {
+        setErrorPasswordMessage('Mật khẩu không hợp lệ!');
       } else {
         setErrorPasswordMessage('');
+      }
+      if (!payload.rePassword) {
+        setErrorRePasswordMessage('Vui lòng nhập lại mật khẩu!');
+      } else if (payload.accountPassword !== payload.rePassword) {
+        setErrorRePasswordMessage('Mật khẩu nhập lại không trùng khớp!');
+      } else {
+        setErrorRePasswordMessage('');
       }
       if (!payload.accountAddress) {
         setErrorAddressMessage('Vui lòng nhập địa chỉ của bạn!');
       } else {
         setErrorAddressMessage('');
       }
-      if (!payload.accountName || !payload.accountPhone || !payload.accountPassword|| !payload.accountAddress) return;
+      if (errorNameMessage || errorPhoneMessage || errorEmailMessage || errorPasswordMessage|| errorRePasswordMessage|| errorAddressMessage) return;
       const response = dispatch(actions.register(payload))
-
       setTimeout(() => {
         if (!window.localStorage.getItem('persist:auth').isLogged) {
-          setErrorPhoneMessage('Số điện thoại đã được đăng ký');
+          let errMsg = JSON.parse(window.localStorage.getItem('persist:auth'))?.msg
+          if (errMsg.localeCompare('"Phone number already exists!"') == '0') {
+            setErrorPhoneMessage('Số điện thoại đã được đăng ký');
+          } else if (errMsg.localeCompare('"Email already exists!"') == '0') {
+            setErrorEmailMessage("Email này đã được đăng ký")
+          } else {
+            setErrorPhoneMessage('');
+            setErrorEmailMessage('');
+          }
+        
         }
-      }, 500)
+      }, 300)
     } catch (error) {
-      console.log('Đã xảy ra lỗi khi đăng ký!');
+      console.log('Đã xảy ra lỗi khi đăng ký!' + error);
     }
   }
   return (
@@ -92,12 +124,32 @@ export default function Login() {
             </div>
 
             <div className="mt-4">
+                <label className="block font-semibold" for="email">Email</label>
+                <input value={payload.accountEmail}
+                            onChange={(e) => setPayload(prev => ({ ...prev, accountEmail: e.target.value }))}
+                             className="w-full px-6 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-base focus:outline-none focus:border-gray-400 focus:bg-white" id="email" type="email" name="email" required="required" />
+                {errorEmailMessage && (
+            <p style={{ color: 'red', marginTop: '5px' }}>{errorEmailMessage}</p>
+            )}
+            </div>
+
+            <div className="mt-4">
                 <label className="block font-semibold" for="password">Password</label>
                 <input value={payload.accountPassword}
                             onChange={(e) => setPayload(prev => ({ ...prev, accountPassword: e.target.value }))}
                              className="w-full px-6 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-base focus:outline-none focus:border-gray-400 focus:bg-white" id="password" type="password" name="password" required="required" autocomplete="new-password"/>
                 {errorPasswordMessage && (
             <p style={{ color: 'red', marginTop: '5px' }}>{errorPasswordMessage}</p>
+            )}
+            </div>
+
+            <div className="mt-4">
+                <label className="block font-semibold" for="re-password">Confirm Password</label>
+                <input value={payload.rePassword}
+                            onChange={(e) => setPayload(prev => ({ ...prev, rePassword: e.target.value }))}
+                             className="w-full px-6 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-base focus:outline-none focus:border-gray-400 focus:bg-white" id="re-password" type="password" name="password" required="required"/>
+                {errorRePasswordMessage && (
+            <p style={{ color: 'red', marginTop: '5px' }}>{errorRePasswordMessage}</p>
             )}
             </div>
 
@@ -126,6 +178,7 @@ export default function Login() {
                     <li>All users must provide a valid email address and password to create an account.</li>
                     <li>Users must not use offensive, vulgar, or otherwise inappropriate language in their username or profile information</li>
                     <li>Users must not create multiple accounts for the same person.</li>
+                    <li>The password must be at least 8 characters long, one uppercase letter and one digit.</li>
                 </ul>
             </div>
         </aside>

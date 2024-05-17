@@ -28,7 +28,7 @@ const publicRoutes = [
       page: AboutUs
     },
     {
-      path: '/product',
+      path: '/product/:id',
       page: Product
     },
     {

@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
     //   Order.belongsTo(models.Product, { foreignKey: 'productId', onDelete: 'CASCADE' }),
       ProductInOrder.belongsTo(models.Order, {foreignKey: 'orderId'}),
-      ProductInOrder.hasOne(models.Product, { foreignKey: 'id', sourceKey: 'productId'}),
+      ProductInOrder.belongsTo(models.Product, {foreignKey: 'productId'}),
       ProductInOrder.hasOne(models.Products_Bought_History, {foreignKey: 'productInOrderId', sourceKey: 'id'})
     }
   }

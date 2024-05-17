@@ -14,7 +14,7 @@ const commonConfix = {
 const authConfig = {
     ...commonConfix,
     key: 'auth',
-    whitelist: ['isLogged', 'token']
+    whitelist: ['isLogged', 'token', 'msg']
 }
 
 const rootReducer = combineReducers({

@@ -17,12 +17,12 @@ exports.login = async (req, res) => {
 }
 
 exports.createAccount = async (req, res) => {
-    const {accountName, accountPhone, accountPassword, accountAddress, accountType} = req.body
+    const {accountName, accountPhone, accountEmail, accountPassword, accountAddress, accountType} = req.body
     try{
         // return accountName
-        if(!accountName || !accountPhone || !accountPassword || !accountAddress || !accountType) return res.status(400).json({
+        if(!accountName || !accountPhone ||!accountEmail || !accountPassword || !accountAddress || !accountType) return res.status(400).json({
             err: 1,
-            msg: 'Missing inputs!' + (!accountName ? "accountName " : " ") + (!accountPhone ? "accountPhone " : " ") 
+            msg: 'Missing inputs!' + (!accountName ? "accountName " : " ") + (!accountPhone ? "accountPhone " : " ") + (!accountEmail ? "accountEmail " : " ") 
                                 + (!accountPassword ? "accountPassword " : " ") + (!accountAddress ? "accountAddress " : " ")
                                 + (!accountType ? "accountType " : " ")
         })

@@ -174,3 +174,38 @@ exports.addToBoughtHistoryWhenConfirm = (body) => new Promise(async (resolve, re
         reject(error)
     }
 });
+
+exports.getStatisticGroupByCategory = () => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Product_In_Order.findAll({
+            attributes: [
+                [Sequelize.fn('SUM', Sequelize.literal('quantity * productCost')), 'totalValue'],
+                [Sequelize.fn('SUM', Sequelize.col('quantity')), 'totalQuantity'],
+            ],
+            include: [
+                {
+                    model: db.Product,
+                    attributes: ['id', 'productCost'],
+                    include: [
+                        {
+                            model: db.Catalog,
+                            attributes: ['catalogName']
+                        }
+                    ]
+                },
+                {
+                    model: db.Order,
+                    attributes: [],
+                    where: {
+                        status: 'COMPLETED'
+                    }
+                }
+            ],
+            group: ['catalogName']
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});
