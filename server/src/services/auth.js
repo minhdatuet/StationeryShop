@@ -59,7 +59,7 @@ exports.loginService = (body) => new Promise(async(resolve, reject) => {
             raw: true
         })
         const isCorrectPassword = response && bcrypt.compareSync(body.accountPassword, response.accountPassword)
-        const token = isCorrectPassword && jwr.sign({accountPhone: response.accountPhone}, process.env.SECRET_KEY, {expiresIn: '2d'})
+        const token = isCorrectPassword && jwt.sign({accountPhone: response.accountPhone}, process.env.SECRET_KEY, {expiresIn: '2d'})
         resolve({
             err: token? 0 : 2,
             msg: token ? 'Login is succesfully!' : response ? 'Password is incorrect' : `Phone number hasn't been registed`,
