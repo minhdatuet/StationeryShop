@@ -105,7 +105,6 @@ function ManageOrder() {
                     <Table.HeadCell>Account Phone</Table.HeadCell>
                     <Table.HeadCell>Account Address</Table.HeadCell>
                     <Table.HeadCell>Product Name</Table.HeadCell>
-                    <Table.HeadCell>Category</Table.HeadCell>
                     <Table.HeadCell>Quantity</Table.HeadCell>
                     <Table.HeadCell>Total Price</Table.HeadCell>
                     <Table.HeadCell>Status</Table.HeadCell>
@@ -125,7 +124,6 @@ function ManageOrder() {
                                             <Table.Cell>{productOrder.id === order.Product_In_Orders[0].id ? order.Account.accountPhone : null}</Table.Cell>
                                             <Table.Cell>{productOrder.id === order.Product_In_Orders[0].id ? order.Account.accountAddress : null}</Table.Cell>
                                             <Table.Cell>{productOrder.Product.productName}</Table.Cell>
-                                            <Table.Cell>{productOrder.Product.Catalog.catalogName}</Table.Cell>
                                             <Table.Cell>{productOrder.quantity}</Table.Cell>
                                             <Table.Cell>{productOrder.id === order.Product_In_Orders[0].id ? order.totalPrice : null}</Table.Cell>
                                             <Table.Cell>{productOrder.id === order.Product_In_Orders[0].id ? order.status : null}</Table.Cell>
