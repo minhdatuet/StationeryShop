@@ -10,61 +10,66 @@ import Products from "../pages/PublicPage/Products/Products";
 import Personal from "../pages/PublicPage/Personal/Personal";
 import Payment from "../components/Payment/Payment";
 import Rate from "../pages/PublicPage/Rate/Rate"
+import AdminPage from "../pages/PrivatePage/AdminPage";
+
 const publicRoutes = [
-    {
-      path: 'login',
-      page: Login
-    },
-    {
-      path: '/register',
-      page: Register
-    },
-    {
-      path: '/instruction',
-      page: Instruction
-    },
-    {
-      path: '/aboutUs',
-      page: AboutUs
-    },
-    {
-      path: '/product/:id',
-      page: Product
-    },
-    {
-      path: '/cart',
-      page: ShoppingCart
-    },
-    {
-      path: '/',
-      page: Home
-    },
-    {
-      path: '*',
-      page: Home
-    }, 
-    {
-      path: 'products',
-      page: Products
-    },
-    {
-      path: 'personal',
-      page: Personal
-    },
-    {
-      path: 'payment',
-      page: Payment
-    },
-    {
-      path: 'customerRate',
-      page: Rate
-    }
-  ];
+  {
+    path: 'login',
+    page: Login
+  },
+  {
+    path: '/register',
+    page: Register
+  },
+  {
+    path: '/instruction',
+    page: Instruction
+  },
+  {
+    path: '/aboutUs',
+    page: AboutUs
+  },
+  {
+    path: '/product/:id',
+    page: Product
+  },
+  {
+    path: '/cart',
+    page: ShoppingCart
+  },
+  {
+    path: '/',
+    page: Home
+  },
+  {
+    path: '*',
+    page: Home
+  },
+  {
+    path: 'products',
+    page: Products
+  },
+  {
+    path: 'personal',
+    page: Personal
+  },
+  {
+    path: 'payment',
+    page: Payment
+  },
+  {
+    path: 'customerRate',
+    page: Rate
+  }
+];
 const adminRoutes = [
-    
+  {
+    path: 'admin',
+    page: AdminPage
+  }
 ]
 const customerRoutes = [
 
 ]
 
-export {publicRoutes, adminRoutes, customerRoutes}
+export { publicRoutes, adminRoutes, customerRoutes }
