@@ -6,8 +6,12 @@ import { IoPersonCircleOutline } from "react-icons/io5";
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { RiShutDownLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../../../../store/actions'
 
 export const PSidebar = (props) => {
+    const dispatch = useDispatch()
+
     const redStyle = {
         color: 'red',
     };
@@ -45,6 +49,7 @@ export const PSidebar = (props) => {
                         icon={RiShutDownLine} 
                         onClick={() => {
                             localStorage.clear();
+                            dispatch(actions.logout());
                             navigate('/')
                         }}>
                             <div className={clsx(style.sideBarItems)}>
