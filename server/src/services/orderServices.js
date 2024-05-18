@@ -209,3 +209,23 @@ exports.getStatisticGroupByCategory = () => new Promise(async (resolve, reject) 
         reject(error);
     }
 });
+
+exports.getDetailByPIOID = (pIOId) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Product_In_Order.findAll({
+            // 
+            include: [
+                {
+                    model: db.Product
+                }
+            ],
+            where: {
+                id: pIOId
+            }
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});
