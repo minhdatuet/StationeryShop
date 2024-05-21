@@ -85,6 +85,7 @@ exports.getBoughtHistoryByAId = (aId) => new Promise(async (resolve, reject) => 
         let response = await db.Products_Bought_History.findAll({
             include: [{
                 model: db.Product_In_Order,
+                required: true,
                 include: [{
                     model: db.Order,
                     where: {
