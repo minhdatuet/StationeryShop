@@ -3,9 +3,16 @@ import clsx from 'clsx';
 import style from './Rate.module.scss';
 import { FaStar } from "react-icons/fa";
 import { apiGetDetailProductByPIOID } from "../../../services/order";
+import { apiCreateNewFeedback, apiGetFeedback, apiUpdateRate } from "../../../services/product";
+import { useNavigate } from "react-router-dom";
 
 export const Rate = () => {
 
+    let url = new URL(window.location.href);
+    let pIOIdValue = url.searchParams.get("pIOId");
+    let isRated = url.searchParams.get("isRated");
+
+    const navigate = useNavigate();
     const accId = localStorage.getItem('id');
     const [pIOId, setPIOId] = useState(0);
     const [productDetail, setProductDetail] = useState(
@@ -17,15 +24,24 @@ export const Rate = () => {
                 productDescription: ""
             }
         }
-    )
+    );
 
-    const [stars, setStars] = useState([0,0,0,0,0])
-    const [numStar, setNumStar] = useState(0)
+    const [stars, setStars] = useState([0,0,0,0,0]);
+    const [numStar, setNumStar] = useState(0);
 
     const getProductDetail = async(data) => {
         const response = await apiGetDetailProductByPIOID(data);
         console.log(response.data[0]);
         setProductDetail(response.data[0]);
+    };
+
+    const getFeedback = async(pIOId) => {
+        const response = await apiGetFeedback(pIOId);
+        console.log(response);
+        setStarsByIndex(response.data.response.rateScore - 1);
+        setNumStar(response.data.response.rateScore);
+        // console.log(numStar);
+        document.querySelector('.'+ style.commentRateInput).value = response.data.response.productFeedback;
     }
 
     const setStarsByIndex = (index) => {
@@ -39,14 +55,45 @@ export const Rate = () => {
         setStars(newArr);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         const comment = document.querySelector('.' + style.commentRateInput).value;
         // call api
+        console.log(numStar + "   " + comment);
+
+        try {
+            if(isRated == 1) {
+                const payload = {pIOId, numStar, comment};
+                const response = await apiUpdateRate(payload);
+                if(response.status = 200) {
+                    alert('Update Successfully')
+                    navigate('/personal');
+                }
+            }
+            else if (isRated == 0) {
+                const payload = {
+                    pId: productDetail.Product.id,
+                    accId,
+                    pIOId,
+                    numStar,
+                    comment
+                };
+                const response = await apiCreateNewFeedback(payload);
+                if(response.status = 200) {
+                    alert('Create Successfully')
+                    navigate('/personal');
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        
     }
 
     useEffect(() => {
-        var url = new URL(window.location.href);
-        var pIOIdValue = url.searchParams.get("pIOId");
+        
+        if(isRated == 1) {
+            getFeedback(pIOIdValue);
+        }
         setPIOId(pIOIdValue);
         getProductDetail(pIOIdValue);
     }, [0]);
@@ -131,7 +178,11 @@ export const Rate = () => {
                     Submit
                 </div>
 
-                <div className = {clsx(style.cancelBtn)}>
+                <div className = {clsx(style.cancelBtn)}
+                onClick={() => {
+                    navigate('/personal');
+                }}
+                >
                     Cancel
                 </div>
             </div>

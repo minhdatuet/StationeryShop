@@ -32,7 +32,7 @@ export const History = () => {
             }
             else { // orderState === "Completed"
                 const response = await apiGetBoughtHistoryByAID(accountId);
-                console.log(response);
+                // console.log(response);
                 setCompletedData(response.data.response);
             }
         } catch (error) {

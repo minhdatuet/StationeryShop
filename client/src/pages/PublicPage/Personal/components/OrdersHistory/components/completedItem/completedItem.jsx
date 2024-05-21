@@ -36,13 +36,17 @@ export const CompletedItem = (props) => {
             <div className={clsx(style.viewFeedback)}>
                 <div className={clsx(style.viewFeedbackBtn, {[style.hidden]: props.data.isRated === 0})}
                 onClick={() => {
-                    navigate("/customerRate?pIOId=" + props.data.productInOrderId);
+                    navigate("/customerRate?pIOId=" + props.data.productInOrderId + "&isRated="+ props.data.isRated);
                 }}
                 >
                     View My Feedback
                 </div>
 
-                <div className={clsx(style.giveFeedbackBtn, {[style.hidden]: props.data.isRated === 1})}>
+                <div className={clsx(style.giveFeedbackBtn, {[style.hidden]: props.data.isRated === 1})}
+                onClick={() => {
+                    navigate("/customerRate?pIOId=" + props.data.productInOrderId + "&isRated="+ props.data.isRated);
+                }}
+                >
                     Give My Feedback
                 </div>
             </div>

@@ -112,12 +112,21 @@ export const Information = (props) => {
         }
     };
 
+    function hasUpperCase(str) {
+        return str !== str.toLowerCase();
+    }
+
     const checkValidPassword = (p) => {
         if (p.length == 0) return true;
-        else if(p.length < 6 || p.length > 30) {
+        else if(p.length < 8) {
             return false;
         }
-        else return true;
+        else {
+            const hasUppercase = hasUpperCase(p); // Kiểm tra chữ viết hoa
+            const hasNumber = /\d/.test(p); // Kiểm tra số
+            // console.log(hasNumber);
+            return hasUppercase && hasNumber;
+        }
     };
 
     const checkValidOldPassword = async() => {
