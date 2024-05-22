@@ -8,6 +8,7 @@ const actionTypes = {
     GET_USER: 'GET_USER',
     GET_CART: 'GET_CART',
     GET_BACKPACK_INFO: 'GET_BACKPACK_INFO',
+    GET_PRODUCT: 'GET_PRODUCT'
 }
 
 export default actionTypes
