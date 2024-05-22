@@ -9,11 +9,9 @@ const AboutUs = () => {
     
     return(
         <div>
-            <Header />
             <AboutDDDShop />
             <OurPlans />
             <TeamMember />
-            <Footer />
         </div>
     )
 }

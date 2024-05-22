@@ -12,6 +12,7 @@ import Payment from "../components/Payment/Payment";
 import ProductList from "../pages/PublicPage/Product/ProductList";
 import Rate from "../pages/PublicPage/Rate/Rate"
 import AdminPage from "../pages/PrivatePage/AdminPage";
+import CreatePaymentLink from "../pages/PublicPage/TestPayOs/CreatePaymentLink";
 
 const publicRoutes = [
   {
@@ -27,7 +28,7 @@ const publicRoutes = [
     page: Instruction
   },
   {
-    path: '/aboutUs',
+    path: '/about-us',
     page: AboutUs
   },
   {
@@ -62,10 +63,14 @@ const publicRoutes = [
     path: 'customerRate',
     page: Rate
   },
-    {
-      path: 'productlist',
-      page: ProductList
-    }
+  {
+    path: 'test-payment',
+    page: CreatePaymentLink
+  },
+  {
+    path: 'productlist',
+    page: ProductList
+  }
 ];
 
 const adminRoutes = [
