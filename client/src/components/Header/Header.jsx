@@ -1,8 +1,7 @@
-
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import * as actions from '../../store/actions'
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from '../../store/actions';
 import './Header.module.scss';
 import style from './Header.module.scss';
 import clsx from 'clsx';
@@ -12,10 +11,12 @@ import { PiShoppingCartBold } from "react-icons/pi";
 import Cart from '../Cart/Cart';
 
 export const Header = () => {
-  const dispatch = useDispatch()
-  const { isLogged } = useSelector(state => state.auth)
-  const { userData } = useSelector(state => state.user)
+  const dispatch = useDispatch();
+  const { isLogged } = useSelector(state => state.auth);
+  const { userData } = useSelector(state => state.user);
   const [isSearchBorder, setIsSearchBorder] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const navigate = useNavigate();
 
   const addBorderWhenClickSearch = () => {
     setIsSearchBorder(true);
@@ -25,8 +26,18 @@ export const Header = () => {
     setIsSearchBorder(false);
   }
 
-  return (
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+  }
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchText.trim()) {
+      navigate(`/productlist?search=${encodeURIComponent(searchText)}`);
+    }
+  }
+
+  return (
     <div id={clsx(style.headerContainer)}>
       <div className={clsx(style.leftPart)}>
         <div className={clsx(style.logoContainer)}>
@@ -34,26 +45,24 @@ export const Header = () => {
           Logo
         </div>
 
-        <div className={clsx(style.searchBarContainer, { [style.searchBarBordered]: isSearchBorder })}
-          onClick={
-            () => {
-              addBorderWhenClickSearch();
-            }
-          }
-
-          onBlur={
-            () => {
-              removeSearchBorder();
-            }
-          }
+        <form 
+          className={clsx(style.searchBarContainer, { [style.searchBarBordered]: isSearchBorder })}
+          onSubmit={handleSearchSubmit}
         >
-          <input className={clsx(style.searchBar)} type="text" placeholder='Search' />
-
-          <div className={clsx(style.searchBtn)}>
+          <input 
+            className={clsx(style.searchBar)} 
+            type="text" 
+            placeholder='Search' 
+            value={searchText}
+            onChange={handleSearchChange}
+            onClick={addBorderWhenClickSearch}
+            onBlur={removeSearchBorder}
+          />
+          <button type="submit" className={clsx(style.searchBtn)}>
             <FaSearch />
             <p>Search</p>
-          </div>
-        </div>
+          </button>
+        </form>
       </div>
 
       <div className={clsx(style.rightPart)}>
@@ -62,11 +71,10 @@ export const Header = () => {
           <p>Account</p>
         </div>
 
-          <div className={clsx(style.cartContainer)}>
-            <div ><Cart /></div>
-            <p>Cart</p>
-          </div>
-
+        <div className={clsx(style.cartContainer)}>
+          <div><Cart /></div>
+          <p>Cart</p>
+        </div>
       </div>
 
       {!isLogged && <li>
@@ -79,13 +87,12 @@ export const Header = () => {
         localStorage.setItem('id', '');
         localStorage.setItem('name', '');
       }}>
-
         <Link to='/login'>
           <div>Đăng xuất</div>
         </Link>
       </li>}
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;

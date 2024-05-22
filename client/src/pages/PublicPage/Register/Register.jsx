@@ -77,7 +77,11 @@ export default function Login() {
       } else {
         setErrorAddressMessage('');
       }
-      if (errorNameMessage || errorPhoneMessage || errorEmailMessage || errorPasswordMessage|| errorRePasswordMessage|| errorAddressMessage) return;
+      if (errorNameMessage || errorPhoneMessage || errorEmailMessage || errorPasswordMessage|| errorRePasswordMessage|| errorAddressMessage) {
+        console.log(1);
+        return;
+      }
+      console.log(2);
       const response = dispatch(actions.register(payload))
       setTimeout(() => {
         if (!window.localStorage.getItem('persist:auth').isLogged) {
@@ -87,8 +91,8 @@ export default function Login() {
           } else if (errMsg.localeCompare('"Email already exists!"') == '0') {
             setErrorEmailMessage("Email này đã được đăng ký")
           } else {
-            setErrorPhoneMessage('');
-            setErrorEmailMessage('');
+            if(payload.accountPhone) setErrorPhoneMessage('');
+            if(payload.accountEmail) setErrorEmailMessage('');
           }
         
         }

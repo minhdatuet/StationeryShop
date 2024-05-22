@@ -28,4 +28,6 @@ router.delete('/delete/admin-delete-product/:id', productController.adminDeleteP
 router.post('/post/create-new-product', productController.createNewProduct);
 router.put('/update/edit-product/:id', productController.editProduct);
 
+router.get('/get/get-all-products', productController.getAllProducts);
+
 module.exports = router;

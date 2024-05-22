@@ -1,29 +1,5 @@
 import actionTypes from './actionTypes';
-import { apiGetBackpackInfo, apiGetProductById, apiGetProductsInCart } from '../../services/product';
-
-export const getBackpackInfo = () => async(dispatch) => {
-    try {
-        const response = await apiGetBackpackInfo();
-        if (response?.data.err === 0) {
-            dispatch({
-                type: actionTypes.GET_BACKPACK_INFO,
-                dataBackpack: response.data.response
-            })
-        } else {
-            dispatch({
-                type: actionTypes.GET_BACKPACK_INFO,
-                msg: response.data.msg,
-                dataBackpack: null
-            })
-        }
-    } catch (error) {
-        dispatch({
-            type: actionTypes.GET_BACKPACK_INFO,
-            dataBackpack: null,
-            msg: error
-        })
-    }
-}
+import { apiGetAllProducts, apiGetBackpackInfo, apiGetProductById, apiGetProductsInCart } from '../../services/product';
 
 export const getCart = (id) => async(dispatch) => {
     try {
@@ -45,6 +21,32 @@ export const getCart = (id) => async(dispatch) => {
         dispatch({
             type: actionTypes.GET_CART,
             dataCart: null,
+            msg: error
+        })
+    }
+}
+
+export const getAllProducts = () => async(dispatch) => {
+    try {
+        const response = await apiGetAllProducts();
+        // console.log(response)
+        if (response?.data.err === 0) {
+            dispatch({
+                type: actionTypes.GET_PRODUCT,
+                productData: response.data.response
+
+            })
+        } else {
+            dispatch({
+                type: actionTypes.GET_PRODUCT,
+                msg: response.data.msg,
+                productData: null
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: actionTypes.GET_PRODUCT,
+            productData: null,
             msg: error
         })
     }
