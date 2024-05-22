@@ -27,6 +27,9 @@ router.get('/get/get-product-by-catalog-id-for-admin/:id', productController.get
 router.delete('/delete/admin-delete-product/:id', productController.adminDeleteProductById);
 router.post('/post/create-new-product', productController.createNewProduct);
 router.put('/update/edit-product/:id', productController.editProduct);
+router.get('/getFeedbackByPIOId/:pIOId', productController.getFeedbackByPIOId);
+router.put('/update/editFeedback/:data', productController.editFeedback);
+router.post('/post/createNewFeedback', productController.createNewFeedback);
 
 router.get('/get/get-all-products', productController.getAllProducts);
 

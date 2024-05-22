@@ -102,3 +102,16 @@ export const apiGetQuantityStatistic = () =>  new Promise(async(resolve, reject)
         reject(error)
     }
 });
+
+export const apiGetDetailProductByPIOID = (pIOId) =>  new Promise(async(resolve, reject) => {
+    try {
+        // console.log(pIOId);
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/order/getDetailByPIOID/${pIOId}`,
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+});

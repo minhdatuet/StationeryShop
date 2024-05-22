@@ -384,3 +384,62 @@ exports.editProduct = (id, data) => new Promise(async (resolve, reject) => {
         reject(error);
     }
   });
+
+  exports.getFeedbackByPIOId = (pIOId) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product_Rate.findOne({
+            where: {
+                productInOrder: pIOId,
+            }
+        })
+        resolve({
+            msg: response ? "Successfully" : "Unsuccessfully",
+            response
+        });
+    }
+    catch (error) {
+        reject(error);
+    }
+});
+
+exports.editFeedback = (data) => new Promise(async (resolve, reject) => {
+    try {
+        // const [rowsAffected] = await db.Product.update(data, {
+        //     where: { 
+        //         productInOrderId: data
+        //     }
+        // });
+
+        // console.log(data);
+        const response = await db.Product_Rate.update(
+            {
+            rateScore: data.numStar,
+            productFeedback: data.comment,
+            }, 
+            {
+                where: {
+                    productInOrder: data.pIOId
+                }
+            }
+        )
+  
+        resolve(response);
+    } catch (error) {
+        reject(error);
+    }
+  });
+
+exports.createNewFeedback = (data) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product_Rate.create({
+            productId: data.pId,
+            accountId : data.accId,
+            productInOrder : data.pIOId,
+            rateScore: data.numStar,
+            productFeedback: data.comment,
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error)
+    }
+});

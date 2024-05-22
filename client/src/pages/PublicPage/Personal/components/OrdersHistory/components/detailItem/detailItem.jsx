@@ -4,7 +4,7 @@ import style from "./detailItem.module.scss";
 import clsx from 'clsx';
 
 export const DetailItem = (props) => {
-    console.log(props);
+    // console.log(props);
     return (
         <div className= {clsx(style.container)}>
             <div className={clsx(style.itemImg)}>

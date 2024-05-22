@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,9 +12,12 @@ import { PiShoppingCartBold } from "react-icons/pi";
 import Cart from '../Cart/Cart';
 
 export const Header = () => {
-  const dispatch = useDispatch();
-  const { isLogged } = useSelector(state => state.auth);
-  const { userData } = useSelector(state => state.user);
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate();
+  console.log(localStorage);
+  const { isLogged } = useSelector(state => state.auth)
+  const { userData } = useSelector(state => state.user)
   const [isSearchBorder, setIsSearchBorder] = useState(false);
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
@@ -66,9 +70,21 @@ export const Header = () => {
       </div>
 
       <div className={clsx(style.rightPart)}>
-        <div className={clsx(style.accountContainer)}>
+        <div className={clsx(style.accountContainer)}
+        onClick={() => {
+          if(isLogged) {
+            navigate('/personal')
+          }
+          else {
+            navigate('/login')
+          }
+        }}
+        >
           <MdOutlineAccountCircle />
-          <p>Account</p>
+          {
+            !isLogged?<p>  Account</p>:<p>  {localStorage.getItem('name')}</p>
+          }
+          
         </div>
 
         <div className={clsx(style.cartContainer)}>
@@ -77,7 +93,7 @@ export const Header = () => {
         </div>
       </div>
 
-      {!isLogged && <li>
+      {/* {!isLogged && <li>
         <Link to='/login'>
           Đăng nhập
         </Link>
@@ -90,7 +106,7 @@ export const Header = () => {
         <Link to='/login'>
           <div>Đăng xuất</div>
         </Link>
-      </li>}
+      </li>} */}
     </div>
   );
 }

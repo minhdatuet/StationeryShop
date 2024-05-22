@@ -14,25 +14,13 @@ module.exports = {
     await queryInterface.bulkInsert('Product_Rates', [
       {
         // Sample data for the first record
-        accountId: 1,
+        accountId: 2,
         productId: 1,
-        rateScore: 3,
-        productFeedback: "Normal product"
-      },
-      {
-        // Sample data for the first record
-        accountId: 1,
-        productId: 1,
+        productInOrder: 7,
         rateScore: 4,
         productFeedback: "Good product"
       },
-      {
-        // Sample data for the first record
-        accountId: 1,
-        productId: 1,
-        rateScore: 5,
-        productFeedback: "Best product"
-      }
+      
     ])
 },
     down: async (queryInterface, Sequelize) => {

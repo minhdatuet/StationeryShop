@@ -85,6 +85,7 @@ exports.getBoughtHistoryByAId = (aId) => new Promise(async (resolve, reject) => 
         let response = await db.Products_Bought_History.findAll({
             include: [{
                 model: db.Product_In_Order,
+                required: true,
                 include: [{
                     model: db.Order,
                     where: {
@@ -202,6 +203,26 @@ exports.getStatisticGroupByCategory = () => new Promise(async (resolve, reject) 
                 }
             ],
             group: ['catalogName']
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});
+
+exports.getDetailByPIOID = (pIOId) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Product_In_Order.findAll({
+            // 
+            include: [
+                {
+                    model: db.Product
+                }
+            ],
+            where: {
+                id: pIOId
+            }
         })
         resolve(response);
     }

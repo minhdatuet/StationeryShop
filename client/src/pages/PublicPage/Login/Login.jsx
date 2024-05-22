@@ -4,6 +4,10 @@ import * as actions from '../../../store/actions'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { TEInput, TERipple } from "tw-elements-react";
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -16,24 +20,23 @@ export default function Login() {
     accountPassword: ''
   })
 
-
   const [errorPhoneMessage, setErrorPhoneMessage] = useState('');
   const [errorPasswordMessage, setErrorPasswordMessage] = useState('');
 
   useEffect(() => {
-    isLogged  && setTimeout(() => {
+    isLogged && setTimeout(() => {
       dispatch(actions.getUser())
-  }, 100);
+    }, 100);
 
   }, [isLogged])
 
   useEffect(() => {
     userData && setTimeout(() => {
       if (!(Object.keys(userData).length === 0) && !(userData.length === 0)) {
-          localStorage.setItem('id', userData.id);
-          localStorage.setItem('name', userData.accountName);
-          dispatch(actions.getCart(localStorage.getItem('id')));
-          navigate('/')
+        localStorage.setItem('id', userData.id);
+        localStorage.setItem('name', userData.accountName);
+        dispatch(actions.getCart(localStorage.getItem('id')));
+        navigate('/')
       }
 
     }, 200);
@@ -73,6 +76,11 @@ export default function Login() {
       console.log('Đã xảy ra lỗi khi đăng nhập!');
     }
   }
+
+  // const loginWithGoogle = useGoogleLogin({
+  //   onSuccess: tokenResponse => console.log(tokenResponse),
+  // });
+
   return (
 
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -83,8 +91,9 @@ export default function Login() {
               Sign In
             </h1>
             <div className="w-full flex-1 mt-8">
-              <div className="flex flex-col items-center">
+              {/* <div className="flex flex-col items-center">
                 <button
+                  onClick={() => loginWithGoogle()}
                   className="w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                   <div className="bg-white p-2 rounded-full">
                     <svg className="w-4" viewBox="0 0 533.5 544.3">
@@ -106,6 +115,22 @@ export default function Login() {
                     Sign In with Google
                   </span>
                 </button>
+              </div> */}
+
+              <div className="flex flex-col items-center">
+                <GoogleLogin
+                  onSuccess={credentialResponse => {
+                    const credentialResponseDecoded = jwtDecode(credentialResponse.credential)
+                    console.log(credentialResponseDecoded);
+                  }}
+                  onError={() => {
+                    console.log('Login Failed');
+                  }}
+                  text= "signin_with"
+                  theme= "filled_blue"
+                  size= "large"
+                  width= "315"
+                />;
               </div>
 
               <div className="my-12 border-b text-center">

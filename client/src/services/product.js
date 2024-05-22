@@ -122,6 +122,46 @@ export const apiGetAllProducts = () => new Promise(async(resolve, reject) => {
         const response = await axiosConfig({
             method: 'get',
             url: '/api/v1/product/get/get-all-products'
+           })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});
+
+export const apiGetFeedback = (payload) =>  new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'get',
+            url: `/api/v1/product/getFeedbackByPIOId/${payload}`,
+            data: payload
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+});
+
+export const apiUpdateRate = (payload) =>  new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'put',
+            url: `/api/v1/product/update/editFeedback/${payload}`,
+            data: payload
+        })
+        resolve(response)
+    } catch (error) {
+        reject(error)
+    }
+});
+
+export const apiCreateNewFeedback = (payload) => new Promise(async(resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/product/post/createNewFeedback',
+            data: payload
         })
         resolve(response);
     }

@@ -235,7 +235,7 @@ exports.adminDeleteProductById = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: "Fail at user controller admin delete product by id " + error
+            msg: "Fail at product controller admin delete product by id " + error
         })
     }
 }
@@ -254,7 +254,7 @@ exports.createNewProduct = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at user controller create new product ' + error
+            msg: 'Fail at product controller create new product ' + error
         })
     }
 }
@@ -268,7 +268,57 @@ exports.editProduct = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             err: -1,
-            msg: 'Fail at user controller edit product ' + error
+            msg: 'Fail at product controller edit product ' + error
+        })
+    }
+};
+
+exports.getFeedbackByPIOId = async (req, res) => {
+    
+    try{
+        const pIOId = req.params.pIOId;
+        const response = await productService.getFeedbackByPIOId(pIOId)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller getFeedbackByPIOId ' + error
+        })
+    }
+};
+
+exports.editFeedback = async (req, res) => {
+    
+    try{
+        const data = req.body;
+        console.log(data);
+        const response = await productService.editFeedback(data)
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller editFeedback ' + error
+        })
+    }
+};
+
+exports.createNewFeedback = async (req, res) => {
+    const data = req.body
+    try {
+        if (!data.pId || !data.accId 
+            || !data.pIOId || !data.numStar || !data.comment) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'createNewFeedback: Missing inputs!'
+            })   
+        };
+        console.log(data);
+        const response = await productService.createNewFeedback(data);
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at product controller createNewFeedback ' + error
         })
     }
 }
