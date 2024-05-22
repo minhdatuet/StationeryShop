@@ -23,6 +23,25 @@ exports.getProductInfoByCatalogId = (id) => new Promise(async(resolve, reject) =
     }
 })
 
+exports.getAllProducts = () => new Promise(async(resolve, reject) => {
+    try {
+        const response = await db.Product.findAll({
+            include: {
+                model: db.Catalog,
+            }
+        })
+        resolve({
+            err: response? 0 : 2,
+            msg: response? "Succesfully" : "Unsuccesfully",
+            response
+        })
+    }
+    catch (error) {
+        reject(error);
+    }
+
+  });
+
 exports.getBackpackInfo = () => new Promise(async(resolve, reject) => {
     try {
         let response = await db.Product.findAll({
@@ -217,6 +236,7 @@ exports.getProductById = (id) => new Promise(async(resolve, reject) => {
 
 exports.addToCart = (body) => new Promise(async(resolve, reject) => {
     try {
+
         const response = await db.Products_In_Cart.findOrCreate({
             where: {productId: body.productId,
             accountId: body.accountId},
@@ -226,6 +246,7 @@ exports.addToCart = (body) => new Promise(async(resolve, reject) => {
                 productsInCartQuantity: body.productsInCartQuantity
             }
         })
+        console.log("1");
         if (!response[1]) {
             const quantity = parseInt(response[0].productsInCartQuantity) + parseInt(body.productsInCartQuantity)
             if (quantity > 0) {

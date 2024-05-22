@@ -31,4 +31,6 @@ router.get('/getFeedbackByPIOId/:pIOId', productController.getFeedbackByPIOId);
 router.put('/update/editFeedback/:data', productController.editFeedback);
 router.post('/post/createNewFeedback', productController.createNewFeedback);
 
+router.get('/get/get-all-products', productController.getAllProducts);
+
 module.exports = router;

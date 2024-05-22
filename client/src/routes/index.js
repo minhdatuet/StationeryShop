@@ -9,6 +9,7 @@ import Cart from "../components/Cart/Cart";
 import Products from "../pages/PublicPage/Products/Products";
 import Personal from "../pages/PublicPage/Personal/Personal";
 import Payment from "../components/Payment/Payment";
+import ProductList from "../pages/PublicPage/Product/ProductList";
 import Rate from "../pages/PublicPage/Rate/Rate"
 import AdminPage from "../pages/PrivatePage/AdminPage";
 
@@ -60,8 +61,13 @@ const publicRoutes = [
   {
     path: 'customerRate',
     page: Rate
-  }
+  },
+    {
+      path: 'productlist',
+      page: ProductList
+    }
 ];
+
 const adminRoutes = [
   {
     path: 'admin',
