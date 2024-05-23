@@ -57,7 +57,7 @@ const Product = () => {
             const response = await apiAddToCart(payload);
             dispatch(actions.getCart(localStorage.getItem('id')));
         } catch (error) {
-          console.log('Add to cart error!');
+          console.log('Add to cart error! ' + error);
         }
       }
 
