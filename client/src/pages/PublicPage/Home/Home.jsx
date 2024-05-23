@@ -36,9 +36,6 @@ function Home() {
 
   return (
     <>
-      <Link to='/productlist'>
-        <div className="">{productData[0]?.productName}</div>
-      </Link>
       <div className={clsx(style.container)} data-aos="fade-up">
         {catalogs.map(catalog => {
           const filteredProducts = productData.filter(product => product.catalogId === catalog.id);

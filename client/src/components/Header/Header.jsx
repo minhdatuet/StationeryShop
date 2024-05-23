@@ -20,7 +20,6 @@ export const Header = () => {
   const { userData } = useSelector(state => state.user)
   const [isSearchBorder, setIsSearchBorder] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const navigate = useNavigate();
 
   const addBorderWhenClickSearch = () => {
     setIsSearchBorder(true);
