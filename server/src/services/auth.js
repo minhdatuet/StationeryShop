@@ -5,6 +5,7 @@ require('dotenv').config()
 const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(12))
 const { Sequelize, DataTypes, Op } = require('sequelize');
 
+
 exports.registerService = (body) => new Promise(async (resolve, reject) => {
     try {
         const response = await db.Account.findOrCreate({
@@ -69,4 +70,3 @@ exports.loginService = (body) => new Promise(async(resolve, reject) => {
         reject(error)
     }
 })
-

@@ -1,3 +1,4 @@
+const { json } = require('sequelize');
 const userService = require('../services/user.js');
 exports.getUser = async (req, res) => {
     const {accountPhone} = req.user

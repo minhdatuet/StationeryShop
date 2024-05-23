@@ -238,8 +238,9 @@ exports.addToCart = (body) => new Promise(async(resolve, reject) => {
     try {
 
         const response = await db.Products_In_Cart.findOrCreate({
-            where: {productId: body.productId,
-            accountId: body.accountId},
+            where: {
+            accountId: body.accountId,
+            productId: body.productId,},
             defaults: {
                 accountId: body.accountId,
                 productId: body.productId,

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as actions from '../../../store/actions';
 import { apiAddToCart } from '../../../services/product';
 import './ProductList.css';
 
 const ProductList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { productData } = useSelector(state => state.product);
   const { cartData } = useSelector(state => state.cart);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -65,6 +66,10 @@ const ProductList = () => {
 
   const handlePriceFilterChange = (filter) => {
     setPriceFilter(filter);
+  };
+
+  const handleViewDetails = (productId) => {
+    navigate(`/product/${productId}`);
   };
 
   let filteredProducts = productData.filter(product =>
@@ -237,12 +242,20 @@ const ProductList = () => {
                 <p className="product-price">{product.productCost} $</p>
                 <p className="product-description">{product.productDescription}</p>
               </div>
-              <button 
-                className="add-to-cart-btn" 
-                onClick={() => handleAddProduct(product.id, 1)}
-              >
-                Add to Cart
-              </button>
+              <div className="product-buttons">
+                <button 
+                  className="view-details-btn" 
+                  onClick={() => handleViewDetails(product.id)}
+                >
+                  View Details
+                </button>
+                <button 
+                  className="add-to-cart-btn" 
+                  onClick={() => handleAddProduct(product.id, 1)}
+                >
+                  Add to Cart
+                </button>
+              </div>
             </div>
           ))}
         </div>
