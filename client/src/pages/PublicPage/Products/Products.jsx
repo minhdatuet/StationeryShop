@@ -165,8 +165,6 @@ export const Products = () => {
   return (
 
     <Fragment>
-      <Header /> 
-
       <div className={clsx(style.pageContainer)}>
         <div className={clsx(style.productsListHeader, )}>
           <div className={clsx(style.productsListName, )}>

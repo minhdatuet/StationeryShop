@@ -3,14 +3,14 @@ import { apiCreatePaymentLink } from '../../../services/payos';
 
 const CreatePaymentLink = () => {
     const orderTest = {
-        orderCode: 302403,
-        amount: 1000,
+        orderCode: 314844556,
+        amount: 10000,
         description: "Thanh toan don hang",
         items: [
           {
             name: "Mì tôm hảo hảo ly",
             quantity: 1,
-            price: 1000,
+            price: 10000,
           }
         ],
         cancelUrl: "http://localhost:3000",
