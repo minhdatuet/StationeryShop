@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import style from "./detailItem.module.scss";
 import clsx from 'clsx';
+import { useNavigate } from "react-router-dom";
 
 export const DetailItem = (props) => {
     // console.log(props);
+    const navigate = useNavigate();
     return (
         <div className= {clsx(style.container)}>
             <div className={clsx(style.itemImg)}>
@@ -22,7 +24,11 @@ export const DetailItem = (props) => {
             </div>
 
             <div className={clsx(style.viewDetailItem)}>
-                <div className={clsx(style.viewDetailItemBtn)}>
+                <div className={clsx(style.viewDetailItemBtn)}
+                onClick={() => {
+                    navigate('/product/' + props.data.productId)
+                }}
+                >
                     Detail
                 </div>
             </div>

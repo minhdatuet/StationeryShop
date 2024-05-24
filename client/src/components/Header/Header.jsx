@@ -10,6 +10,9 @@ import { FaSearch } from "react-icons/fa";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { PiShoppingCartBold } from "react-icons/pi";
 import Cart from '../Cart/Cart';
+import logoImg from '../../assets/images/logo/logo.png'
+import { RiShutDownLine } from "react-icons/ri";
+// import * as actions from '../../store/actions'
 
 export const Header = () => {
   const dispatch = useDispatch()
@@ -43,10 +46,12 @@ export const Header = () => {
   return (
     <div id={clsx(style.headerContainer)}>
       <div className={clsx(style.leftPart)}>
-        <div className={clsx(style.logoContainer)}>
-          <img src="" alt="" />
-          Logo
-        </div>
+        <div className={clsx(style.logoContainer)}
+          onClick={() => {
+            navigate('/');
+          }}
+        >
+          <img src={logoImg} alt="" /></div>
 
         <form 
           className={clsx(style.searchBarContainer, { [style.searchBarBordered]: isSearchBorder })}
@@ -81,7 +86,7 @@ export const Header = () => {
         >
           <MdOutlineAccountCircle />
           {
-            !isLogged?<p>  Account</p>:<p>  {localStorage.getItem('name')}</p>
+            !isLogged?<p>  Sign In</p>:<p>  {localStorage.getItem('name')}</p>
           }
           
         </div>
@@ -89,6 +94,24 @@ export const Header = () => {
         <div className={clsx(style.cartContainer)}>
           <div><Cart /></div>
           <p>Cart</p>
+        </div>
+
+        <div className={clsx(style.logOutContainer, {[style.hidden] : !isLogged})}
+        onClick={() => {
+          localStorage.clear();
+          dispatch(actions.logout());
+          navigate('/')
+        }}
+        >
+          <div className={style.logOutBtn}>
+            <div className={style.logOutLogo}>
+              <RiShutDownLine />
+            </div>
+
+            <div className={style.logOutLabel}>
+              Log Out
+            </div>
+          </div>
         </div>
       </div>
     </div>
