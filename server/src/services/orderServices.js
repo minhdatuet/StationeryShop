@@ -230,3 +230,29 @@ exports.getDetailByPIOID = (pIOId) => new Promise(async (resolve, reject) => {
         reject(error);
     }
 });
+
+exports.handleWhenCustomerClickPayNow = (body) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Order.create({
+            accountId: body.accountId,
+            status: body.status,
+            totalPrice: body.totalPrice
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error)
+    }
+});
+
+exports.addToProductInOrderWhenPaySuccess = (body) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await db.Product_In_Order.create({
+            orderId: body.orderId,
+            productId: body.productId,
+            quantity: body.quantity
+        })
+        resolve(response);
+    } catch (error) {
+        reject(error)
+    }
+});

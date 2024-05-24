@@ -29,11 +29,12 @@ function App() {
 
   const isPublicRoute = publicRoutes.some(route => matchPath(route.path, location.pathname));
   const isAdminRoute = adminRoutes.some(route => matchPath(route.path, location.pathname));
+  const isHomeRoute = location.pathname === "/" || location.pathname === "*";
 
   return (
     <>
       {!isAdminRoute && isPublicRoute && <Header />}
-      {!isAdminRoute && isPublicRoute && <Slider />}
+      {!isAdminRoute && isPublicRoute && isHomeRoute && <Slider />}
       <Routes>
         {publicRoutes.map((route, i) => (
           <Route key={i} path={route.path} element={<route.page />} />

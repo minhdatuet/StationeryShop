@@ -115,3 +115,31 @@ export const apiGetDetailProductByPIOID = (pIOId) =>  new Promise(async(resolve,
         reject(error)
     }
 });
+
+export const apiHandleWhenCustomerClickPayNow = (payload) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/order/post/add-to-order-when-click-pay',
+            data: payload
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});
+
+export const apiAddToProductInOrder = (payload) => new Promise(async (resolve, reject) => {
+    try {
+        const response = await axiosConfig({
+            method: 'post',
+            url: '/api/v1/order/post/add-to-product_in_order',
+            data: payload
+        })
+        resolve(response);
+    }
+    catch (error) {
+        reject(error);
+    }
+});

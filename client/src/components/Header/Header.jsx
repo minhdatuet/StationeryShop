@@ -91,21 +91,6 @@ export const Header = () => {
           <p>Cart</p>
         </div>
       </div>
-
-      {/* {!isLogged && <li>
-        <Link to='/login'>
-          Đăng nhập
-        </Link>
-      </li>}
-      {isLogged && <li onClick={() => {
-        dispatch(actions.logout());
-        localStorage.setItem('id', '');
-        localStorage.setItem('name', '');
-      }}>
-        <Link to='/login'>
-          <div>Đăng xuất</div>
-        </Link>
-      </li>} */}
     </div>
   );
 }

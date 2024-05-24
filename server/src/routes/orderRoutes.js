@@ -15,4 +15,7 @@ router.post('/post/add-to-bought-history-when-confirmed', orderController.addToB
 router.get('/get/get-statistic-data', orderController.getStatisticGroupByCategory);
 router.get('/getDetailByPIOID/:pIOId', orderController.getDetailByPIOID);
 
+router.post('/post/add-to-order-when-click-pay', orderController.handleWhenCustomerClickPayNow);
+router.post('/post/add-to-product_in_order', orderController.addToProductInOrderWhenPaySuccess);
+
 module.exports = router;
