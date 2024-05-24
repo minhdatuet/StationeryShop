@@ -5,6 +5,7 @@
     font-size: 36px;
     padding: 12px;
     border: #b0b0b0 solid 1px;
+    height: 100px;
 }
 
 #headerContainer p {
@@ -21,6 +22,13 @@
 
 .logoContainer {
     margin-right: 16px;
+    height: 100%;
+    width: auto;
+}
+
+.logoContainer img {
+    height: 100%;
+    cursor: pointer;
 }
 
 .searchBarContainer {
@@ -28,7 +36,7 @@
     flex-direction: row;
     border-radius: 36px;
     border: 2px solid #aaaaaa;
-    padding: 12px;
+    padding: 4px 12px;
     justify-content: center;
     align-items: center;
 }
@@ -39,8 +47,15 @@
 
 .searchBar {
     border: none;
+    // border: 1px solid #900000;
     font-size: 18px;
     outline: none;
+}
+
+.searchBar:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
 }
 
 .searchBtn {
@@ -69,6 +84,7 @@
     flex-direction: row;
     margin-right: 24px;
     cursor: pointer;
+    font-size: 40px;
 }
 
 .accountContainer p {
@@ -80,9 +96,36 @@
     align-items: center;
     display: flex;
     flex-direction: row;
+    margin-right: 24px;
     // cursor: pointer;
 }
 
 .cartContainer p {
     font-size: 20px;
+}
+
+.logOutContainer {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
+.logOutBtn {
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.logOutLogo {
+    font-size: 40px;
+}
+
+.logOutLabel {
+
+}
+
+.hidden {
+    display: none;
 }
