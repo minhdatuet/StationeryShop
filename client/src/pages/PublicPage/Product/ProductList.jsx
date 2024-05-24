@@ -40,6 +40,10 @@ const ProductList = () => {
     }
   }, [initialSearch]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
   const handleAddProduct = async (productId, productsInCartQuantity) => {
     try {
       const payload = {
@@ -48,7 +52,7 @@ const ProductList = () => {
         productsInCartQuantity
       };
       console.log(payload);
-      const response = await apiAddToCart(payload);
+      await apiAddToCart(payload);
       dispatch(actions.getCart(localStorage.getItem('id')));
     } catch (error) {
       console.log('Add to cart error!', error);

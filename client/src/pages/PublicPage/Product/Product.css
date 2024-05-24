@@ -83,3 +83,7 @@ img {
     display: flex;
     padding: 5px 0;
 }
+
+#rate li {
+    display: block;
+}

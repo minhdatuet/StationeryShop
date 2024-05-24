@@ -1,4 +1,3 @@
-// src/pages/Product/Product.js
 import React, { useEffect, useState } from 'react';
 import './Product.css';
 import { apiGetProductById, apiAddToCart } from '../../../services/product';
@@ -43,6 +42,10 @@ const Product = () => {
       }
     };
     fetchProduct();
+  }, [id]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, [id]);
 
   const handleAddProduct = async (productId, productsInCartQuantity) => {
