@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as actions from '../../../store/actions';
+import { apiAddToCart } from '../../../services/product';
 
 function Home() {
   const { productData } = useSelector(state => state.product);
@@ -32,6 +33,21 @@ function Home() {
 
   const handleViewAll = (catalog) => {
     navigate(`/productlist?category=${catalog.name}`);
+  };
+
+  const handleAddProduct = async (productId, productsInCartQuantity) => {
+    try {
+      const payload = {
+        accountId: localStorage.getItem('id'),
+        productId,
+        productsInCartQuantity
+      }
+      console.log(payload)
+      const response = await apiAddToCart(payload);
+      dispatch(actions.getCart(localStorage.getItem('id')));
+    } catch (error) {
+      console.log('Add to cart error!');
+    }
   };
 
   return (
@@ -68,8 +84,8 @@ function Home() {
                             {product.productName}
                           </h1>
                         </div>
-                        <div className="text-lg font-semibold text-slate-500">
-                          Cost: {product.productCost}$
+                        <div className="mt-1.5 text-lg font-semibold text-slate-500">
+                          Cost: {product.productCost}$ 
                         </div>
                         <div className="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200"></div>
                         <div className="flex space-x-4 mb-6 text-sm font-medium">
@@ -85,8 +101,12 @@ function Home() {
                               className="h-10 px-6 font-semibold rounded-md border border-slate-200 text-slate-900"
                               type="button"
                               id={clsx(style['add-to-cart-button'])}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleAddProduct(product.id, 1);
+                              }}
                             >
-                              Add Cart
+                              Add To Cart
                             </button>
                           </div>
                         </div>
