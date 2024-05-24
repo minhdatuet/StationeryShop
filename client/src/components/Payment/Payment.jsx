@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import './Payment.css';
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom';
@@ -6,6 +6,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import * as actions from '../../store/actions';
 import { apiHandleWhenCustomerClickPayNow, apiAddToProductInOrder } from '../../services/order';
+import { apiGetPaymentLinkInfomation, apiCreatePaymentLink, apiVerifyPaymentWebhookData } from '../../services/payos';
 
 const Payment = () => {
     const dispatch = useDispatch();
@@ -27,33 +28,45 @@ const Payment = () => {
             setTotalPayFromHomePage(quantity * product.productCost);
         }
     }, [product, quantity]);
-    console.log(productListFromHomePage);
+    console.log(productListFromHomePage, quantity);
     console.log(totalPayFromHomePage);
     console.log(localStorage);
+    const productInOrderHomePage = {
+        productId: productListFromHomePage[0].id
+    }
 
     const handleClickPayNow = async () => {
-        const payloadAPIiHandleWhenCustomerClickPayNow = {
-            status: "WAITING",
-            totalPrice: totalPayFromHomePage,
-            accountId: localStorage.id
-        }
         try {
-            const response = await apiHandleWhenCustomerClickPayNow(payloadAPIiHandleWhenCustomerClickPayNow);
-            console.log(response);
-            if (response && response.data) {
-                const orderId = response.data.id;
-                const payloadAPIAddToProductInOrder = {
-                    productId: productListFromHomePage[0].id,
-                    orderId: orderId,
-                    quantity: quantity
-                }
-                await apiAddToProductInOrder(payloadAPIAddToProductInOrder);
-            }
+            let orderCode = Date.now();
+            const orderTest = {
+                orderCode: orderCode,
+                amount: totalPayFromHomePage * 100,
+                description: "Thanh toan don hang",
+                items: [
+                    {
+                        name: "Mì tôm hảo hảo ly",
+                        quantity: quantity,
+                        price: totalPayFromHomePage * 100,
+                    }
+                ],
+                cancelUrl: "http://localhost:3000",
+                returnUrl: "http://localhost:3000/?checkPayment=true&orderId=" + orderCode,
+            };
+            const responseCreatePaymentLink = await apiCreatePaymentLink(orderTest);
+            console.log(responseCreatePaymentLink);
+            window.location.href = responseCreatePaymentLink.data.data.checkoutUrl;
+
+            // const responseGetPaymentLinkInfomation = await apiGetPaymentLinkInfomation(orderId);
+            // console.log(responseGetPaymentLinkInfomation);
+
+            // const responseVerifyPaymentWebhookData = await apiVerifyPaymentWebhookData(responseCreatePaymentLink.data.data.checkoutUrl);
+            // console.log(responseVerifyPaymentWebhookData);
+
         } catch (error) {
             console.error("Payment error:", error);
         }
     }
-    
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
@@ -73,7 +86,7 @@ const Payment = () => {
         for (var i = 0; i < cartData.length; i++) {
             console.log(cartData[i])
             pay += parseInt(cartData[i].Product.productCost) * parseInt(cartData[i].productsInCartQuantity);
-            
+
         }
         setTotalPayFromCart(pay)
     }, [cartData]);

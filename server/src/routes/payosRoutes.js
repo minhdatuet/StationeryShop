@@ -11,6 +11,6 @@ router.put('/put/cancel-payment-link/:orderId', payosController.cancelPaymentLin
 
 router.post('/post/confirm-web-hook/web-hook', payosController.confirmWebHook)
 
-router.post('/post/verify-payment-web-hook-data', payosController.verifyPaymentWebhookData)
+router.get('/get/verify-payment-web-hook-data/:payload', payosController.verifyPaymentWebhookData)
 
 module.exports = router;
