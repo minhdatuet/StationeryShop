@@ -142,3 +142,41 @@ exports.getDetailByPIOID = async (req, res) => {
         })
     }
 };
+
+exports.handleWhenCustomerClickPayNow = async (req, res) => {
+    const { accountId, status, totalPrice } = req.body
+    try {
+        if (!accountId || !status || !totalPrice) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing inputs!' + (!accountId ? "accountId " : " ") + (!status ? "status " : " ") + (!totalPrice ? "totalPrice " : " ")
+            })   
+        }
+        const response = await orderService.handleWhenCustomerClickPayNow(req.body)
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at order controller handleWhenCustomerClickPayNow ' + error
+        })
+    }
+}
+
+exports.addToProductInOrderWhenPaySuccess = async (req, res) => {
+    const { orderId, productId, quantity } = req.body
+    try {
+        if (!orderId || !productId || !quantity) {
+            return res.status(400).json({
+                err: 1,
+                msg: 'Missing inputs!' + (!orderId ? "orderId " : " ") + (!productId ? "productId " : " ") + (!quantity ? "quantity " : " ")
+            })   
+        }
+        const response = await orderService.addToProductInOrderWhenPaySuccess(req.body)
+        return res.status(200).json(response);
+    } catch (error) {
+        return res.status(500).json({
+            err: -1,
+            msg: 'Fail at order controller addToProductInOrderWhenPaySuccess ' + error
+        })
+    }
+}

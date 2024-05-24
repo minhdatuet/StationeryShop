@@ -3,7 +3,7 @@ import { apiCreatePaymentLink } from '../../../services/payos';
 
 const CreatePaymentLink = () => {
     const orderTest = {
-        orderCode: 314844556,
+        orderCode: 3148445906,
         amount: 10000,
         description: "Thanh toan don hang",
         items: [
@@ -21,7 +21,7 @@ const CreatePaymentLink = () => {
         try {
             const response = await apiCreatePaymentLink(orderTest);
             console.log(response);
-            window.location.href= response.data.data.checkoutUrl;
+            // window.location.href= response.data.data.checkoutUrl;
         } catch (error) {
             console.error(error);
         }
