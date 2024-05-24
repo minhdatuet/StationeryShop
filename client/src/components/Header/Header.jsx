@@ -53,14 +53,14 @@ export const Header = () => {
         >
           <img src={logoImg} alt="" /></div>
 
-        <form 
+        <form
           className={clsx(style.searchBarContainer, { [style.searchBarBordered]: isSearchBorder })}
           onSubmit={handleSearchSubmit}
         >
-          <input 
-            className={clsx(style.searchBar)} 
-            type="text" 
-            placeholder='Search' 
+          <input
+            className={clsx(style.searchBar)}
+            type="text"
+            placeholder='Search'
             value={searchText}
             onChange={handleSearchChange}
             onClick={addBorderWhenClickSearch}
@@ -74,34 +74,37 @@ export const Header = () => {
       </div>
 
       <div className={clsx(style.rightPart)}>
-        <div className={clsx(style.accountContainer)}
-        onClick={() => {
-          if(isLogged) {
-            navigate('/personal')
-          }
-          else {
-            navigate('/login')
-          }
-        }}
-        >
-          <MdOutlineAccountCircle />
-          {
-            !isLogged?<p>  Sign In</p>:<p>  {localStorage.getItem('name')}</p>
-          }
-          
-        </div>
 
         <div className={clsx(style.cartContainer)}>
           <div><Cart /></div>
           <p>Cart</p>
         </div>
 
-        <div className={clsx(style.logOutContainer, {[style.hidden] : !isLogged})}
-        onClick={() => {
-          localStorage.clear();
-          dispatch(actions.logout());
-          navigate('/')
-        }}
+        <div className={clsx(style.accountContainer)}
+          onClick={() => {
+            if (isLogged) {
+              navigate('/personal')
+            }
+            else {
+              navigate('/login')
+            }
+          }}
+        >
+          <MdOutlineAccountCircle />
+          {
+            !isLogged ? <p>  Sign In</p> : <p>  {localStorage.getItem('name')}</p>
+          }
+
+        </div>
+
+
+
+        <div className={clsx(style.logOutContainer, { [style.hidden]: !isLogged })}
+          onClick={() => {
+            localStorage.clear();
+            dispatch(actions.logout());
+            navigate('/')
+          }}
         >
           <div className={style.logOutBtn}>
             <div className={style.logOutLogo}>

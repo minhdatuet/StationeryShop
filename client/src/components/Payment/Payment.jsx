@@ -17,7 +17,9 @@ const Payment = () => {
     const [productListFromCart, setProductListCart] = useState([]);
     const [totalPayFromCart, setTotalPayFromCart] = useState(0)
 
-    const [productListFromHomePage, setProductListFromHomePage] = useState([]);
+    const [productListFromHomePage, setProductListFromHomePage] = useState([{
+        id: 0,
+    }]);
     const [totalPayFromHomePage, setTotalPayFromHomePage] = useState(0)
 
     const { product, quantity } = location.state || {};
@@ -28,16 +30,20 @@ const Payment = () => {
             setTotalPayFromHomePage(quantity * product.productCost);
         }
     }, [product, quantity]);
-    console.log(productListFromHomePage, quantity);
+    console.log(productListFromHomePage[0].id, quantity);
     console.log(totalPayFromHomePage);
     console.log(localStorage);
-    const productInOrderHomePage = {
-        productId: productListFromHomePage[0].id
-    }
+    
 
     const handleClickPayNow = async () => {
         try {
             let orderCode = Date.now();
+            const productInOrderHomePage = {
+                productId: productListFromHomePage[0].id,
+                quantity: quantity
+            }
+            console.log(JSON.stringify(productInOrderHomePage));
+            alert();
             const orderTest = {
                 orderCode: orderCode,
                 amount: totalPayFromHomePage * 100,
@@ -50,7 +56,7 @@ const Payment = () => {
                     }
                 ],
                 cancelUrl: "http://localhost:3000",
-                returnUrl: "http://localhost:3000/?checkPayment=true&orderId=" + orderCode,
+                returnUrl: "http://localhost:3000/?checkPayment=true&orderId=" + orderCode + "&productsInOrder=" + JSON.stringify(productInOrderHomePage),
             };
             const responseCreatePaymentLink = await apiCreatePaymentLink(orderTest);
             console.log(responseCreatePaymentLink);
