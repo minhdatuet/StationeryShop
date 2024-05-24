@@ -44,6 +44,9 @@ function Home() {
     if (isCheck) {
       console.log(url.searchParams.get('checkPayment'));
       const orderId = url.searchParams.get('orderId');
+      const productsInOrder = JSON.parse(url.searchParams.get('productsInOrder'));
+      console.log(productsInOrder.productId);
+      console.log(productsInOrder.quantity);
       const response1 = await apiGetPaymentLinkInfomation(orderId);
       console.log(response1);
 
@@ -57,9 +60,9 @@ function Home() {
           const response2 = await apiHandleWhenCustomerClickPayNow(payloadAPIiHandleWhenCustomerClickPayNow);
           console.log(response2);
           const payloadAPIAddToProductInOrder = {
-            // productId: productListFromHomePage[0].id,
-            // orderId: orderId,
-            // quantity: quantity
+            productId: productsInOrder.productId,
+            orderId: response2.data.id,
+            quantity: productsInOrder.quantity
           }
           await apiAddToProductInOrder(payloadAPIAddToProductInOrder);
         }
