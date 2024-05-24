@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as actions from '../../../store/actions';
+import { apiGetPaymentLinkInfomation } from '../../../services/payos';
+import { apiAddToProductInOrder, apiHandleWhenCustomerClickPayNow } from '../../../services/order';
 
 function Home() {
   const { productData } = useSelector(state => state.product);
@@ -33,6 +35,42 @@ function Home() {
   const handleViewAll = (catalog) => {
     navigate(`/productlist?category=${catalog.name}`);
   };
+
+  const checkPayment = async () => {
+    let url = new URL(window.location.href);
+    const isCheck = url.searchParams.get('checkPayment');
+    console.log(isCheck);
+    if (isCheck) {
+      console.log(url.searchParams.get('checkPayment'));
+      const orderId = url.searchParams.get('orderId');
+      const response1 = await apiGetPaymentLinkInfomation(orderId);
+      console.log(response1);
+
+      if (response1.status === 200) {
+        if (response1.data.data.status === "PAID") {
+          const payloadAPIiHandleWhenCustomerClickPayNow = {
+            status: "WAITING",
+            totalPrice: response1.data.data.amount,
+            accountId: localStorage.id
+          }
+          const response2 = await apiHandleWhenCustomerClickPayNow(payloadAPIiHandleWhenCustomerClickPayNow);
+          console.log(response2);
+          const payloadAPIAddToProductInOrder = {
+            // productId: productListFromHomePage[0].id,
+            // orderId: orderId,
+            // quantity: quantity
+          }
+          await apiAddToProductInOrder(payloadAPIAddToProductInOrder);
+        }
+      }
+
+
+    }
+  }
+
+  useEffect(() => {
+    checkPayment();
+  }, [0])
 
   return (
     <>

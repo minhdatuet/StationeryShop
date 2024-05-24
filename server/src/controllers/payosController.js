@@ -107,16 +107,17 @@ exports.confirmWebHook = async (req, res) => {
 //POST
 exports.verifyPaymentWebhookData = async (req, res) => {
     const webhookData = payos.verifyPaymentWebhookData(req.body);
+    console.log(req.body);
 
-    if (
-        ["Ma giao dich thu nghiem", "VQRIO123"].includes(webhookData.description)
-    ) {
-        return res.json({
-            error: 0,
-            message: "verifyPaymentWebhookData success",
-            data: webhookData
-        });
-    }
+    // if (
+    //     ["Ma giao dich thu nghiem", "VQRIO123"].includes(webhookData.description)
+    // ) {
+    //     return res.json({
+    //         error: 0,
+    //         message: "verifyPaymentWebhookData success",
+    //         data: webhookData
+    //     });
+    // }
 
     // Source code uses webhook data
 
