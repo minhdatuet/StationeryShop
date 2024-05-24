@@ -22,7 +22,8 @@ export const Rate = () => {
                 productName: "",
                 productCost: "",
                 productDescription: ""
-            }
+            },
+            productId: ''
         }
     );
 
@@ -31,7 +32,7 @@ export const Rate = () => {
 
     const getProductDetail = async(data) => {
         const response = await apiGetDetailProductByPIOID(data);
-        console.log(response.data[0]);
+        // console.log(response.data[0]);
         setProductDetail(response.data[0]);
     };
 
@@ -111,7 +112,7 @@ export const Rate = () => {
                     </div>
 
                     <div className={clsx(style.priceContainer)}>
-                        {productDetail.Product.productCost} $
+                        Cost: {productDetail.Product.productCost} $
                     </div>
 
                     <div className={clsx(style.descriptionContainer)}>
@@ -120,7 +121,11 @@ export const Rate = () => {
                 </div>
 
                 <div className={clsx(style.viewDetailContainer)}>
-                    <div className={clsx(style.viewDetailBtn)}>
+                    <div className={clsx(style.viewDetailBtn)}
+                    onClick={() => {
+                        navigate("/product/" + productDetail.productId)
+                    }}
+                    >
                         View Detail
                     </div>
                 </div>
