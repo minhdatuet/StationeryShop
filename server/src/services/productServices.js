@@ -432,14 +432,23 @@ exports.editFeedback = (data) => new Promise(async (resolve, reject) => {
 
 exports.createNewFeedback = (data) => new Promise(async(resolve, reject) => {
     try {
-        const response = await db.Product_Rate.create({
+        const rateResponse = await db.Product_Rate.create({
             productId: data.pId,
             accountId : data.accId,
             productInOrder : data.pIOId,
             rateScore: data.numStar,
             productFeedback: data.comment,
-        })
-        resolve(response);
+        });
+        const historyResponse = await db.Products_Bought_History.update({
+            isRated: 1
+        },
+        {
+            where: {
+                productInOrderId : data.pIOId,
+            }
+        }
+    )
+        resolve(rateResponse && historyResponse);
     } catch (error) {
         reject(error)
     }

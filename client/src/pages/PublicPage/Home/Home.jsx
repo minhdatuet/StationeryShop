@@ -34,7 +34,11 @@ function Home() {
   ];
 
   const handleViewAll = (catalog) => {
-    navigate(`/productlist?category=${catalog.name}`);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+    navigate(`/products?catalogId=${catalog.id}&catalogName=${catalog.name}`);
   };
 
   const checkPayment = async () => {

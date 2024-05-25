@@ -6,6 +6,11 @@
     padding: 12px;
     border: #b0b0b0 solid 1px;
     height: 100px;
+    position: fixed;
+    z-index: 100;
+    background-color: #fff;
+    width: 100%;
+    top: 0;
 }
 
 #headerContainer p {

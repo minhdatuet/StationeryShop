@@ -1,10 +1,19 @@
 .productContainer {
     display: flex;
     flex-direction: row;
-    background-color: #e4e4e4;
+    background-color: #bebebe;
     border-radius: 16px;
     margin-top: 8px;
     height: 250px;
+    cursor: pointer;
+}
+
+.productContainer:hover {
+    animation: scaleUp 0.5s ease forwards;
+}
+
+.productContainer:not(:hover) {
+    animation: scaleDown 0.5s ease forwards;
 }
 
 .productImg {
@@ -45,3 +54,23 @@
 .productReview {
     text-align: center;
 }
+
+@keyframes scaleUp {
+    0% {
+      transform: scale(1);
+    }
+  
+    100% {
+      transform: scale(1.05);
+    }
+  }
+  
+  @keyframes scaleDown {
+    0% {
+      transform: scale(1.05);
+    }
+  
+    100% {
+      transform: scale(1.0);
+    }
+  }
