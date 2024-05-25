@@ -4,9 +4,11 @@ import * as actions from '../../../store/actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { apiAddToCart, apiGetProductsInCart } from '../../../services/product';
 import NumberInput from '../../../components/QuantityInput/NumberInput'
+import { useNavigate } from 'react-router-dom';
 
 const ShoppingCart = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isHovered, setIsHovered] = useState(false);
     const { userData } = useSelector(state => state.user)
     const { cartData } = useSelector(state => state.cart)
@@ -46,7 +48,13 @@ const ShoppingCart = () => {
         } catch (error) {
             console.log('Add to cart error!');
         }
-    }
+    };
+
+    const handlePayAll = () => {
+        // console.log(cartData);
+        navigate("/paymentCart?cartData=" + JSON.stringify(cartData));
+    };
+
     return (
         <>
             <div className="sc">
@@ -68,13 +76,21 @@ const ShoppingCart = () => {
                                 Total: {product?.Product.productCost * product?.productsInCartQuantity} $
                                 </div>
                                 <div className="sc-button">
-                                    <div className="sc-pay">Pay</div>
+                                    <div className="sc-pay"
+                                    onClick={() => {
+                                        navigate('/product/' + product?.Product.id)
+                                    }}
+                                    >Pay</div>
                                     <div className="sc-remove" onClick={() => handleAddProduct(product?.Product.id, -product?.productsInCartQuantity)}>Remove</div>
                                 </div>
                             </li>
                         ))}
                         <div className="sc-costs">
-                            <button>Pay all</button>
+                            <button
+                                onClick={() => {
+                                    handlePayAll();
+                                }}
+                            >Pay all</button>
                         </div>
                     </ul>
                 </div>
