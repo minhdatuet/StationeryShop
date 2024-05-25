@@ -19,6 +19,7 @@ export const Products = () => {
 
   const location = useLocation();
   const catalogId = new URLSearchParams(location.search).get("catalogId");
+  const catalogName = new URLSearchParams(location.search).get("catalogName");
 
   const getProductsList = async() => {
 
@@ -168,7 +169,7 @@ export const Products = () => {
       <div className={clsx(style.pageContainer)}>
         <div className={clsx(style.productsListHeader, )}>
           <div className={clsx(style.productsListName, )}>
-              <p>Kaco Premium Collection</p>
+              <p>{catalogName}</p>
           </div>
         </div>
 

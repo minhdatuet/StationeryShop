@@ -3,11 +3,14 @@ import React, { useEffect, useState } from 'react';
 import style from "./Product.module.scss";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import clsx from 'clsx';
+import { color } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 export const Product = (props) => {
     // console.log(props.data);
     const productData = props.data;
     const [arrStars, setArrStars] = useState([]);
+    const navigate = useNavigate();
 
     const createStars = () => {
         let tmpArr = [];
@@ -23,7 +26,7 @@ export const Product = (props) => {
             if (numHalfStar === 1) {
                 tmpArr.push(0);
             }
-
+            // console.log(tmpArr);
             setArrStars(tmpArr);
         }
         else {
@@ -36,7 +39,11 @@ export const Product = (props) => {
     }, [0]);
     return (
         
-        <div className={clsx(style.productContainer, )}>
+        <div className={clsx(style.productContainer, )}
+        onClick={()=> {
+            navigate(`/product/${productData.id}`);
+        }}
+        >
             <div className={clsx(style.productImg, )}>
                 <img src={productData.productImage} alt="" />
             </div>
@@ -56,12 +63,12 @@ export const Product = (props) => {
                             arrStars.map((star, index) => {
                                 if(star === 1) {
                                     return (
-                                        <FaStar key={index} />
+                                        <FaStar style={{color: 'yellow'}} key={index} />
                                     );
                                 }
                                 else if(star === 0) {
                                     return (
-                                        <FaStarHalfAlt key={index} />
+                                        <FaStarHalfAlt style={{color: 'yellow'}} key={index} />
                                     );
                                 }
                             })
