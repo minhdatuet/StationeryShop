@@ -8,32 +8,13 @@ import * as actions from '../../store/actions';
 import { apiHandleWhenCustomerClickPayNow, apiAddToProductInOrder } from '../../services/order';
 import { apiGetPaymentLinkInfomation, apiCreatePaymentLink, apiVerifyPaymentWebhookData } from '../../services/payos';
 
-const Payment = () => {
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const [isHovered, setIsHovered] = useState(false);
+const PaymentCart = () => {
+    
     const { userData } = useSelector(state => state.user)
-    const { cartData } = useSelector(state => state.cart)
-    const [productListFromCart, setProductListCart] = useState([]);
-    const [totalPayFromCart, setTotalPayFromCart] = useState(0)
+    const [cartProducts, setCartProducts] = useState([]);
+    const [totalPay, setTotalPay] = useState(0)
 
-    const [productListFromHomePage, setProductListFromHomePage] = useState([{
-        id: 0,
-    }]);
-    const [totalPayFromHomePage, setTotalPayFromHomePage] = useState(0)
-
-    const { product, quantity } = location.state || {};
-
-    useEffect(() => {
-        if (product && quantity) {
-            setProductListFromHomePage([product]);
-            setTotalPayFromHomePage(quantity * product.productCost);
-        }
-    }, [product, quantity]);
-    console.log(productListFromHomePage[0].id, quantity);
-    console.log(totalPayFromHomePage);
-    console.log(localStorage);
-
+    
     const checkCancel = async () => {
         let url = new URL(window.location.href);
         const orderCode = url.searchParams.get('orderCode');
@@ -41,7 +22,7 @@ const Payment = () => {
             const response1 = await apiGetPaymentLinkInfomation(orderCode);
             console.log(response1);
             if(response1.status === 200) {
-                setTotalPayFromHomePage((response1.data.data.amount)/100 - 5);
+                setTotalPay((response1.data.data.amount)/100 - 5);
             }
         }
     }
@@ -50,29 +31,35 @@ const Payment = () => {
         checkCancel()
     }, [0]);
     
+    useEffect(() => {
+        const cartData = JSON.parse(new URL(window.location.href).searchParams.get('cartData'));
+        // console.log(cartProducts);
+        setCartProducts(cartData);
+        let total = 0
+        for(let i = 0; i < cartData.length; i++) {
+            total += cartData[i].Product.productCost * cartData[i].productsInCartQuantity
+        }
+        setTotalPay(total);
+
+    }, [0])
 
     const handleClickPayNow = async () => {
         try {
             let orderCode = Date.now();
-            const productInOrderHomePage = {
-                productId: productListFromHomePage[0].id,
-                quantity: quantity
-            }
-            console.log(JSON.stringify(productInOrderHomePage));
             // alert();
             const orderTest = {
                 orderCode: orderCode,
-                amount: (totalPayFromHomePage + 5) * 100,
+                amount: (totalPay + 5) * 100,
                 description: "Thanh toan don hang",
                 items: [
                     {
                         name: "Mì tôm hảo hảo ly",
-                        quantity: quantity,
-                        price: (totalPayFromHomePage + 5) * 100,
+                        // quantity: quantity,
+                        price: (totalPay + 5) * 100,
                     }
                 ],
                 cancelUrl: "http://localhost:3000/payment",
-                returnUrl: "http://localhost:3000/personal?checkPayment=true&orderId=" + orderCode + "&productsInOrder=" + JSON.stringify([productInOrderHomePage]),
+                returnUrl: "http://localhost:3000/personal?checkPayment=true&orderId=" + orderCode + "&productsInOrder=" + JSON.stringify(cartProducts),
             };
             const responseCreatePaymentLink = await apiCreatePaymentLink(orderTest);
             console.log(responseCreatePaymentLink);
@@ -89,29 +76,7 @@ const Payment = () => {
         }
     }
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const responseCart = dispatch(actions.getCart(localStorage.getItem('id')));
-                const responseUser = dispatch(actions.getUser())
-            } catch (error) {
-                console.error("Error fetching product:", error);
-            }
-        };
-        fetchProduct();
-        console.log(userData);
-    }, []);
-
-    useEffect(() => {
-        setProductListCart(cartData)
-        var pay = 0;
-        for (var i = 0; i < cartData.length; i++) {
-            console.log(cartData[i])
-            pay += parseInt(cartData[i].Product.productCost) * parseInt(cartData[i].productsInCartQuantity);
-
-        }
-        setTotalPayFromCart(pay)
-    }, [cartData]);
+    
 
     return (
         <div className="pay">
@@ -127,15 +92,17 @@ const Payment = () => {
                     <div className="p-total-cost-txt">Total:</div>
                 </div>
                 <div className="p-cost-value">
-                    <div className="p-product-cost-value">{totalPayFromHomePage}$</div>
+                    <div className="p-product-cost-value">{totalPay}$</div>
                     <div className="p-deliver-cost-value">5$</div>
-                    <div className="p-total-cost-value">{totalPayFromHomePage + 5}$</div>
+                    <div className="p-total-cost-value">{totalPay + 5}$</div>
                 </div>
             </div>
             <div className="pay-title">Choose your payment method:</div>
             <div className='method-list'>
                 <div className="">
-                    <button onClick={handleClickPayNow}>
+                    <button 
+                    onClick={handleClickPayNow}
+                    >
                         Pay now
                     </button>
                 </div>
@@ -144,4 +111,4 @@ const Payment = () => {
     );
 };
 
-export default Payment;
+export default PaymentCart;

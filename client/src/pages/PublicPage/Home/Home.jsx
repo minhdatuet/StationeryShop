@@ -41,44 +41,6 @@ function Home() {
     navigate(`/products?catalogId=${catalog.id}&catalogName=${catalog.name}`);
   };
 
-  const checkPayment = async () => {
-    let url = new URL(window.location.href);
-    const isCheck = url.searchParams.get('checkPayment');
-    console.log(isCheck);
-    if (isCheck) {
-      console.log(url.searchParams.get('checkPayment'));
-      const orderId = url.searchParams.get('orderId');
-      const productsInOrder = JSON.parse(url.searchParams.get('productsInOrder'));
-      console.log(productsInOrder.productId);
-      console.log(productsInOrder.quantity);
-      const response1 = await apiGetPaymentLinkInfomation(orderId);
-      console.log(response1);
-
-      if (response1.status === 200) {
-        if (response1.data.data.status === "PAID") {
-          const payloadAPIiHandleWhenCustomerClickPayNow = {
-            status: "WAITING",
-            totalPrice: response1.data.data.amount,
-            accountId: localStorage.id
-          }
-          const response2 = await apiHandleWhenCustomerClickPayNow(payloadAPIiHandleWhenCustomerClickPayNow);
-          console.log(response2);
-          const payloadAPIAddToProductInOrder = {
-            productId: productsInOrder.productId,
-            orderId: response2.data.id,
-            quantity: productsInOrder.quantity
-          }
-          await apiAddToProductInOrder(payloadAPIAddToProductInOrder);
-        }
-      }
-
-
-    }
-  }
-
-  useEffect(() => {
-    checkPayment();
-  }, [0])
   const handleAddProduct = async (productId, productsInCartQuantity) => {
     try {
       const payload = {

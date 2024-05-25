@@ -2,8 +2,8 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 // import './Slider.css';
 import img1 from '../../assets/images/Slider/slide1.png'
-import img2 from '../../assets/images/Slider/slide1.png'
-import img3 from '../../assets/images/Slider/slide1.png'
+import img2 from '../../assets/images/Slider/slide2.png'
+import img3 from '../../assets/images/Slider/slide3.png'
 import style from "./Slider.module.scss"
 import clsx from 'clsx';
 import { GrPrevious, GrNext } from "react-icons/gr";
