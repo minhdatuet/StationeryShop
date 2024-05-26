@@ -79,14 +79,14 @@ function ManageProduct() {
             setErrorForProductURLInAddProductForm(false);
         }
 
-        if (parseInt(productQuantityInAddProductForm) <= 0 || productQuantityInAddProductForm === "") {
+        if (parseInt(productQuantityInAddProductForm) <= 0 || !Number.isInteger(parseFloat(productQuantityInAddProductForm)) || productQuantityInAddProductForm === "") {
             setErrorForProductQuantityInAddProductForm(true);
             hasAnyError = true;
         } else {
             setErrorForProductQuantityInAddProductForm(false);
         }
 
-        if (parseFloat(productCostInAddProductForm) <= 0 || productCostInAddProductForm === "") {
+        if (parseFloat(productCostInAddProductForm) <= 0 || isNaN(productCostInAddProductForm) || productCostInAddProductForm === "") {
             setErrorForProductCostInAddProductForm(true);
             hasAnyError = true;
         } else {
@@ -100,13 +100,7 @@ function ManageProduct() {
             setErrorForProductDescriptionInAddProductForm(false);
         }
         
-        if (hasAnyError) {
-            setErrorForProductNameInAddProductForm(true);
-            setErrorForProductURLInAddProductForm(true);
-            setErrorForProductQuantityInAddProductForm(true);
-            setErrorForProductCostInAddProductForm(true);
-            setErrorForProductDescriptionInAddProductForm(true);
-        } else {
+        if (!hasAnyError) {
             const payload = {
                 productName: productNameInAddProductForm,
                 productImage: productURLInAddProductForm,

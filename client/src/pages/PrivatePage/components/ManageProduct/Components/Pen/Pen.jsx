@@ -90,14 +90,14 @@ function Pen() {
             setErrorForProductURLInEditProductForm(false);
         }
 
-        if (productQuantityInEditProductForm === "" || parseInt(productQuantityInEditProductForm) <= 0) {
+        if (productQuantityInEditProductForm === "" || parseInt(productQuantityInEditProductForm) <= 0 || !Number.isInteger(parseFloat(productQuantityInEditProductForm))) {
             setErrorForProductQuantityInEditProductForm(true);
             hasAnyError = true;
         } else {
             setErrorForProductQuantityInEditProductForm(false);
         }
 
-        if (productCostInEditProductForm === "" || parseFloat(productCostInEditProductForm) < 0) {
+        if (productCostInEditProductForm === "" || isNaN(productCostInEditProductForm) || parseFloat(productCostInEditProductForm) < 0) {
             setErrorForProductCostInEditProductForm(true);
             hasAnyError = true;
         } else {
