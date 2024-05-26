@@ -80,7 +80,7 @@ const publicRoutes = [
 
 const adminRoutes = [
   {
-    path: 'admin',
+    path: '/admin',
     page: AdminPage
   }
 ]
