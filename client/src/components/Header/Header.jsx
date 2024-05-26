@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
@@ -44,80 +44,86 @@ export const Header = () => {
   }
 
   return (
-    <div id={clsx(style.headerContainer)}>
-      <div className={clsx(style.leftPart)}>
-        <div className={clsx(style.logoContainer)}
-          onClick={() => {
-            navigate('/');
-          }}
-        >
-          <img src={logoImg} alt="" /></div>
+    <Fragment>
+      <div id={clsx(style.headerContainer)}>
+        <div className={clsx(style.leftPart)}>
+          <div className={clsx(style.logoContainer)}
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            <img src={logoImg} alt="" /></div>
 
-        <form
-          className={clsx(style.searchBarContainer, { [style.searchBarBordered]: isSearchBorder })}
-          onSubmit={handleSearchSubmit}
-        >
-          <input
-            className={clsx(style.searchBar)}
-            type="text"
-            placeholder='Search'
-            value={searchText}
-            onChange={handleSearchChange}
-            onClick={addBorderWhenClickSearch}
-            onBlur={removeSearchBorder}
-          />
-          <button type="submit" className={clsx(style.searchBtn)}>
-            <FaSearch />
-            <p>Search</p>
-          </button>
-        </form>
-      </div>
-
-      <div className={clsx(style.rightPart)}>
-
-        <div className={clsx(style.cartContainer)}>
-          <div><Cart /></div>
-          <p>Cart</p>
+          <form
+            className={clsx(style.searchBarContainer, { [style.searchBarBordered]: isSearchBorder })}
+            onSubmit={handleSearchSubmit}
+          >
+            <input
+              className={clsx(style.searchBar)}
+              type="text"
+              placeholder='Search'
+              value={searchText}
+              onChange={handleSearchChange}
+              onClick={addBorderWhenClickSearch}
+              onBlur={removeSearchBorder}
+            />
+            <button type="submit" className={clsx(style.searchBtn)}>
+              <FaSearch />
+              <p>Search</p>
+            </button>
+          </form>
         </div>
 
-        <div className={clsx(style.accountContainer)}
-          onClick={() => {
-            if (isLogged) {
-              navigate('/personal')
+        <div className={clsx(style.rightPart)}>
+
+          <div className={clsx(style.cartContainer)}>
+            <div><Cart /></div>
+            <p>Cart</p>
+          </div>
+
+          <div className={clsx(style.accountContainer)}
+            onClick={() => {
+              if (isLogged) {
+                navigate('/personal')
+              }
+              else {
+                navigate('/login')
+              }
+            }}
+          >
+            <MdOutlineAccountCircle />
+            {
+              !isLogged ? <p>  Sign In</p> : <p>  {localStorage.getItem('name')}</p>
             }
-            else {
-              navigate('/login')
-            }
-          }}
-        >
-          <MdOutlineAccountCircle />
-          {
-            !isLogged ? <p>  Sign In</p> : <p>  {localStorage.getItem('name')}</p>
-          }
 
-        </div>
+          </div>
 
 
 
-        <div className={clsx(style.logOutContainer, { [style.hidden]: !isLogged })}
-          onClick={() => {
-            localStorage.clear();
-            dispatch(actions.logout());
-            navigate('/')
-          }}
-        >
-          <div className={style.logOutBtn}>
-            <div className={style.logOutLogo}>
-              <RiShutDownLine />
-            </div>
+          <div className={clsx(style.logOutContainer, { [style.hidden]: !isLogged })}
+            onClick={() => {
+              localStorage.clear();
+              dispatch(actions.logout());
+              navigate('/')
+            }}
+          >
+            <div className={style.logOutBtn}>
+              <div className={style.logOutLogo}>
+                <RiShutDownLine />
+              </div>
 
-            <div className={style.logOutLabel}>
-              Log Out
+              <div className={style.logOutLabel}>
+                Log Out
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div className={clsx(style.space)}>
+            
+      </div>
+    </Fragment>
   );
 }
 

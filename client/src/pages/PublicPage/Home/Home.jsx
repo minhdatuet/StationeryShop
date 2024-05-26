@@ -86,9 +86,9 @@ function Home() {
                       </div>
                       <form className="flex-auto p-6">
                         <div className="flex flex-wrap" id={clsx(style['product-name'])}>
-                          <h1 className="flex-auto text-lg font-semibold text-slate-900">
+                          <div className="flex-auto text-lg font-semibold text-slate-900">
                             {product.productName}
-                          </h1>
+                          </div>
                         </div>
                         <div className="mt-1.5 text-lg font-semibold text-slate-500">
                           Cost: {product.productCost}$ 

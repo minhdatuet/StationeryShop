@@ -5,6 +5,7 @@ import { Table } from "flowbite-react";
 import { apiGetProductByCatalogIdForAdmin, apiEditProduct } from "../../../../../../services/product";
 import { handleAdminDeleteProduct } from "../../ManageProductFunction/DeleteProduct";
 import { Label, TextInput } from "flowbite-react";
+import { Pagination } from "flowbite-react";
 
 function Notebook() {
     const NOTEBOOK_CATALOG_ID = 5;
@@ -30,6 +31,27 @@ function Notebook() {
     const [productQuantityInEditProductForm, setProductQuantityInEditProductForm] = useState("");
     const [productCostInEditProductForm, setProductCostInEditProductForm] = useState("");
     const [productDescriptionInEditProductForm, setProductDescriptionInEditProductForm] = useState("");
+
+    // SET UP PAGINATION
+    const [totalPage, setTotalPage] = useState();
+    const [isTotalPageSet, setIsTotalPageSet] = useState(false);
+    const quantityItemsPerpage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const lastIndex = currentPage * quantityItemsPerpage;
+    const firstIndex = lastIndex - quantityItemsPerpage;
+    const displayedNotebook = notebookInfoForAdmin.slice(firstIndex, lastIndex);
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
+    }
+
+    // PAGINATION
+    useEffect(() => {
+        if (isFetchedData) {
+            const totalPages = Math.ceil(notebookInfoForAdmin.length / quantityItemsPerpage);
+            setTotalPage(totalPages);
+            setIsTotalPageSet(true);
+        }
+    }, [isFetchedData, notebookInfoForAdmin]);
 
     const handleGetNotebookInfoForAdmin = async () => {
         const response = await apiGetProductByCatalogIdForAdmin(NOTEBOOK_CATALOG_ID);
@@ -320,7 +342,7 @@ function Notebook() {
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                    {notebookInfoForAdmin.map((notebookInfoForAdmin) => (
+                    {displayedNotebook.map((notebookInfoForAdmin) => (
                         <Table.Row key={notebookInfoForAdmin.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" width={'30%'}>
                                 {notebookInfoForAdmin.productName}
@@ -344,6 +366,13 @@ function Notebook() {
                     ))}
                 </Table.Body>
             </Table>
+
+            {/* PAGINATION */}
+            {isTotalPageSet && notebookInfoForAdmin.length > 0 ? (
+                <div className="flex justify-center">
+                    <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
+                </div>
+            ) : null}
         </div>
     );
 }

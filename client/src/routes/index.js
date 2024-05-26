@@ -14,6 +14,7 @@ import Rate from "../pages/PublicPage/Rate/Rate"
 import AdminPage from "../pages/PrivatePage/AdminPage";
 import CreatePaymentLink from "../pages/PublicPage/TestPayOs/CreatePaymentLink";
 import PaymentCart from "../components/Payment/PaymentCart";
+import Policy from "../pages/PublicPage/Policy/Policy";
 
 const publicRoutes = [
   {
@@ -75,6 +76,10 @@ const publicRoutes = [
   {
     path: 'paymentCart',
     page: PaymentCart
+  },
+  {
+    path: 'policy',
+    page: Policy
   }
 ];
 
