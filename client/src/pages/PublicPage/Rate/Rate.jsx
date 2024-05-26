@@ -68,6 +68,10 @@ export const Rate = () => {
                 if(response.status = 200) {
                     alert('Update Successfully')
                     navigate('/personal');
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                      })
                 }
             }
             else if (isRated == 0) {
@@ -82,6 +86,10 @@ export const Rate = () => {
                 if(response.status = 200) {
                     alert('Create Successfully')
                     navigate('/personal');
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
                 }
             }
         } catch (error) {
@@ -124,6 +132,10 @@ export const Rate = () => {
                     <div className={clsx(style.viewDetailBtn)}
                     onClick={() => {
                         navigate("/product/" + productDetail.productId)
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        })
                     }}
                     >
                         View Detail
@@ -186,6 +198,10 @@ export const Rate = () => {
                 <div className = {clsx(style.cancelBtn)}
                 onClick={() => {
                     navigate('/personal');
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
                 }}
                 >
                     Cancel

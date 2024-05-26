@@ -48,7 +48,7 @@ export const Personal = () => {
             const orderId = url.searchParams.get('orderId');
             const productsInOrder = JSON.parse(url.searchParams.get('productsInOrder'));
             console.log(productsInOrder);
-            console.log(productsInOrder[0].productId);
+            console.log(productsInOrder.length);
             console.log(productsInOrder[0].quantity);
             const response1 = await apiGetPaymentLinkInfomation(orderId);
             console.log(response1);
@@ -70,6 +70,7 @@ export const Personal = () => {
                             orderId: response2.data.id,
                             quantity: productsInOrder[i].productsInCartQuantity
                         }
+                        console.log(payloadAPIAddToProductInOrder);
                         await apiAddToProductInOrder(payloadAPIAddToProductInOrder);
                     }
                 }
