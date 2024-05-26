@@ -15,6 +15,7 @@ export const register = (payload) => async(dispatch) => {
                 data: response.data.msg
             })
         }
+        return response;
     } catch (error) {
         dispatch({
             type: actionTypes.REGISTER_FAIL,
@@ -40,6 +41,7 @@ export const login = (payload) => async(dispatch) => {
                 data: response.data.msg
             })
         }
+        return response;
     } catch (error) {
         dispatch({
             type: actionTypes.LOGIN_FAIL,

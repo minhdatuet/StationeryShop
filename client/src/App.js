@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useLocation, matchPath } from "react-router-dom";
+import { Routes, Route, useLocation, matchPath, Navigate } from "react-router-dom";
 import { publicRoutes, adminRoutes, customerRoutes } from "./routes";
 import AOS from 'aos';
 import "./App.css";
@@ -31,6 +31,16 @@ function App() {
   const isAdminRoute = adminRoutes.some(route => matchPath(route.path, location.pathname));
   const isHomeRoute = location.pathname === "/" || location.pathname === "*";
 
+  const userType = localStorage.getItem('type');
+
+  // if (userType === 'ADMIN' && location.pathname.startsWith('/admin')) {
+  //   return <Navigate to="/admin" replace />;
+  // }
+
+  if (userType === 'CUSTOMER' && isAdminRoute) {
+    return <Navigate to="/" replace />;
+  }
+
   return (
     <>
       {!isAdminRoute && isPublicRoute && <Header />}
@@ -39,10 +49,10 @@ function App() {
         {publicRoutes.map((route, i) => (
           <Route key={i} path={route.path} element={<route.page />} />
         ))}
-        {adminRoutes.map((route, i) => (
+        {userType === 'ADMIN' && adminRoutes.map((route, i) => (
           <Route key={i} path={route.path} element={<route.page />} />
         ))}
-        {customerRoutes.map((route, i) => (
+        {userType === 'CUSTOMER' && customerRoutes.map((route, i) => (
           <Route key={i} path={route.path} element={<route.page />} />
         ))}
       </Routes>

@@ -13,7 +13,7 @@ exports.getUser = (accountPhone) => new Promise(async(resolve, reject) => {
               accountPhone
             },
             // raw: true,
-            attributes: ['id','accountName', 'accountPhone', 'accountAddress', 'accountEmail'],
+            attributes: ['id','accountName', 'accountPhone', 'accountAddress', 'accountEmail', 'accountType'],
             include: [
             {
                 model: db.Products_In_Cart,
