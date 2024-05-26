@@ -44,14 +44,20 @@ export default function Login() {
         if (!(Object.keys(userData).length === 0) && !(userData.length === 0)) {
           localStorage.setItem('id', userData.id);
           localStorage.setItem('name', userData.accountName);
+          localStorage.setItem('type', userData.accountType);
           dispatch(actions.getCart(localStorage.getItem('id')));
-          navigate('/');
+          const userType = localStorage.getItem('type');
+          if (userType === 'ADMIN') { navigate('/admin'); } else { navigate('/'); }
         }
       }, 200);
 
       console.log(userData);
     }
   }, [userData]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top when the component is mounted
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -70,16 +76,17 @@ export default function Login() {
       } else {
         setErrorPasswordMessage('');
       }
-      const response = dispatch(actions.login(payload));
+      const response = await dispatch(actions.login(payload));
 
-      setTimeout(() => {
+      if (response.data.err) {
+        console.log(response)
         if (!window.localStorage.getItem('persist:auth').isLogged) {
           setErrorPasswordMessage('Số điện thoại hoặc mật khẩu không chính xác!');
           return;
         } else {
           setErrorPasswordMessage('');
         }
-      }, 500);
+      };
 
     } catch (error) {
       console.log('Đã xảy ra lỗi khi đăng nhập!');
@@ -101,7 +108,9 @@ export default function Login() {
       } else {
         localStorage.setItem('id', data.user.id);
         localStorage.setItem('name', data.user.accountName);
-        navigate('/')
+        localStorage.setItem('type', data.accountType);
+        const userType = localStorage.getItem('type');
+        if (userType === 'ADMIN') { navigate('/admin'); } else { navigate('/'); }
       }
     } catch (error) {
       console.log('Google login failed!', error);
@@ -130,12 +139,14 @@ export default function Login() {
         ...additionalInfo,
         googleCredential
       }));
-      console.log(response)
+      console.log(response);
       if (response) {
         const data = response.data;
         localStorage.setItem('id', data.user.id);
         localStorage.setItem('name', data.user.accountName);
-        navigate('/')
+        localStorage.setItem('type', data.accountType);
+        const userType = localStorage.getItem('type');
+        if (userType === 'ADMIN') { navigate('/admin'); } else { navigate('/'); }
       }
     } catch (error) {
       console.log('Failed to complete profile', error);
