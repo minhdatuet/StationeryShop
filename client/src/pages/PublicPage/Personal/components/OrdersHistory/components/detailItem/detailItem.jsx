@@ -26,7 +26,11 @@ export const DetailItem = (props) => {
             <div className={clsx(style.viewDetailItem)}>
                 <div className={clsx(style.viewDetailItemBtn)}
                 onClick={() => {
-                    navigate('/product/' + props.data.productId)
+                    navigate('/product/' + props.data.productId);
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
                 }}
                 >
                     Detail

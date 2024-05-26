@@ -53,6 +53,10 @@ const ShoppingCart = () => {
     const handlePayAll = () => {
         // console.log(cartData);
         navigate("/paymentCart?cartData=" + JSON.stringify(cartData));
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
     };
 
     return (
@@ -79,6 +83,10 @@ const ShoppingCart = () => {
                                     <div className="sc-pay"
                                     onClick={() => {
                                         navigate('/product/' + product?.Product.id)
+                                        window.scrollTo({
+                                            top: 0,
+                                            behavior: 'smooth'
+                                        })
                                     }}
                                     >Pay</div>
                                     <div className="sc-remove" onClick={() => handleAddProduct(product?.Product.id, -product?.productsInCartQuantity)}>Remove</div>

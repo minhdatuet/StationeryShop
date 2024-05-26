@@ -83,7 +83,6 @@ const PaymentCart = () => {
             <div className="sc-title">Payment</div>
             <div className="p-address">
                 <div className="content-address">Your Address: {userData.accountAddress}</div>
-                <button className="change-address">Change</button>
             </div>
             <div className="p-cost">
                 <div className="p-cost-txt">
@@ -97,8 +96,7 @@ const PaymentCart = () => {
                     <div className="p-total-cost-value">{totalPay + 5}$</div>
                 </div>
             </div>
-            <div className="pay-title">Choose your payment method:</div>
-            <div className='method-list'>
+            <div className='p-PayBtn'>
                 <div className="">
                     <button 
                     onClick={handleClickPayNow}
