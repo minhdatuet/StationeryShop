@@ -54,11 +54,11 @@ const Payment = () => {
     const handleClickPayNow = async () => {
         try {
             let orderCode = Date.now();
-            const productInOrderHomePage = {
+            const productInOrderHomePage = [{
                 productId: productListFromHomePage[0].id,
-                quantity: quantity
-            }
-            console.log(JSON.stringify(productInOrderHomePage));
+                productsInCartQuantity: quantity
+            }]
+            // console.log(JSON.stringify(productInOrderHomePage));
             // alert();
             const orderTest = {
                 orderCode: orderCode,
@@ -72,7 +72,7 @@ const Payment = () => {
                     }
                 ],
                 cancelUrl: "http://localhost:3000/payment",
-                returnUrl: "http://localhost:3000/personal?checkPayment=true&orderId=" + orderCode + "&productsInOrder=" + JSON.stringify([productInOrderHomePage]),
+                returnUrl: "http://localhost:3000/personal?checkPayment=true&orderId=" + orderCode + "&productsInOrder=" + JSON.stringify(productInOrderHomePage),
             };
             const responseCreatePaymentLink = await apiCreatePaymentLink(orderTest);
             console.log(responseCreatePaymentLink);

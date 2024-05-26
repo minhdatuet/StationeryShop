@@ -37,6 +37,10 @@ export const CompletedItem = (props) => {
                 <div className={clsx(style.viewFeedbackBtn, {[style.hidden]: props.data.isRated === 0})}
                 onClick={() => {
                     navigate("/customerRate?pIOId=" + props.data.productInOrderId + "&isRated="+ props.data.isRated);
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
                 }}
                 >
                     View My Feedback
@@ -45,6 +49,10 @@ export const CompletedItem = (props) => {
                 <div className={clsx(style.giveFeedbackBtn, {[style.hidden]: props.data.isRated === 1})}
                 onClick={() => {
                     navigate("/customerRate?pIOId=" + props.data.productInOrderId + "&isRated="+ props.data.isRated);
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    })
                 }}
                 >
                     Give My Feedback
