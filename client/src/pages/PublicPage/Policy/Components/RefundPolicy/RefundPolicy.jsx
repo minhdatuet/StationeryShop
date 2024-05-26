@@ -4,7 +4,7 @@ import style from "./RefundPolicy.module.scss";
 
 const RefundPolicy = () => {
     return (
-        <div className={clsx(style.container)}>
+        <div className={clsx(style.container)} id="refund-policy">
             <h1>Refund Policy</h1>
             <div className={clsx(style.concept)}>
                 <ul>

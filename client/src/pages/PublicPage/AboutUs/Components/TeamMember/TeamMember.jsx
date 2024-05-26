@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const TeamMember = () => {
     return (
-        <div className={clsx(style.container)} id="team">
+        <div className={clsx(style.container)} id="team-member">
             <h1>Team Member</h1>
             <div className={clsx(style["members-container"])}>
                 <div className={clsx(style["specific-member"])}>

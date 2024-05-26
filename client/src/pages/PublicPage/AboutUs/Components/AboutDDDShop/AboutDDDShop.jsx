@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const AboutDDDShop = () => {
     return (
-        <div className={clsx(style.container)}>
+        <div className={clsx(style.container)} id="about-ddd-shop">
             <h1>
                 About DDD Shop
             </h1>
@@ -20,4 +20,4 @@ const AboutDDDShop = () => {
     )
 }
 
-export default AboutDDDShop
+export default AboutDDDShop;
