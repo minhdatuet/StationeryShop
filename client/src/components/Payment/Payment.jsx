@@ -118,7 +118,6 @@ const Payment = () => {
             <div className="sc-title">Payment</div>
             <div className="p-address">
                 <div className="content-address">Your Address: {userData.accountAddress}</div>
-                <button className="change-address">Change</button>
             </div>
             <div className="p-cost">
                 <div className="p-cost-txt">
@@ -132,10 +131,12 @@ const Payment = () => {
                     <div className="p-total-cost-value">{totalPayFromHomePage + 5}$</div>
                 </div>
             </div>
-            <div className="pay-title">Choose your payment method:</div>
-            <div className='method-list'>
-                <div className="">
-                    <button onClick={handleClickPayNow}>
+            
+            <div className='p-PayBtn'>
+                <div className=""
+                onClick={handleClickPayNow}
+                >
+                    <button >
                         Pay now
                     </button>
                 </div>
