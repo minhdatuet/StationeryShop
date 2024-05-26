@@ -7,10 +7,8 @@ import Footer from "../../../components/Footer/Footer";
 const Policy = () => {
     return (
         <div>
-            <Header />
             <PrivacyPolicy />
             <RefundPolicy />
-            <Footer />
         </div>
     )
 }

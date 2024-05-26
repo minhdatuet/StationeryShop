@@ -5,6 +5,7 @@ import { Table } from "flowbite-react";
 import { apiGetProductByCatalogIdForAdmin, apiEditProduct } from "../../../../../../services/product";
 import { handleAdminDeleteProduct } from "../../ManageProductFunction/DeleteProduct";
 import { Label, TextInput } from "flowbite-react";
+import { Pagination } from "flowbite-react";
 
 function TableAndChair() {
     const TABLEANDCHAIR_CATALOG_ID = 10;
@@ -30,6 +31,27 @@ function TableAndChair() {
     const [productQuantityInEditProductForm, setProductQuantityInEditProductForm] = useState("");
     const [productCostInEditProductForm, setProductCostInEditProductForm] = useState("");
     const [productDescriptionInEditProductForm, setProductDescriptionInEditProductForm] = useState("");
+
+    // SET UP PAGINATION
+    const [totalPage, setTotalPage] = useState();
+    const [isTotalPageSet, setIsTotalPageSet] = useState(false);
+    const quantityItemsPerpage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const lastIndex = currentPage * quantityItemsPerpage;
+    const firstIndex = lastIndex - quantityItemsPerpage;
+    const displayedTableAndChair = tableAndChairInfoForAdmin.slice(firstIndex, lastIndex);
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
+    }
+
+    // PAGINATION
+    useEffect(() => {
+        if (isFetchedData) {
+            const totalPages = Math.ceil(tableAndChairInfoForAdmin.length / quantityItemsPerpage);
+            setTotalPage(totalPages);
+            setIsTotalPageSet(true);
+        }
+    }, [isFetchedData, tableAndChairInfoForAdmin]);
 
     const handleGetTableAndChairInfoForAdmin = async () => {
         const response = await apiGetProductByCatalogIdForAdmin(TABLEANDCHAIR_CATALOG_ID);
@@ -320,7 +342,7 @@ function TableAndChair() {
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                    {tableAndChairInfoForAdmin.map((tableAndChairInfoForAdmin) => (
+                    {displayedTableAndChair.map((tableAndChairInfoForAdmin) => (
                         <Table.Row key={tableAndChairInfoForAdmin.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" width={'30%'}>
                                 {tableAndChairInfoForAdmin.productName}
@@ -344,6 +366,13 @@ function TableAndChair() {
                     ))}
                 </Table.Body>
             </Table>
+
+            {/* PAGINATION */}
+            {isTotalPageSet && tableAndChairInfoForAdmin.length > 0 ? (
+                <div className="flex justify-center">
+                    <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
+                </div>
+            ) : null}
         </div>
     );
 }

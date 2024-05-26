@@ -5,6 +5,7 @@ import { Table } from "flowbite-react";
 import { apiGetProductByCatalogIdForAdmin, apiEditProduct } from "../../../../../../services/product";
 import { handleAdminDeleteProduct } from "../../ManageProductFunction/DeleteProduct";
 import { Label, TextInput } from "flowbite-react";
+import { Pagination } from "flowbite-react";
 
 function StoryBook() {
     const STORYBOOK_CATALOG_ID = 9;
@@ -30,6 +31,27 @@ function StoryBook() {
     const [productQuantityInEditProductForm, setProductQuantityInEditProductForm] = useState("");
     const [productCostInEditProductForm, setProductCostInEditProductForm] = useState("");
     const [productDescriptionInEditProductForm, setProductDescriptionInEditProductForm] = useState("");
+
+    // SET UP PAGINATION
+    const [totalPage, setTotalPage] = useState();
+    const [isTotalPageSet, setIsTotalPageSet] = useState(false);
+    const quantityItemsPerpage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const lastIndex = currentPage * quantityItemsPerpage;
+    const firstIndex = lastIndex - quantityItemsPerpage;
+    const displayedStoryBook = storyBookInfoForAdmin.slice(firstIndex, lastIndex);
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
+    }
+
+    // PAGINATION
+    useEffect(() => {
+        if (isFetchedData) {
+            const totalPages = Math.ceil(storyBookInfoForAdmin.length / quantityItemsPerpage);
+            setTotalPage(totalPages);
+            setIsTotalPageSet(true);
+        }
+    }, [isFetchedData, storyBookInfoForAdmin]);
 
     const handleGetStoryBookInfoForAdmin = async () => {
         const response = await apiGetProductByCatalogIdForAdmin(STORYBOOK_CATALOG_ID);
@@ -320,7 +342,7 @@ function StoryBook() {
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                    {storyBookInfoForAdmin.map((storyBookInfoForAdmin) => (
+                    {displayedStoryBook.map((storyBookInfoForAdmin) => (
                         <Table.Row key={storyBookInfoForAdmin.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" width={'30%'}>
                                 {storyBookInfoForAdmin.productName}
@@ -344,6 +366,13 @@ function StoryBook() {
                     ))}
                 </Table.Body>
             </Table>
+
+            {/* PAGINATION */}
+            {isTotalPageSet && storyBookInfoForAdmin.length > 0 ? (
+                <div className="flex justify-center">
+                    <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
+                </div>
+            ) : null}
         </div>
     );
 }

@@ -5,6 +5,7 @@ import { Table } from "flowbite-react";
 import { apiGetProductByCatalogIdForAdmin, apiEditProduct } from "../../../../../../services/product";
 import { handleAdminDeleteProduct } from "../../ManageProductFunction/DeleteProduct";
 import { Label, TextInput } from "flowbite-react";
+import { Pagination } from "flowbite-react";
 
 function StationerySupply() {
     const STATIONERYSUPPLY_CATALOG_ID = 8;
@@ -30,6 +31,27 @@ function StationerySupply() {
     const [productQuantityInEditProductForm, setProductQuantityInEditProductForm] = useState("");
     const [productCostInEditProductForm, setProductCostInEditProductForm] = useState("");
     const [productDescriptionInEditProductForm, setProductDescriptionInEditProductForm] = useState("");
+
+    // SET UP PAGINATION
+    const [totalPage, setTotalPage] = useState();
+    const [isTotalPageSet, setIsTotalPageSet] = useState(false);
+    const quantityItemsPerpage = 5;
+    const [currentPage, setCurrentPage] = useState(1);
+    const lastIndex = currentPage * quantityItemsPerpage;
+    const firstIndex = lastIndex - quantityItemsPerpage;
+    const displayedStationerySupply = stationerySupplyInfoForAdmin.slice(firstIndex, lastIndex);
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
+    }
+
+    // PAGINATION
+    useEffect(() => {
+        if (isFetchedData) {
+            const totalPages = Math.ceil(stationerySupplyInfoForAdmin.length / quantityItemsPerpage);
+            setTotalPage(totalPages);
+            setIsTotalPageSet(true);
+        }
+    }, [isFetchedData, stationerySupplyInfoForAdmin]);
 
     const handleGetStationerySupplyInfoForAdmin = async () => {
         const response = await apiGetProductByCatalogIdForAdmin(STATIONERYSUPPLY_CATALOG_ID);
@@ -320,7 +342,7 @@ function StationerySupply() {
                     </Table.HeadCell>
                 </Table.Head>
                 <Table.Body className="divide-y">
-                    {stationerySupplyInfoForAdmin.map((stationerySupplyInfoForAdmin) => (
+                    {displayedStationerySupply.map((stationerySupplyInfoForAdmin) => (
                         <Table.Row key={stationerySupplyInfoForAdmin.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white" width={'30%'}>
                                 {stationerySupplyInfoForAdmin.productName}
@@ -344,6 +366,13 @@ function StationerySupply() {
                     ))}
                 </Table.Body>
             </Table>
+
+            {/* PAGINATION */}
+            {isTotalPageSet && stationerySupplyInfoForAdmin.length > 0 ? (
+                <div className="flex justify-center">
+                    <Pagination currentPage={currentPage} totalPages={totalPage} onPageChange={onPageChange} />
+                </div>
+            ) : null}
         </div>
     );
 }
