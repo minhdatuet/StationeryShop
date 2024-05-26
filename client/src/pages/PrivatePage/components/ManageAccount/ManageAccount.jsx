@@ -71,17 +71,14 @@ function ManageAccount() {
         handleGetData();
     }, [isFetchedData, currentPage]);
 
-    // SET TOTAL PAGE
+    // PAGINATION
     useEffect(() => {
-        if (customerInfo.length > 0) {
-            if (customerInfo.length % 10 === 0) {
-                setTotalPage(parseInt(customerInfo.length / 10));
-            } else {
-                setTotalPage(parseInt(customerInfo.length / 10 + 1));
-            }
+        if (isFetchedData) {
+            const totalPages = Math.ceil(customerInfo.length / quantityItemsPerpage);
+            setTotalPage(totalPages);
             setIsTotalPageSet(true);
         }
-    }, [customerInfo]);
+    }, [isFetchedData, customerInfo]);
 
     // HANDLE WHEN CLICK ADD NEW ACCOUNT
     const handleVisibleFormAddNewAccount = () => {
@@ -142,11 +139,7 @@ function ManageAccount() {
             setErrorForEmailInModifyForm(false);
         }
 
-        if (hasError) {
-            setErrorForNameInModifyForm(true);
-            setErrorForPasswordInModifyForm(true);
-            setErrorForEmailInModifyForm(true);
-        } else {
+        if (!hasError) {
             const payload = {
                 id: modifyId,
                 accountName: newNameInModifyForm,
@@ -215,12 +208,7 @@ function ManageAccount() {
             setErrorForEmailInAddAccountForm(false);
         }
 
-        if (hasError) {
-            setErrorForNameInAddAccountForm(true);
-            setErrorForPasswordInAddAccountForm(true);
-            setErrorForPhoneInAddAccountForm(true);
-            setErrorForEmailInAddAccountForm(true);
-        } else {
+        if (!hasError) {
             const payload = {
                 accountName: nameInAddAccountForm,
                 accountPassword: passwordInAddAccountForm,
