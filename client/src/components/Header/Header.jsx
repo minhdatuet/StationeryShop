@@ -50,6 +50,10 @@ export const Header = () => {
           <div className={clsx(style.logoContainer)}
             onClick={() => {
               navigate('/');
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              })
             }}
           >
             <img src={logoImg} alt="" /></div>
@@ -84,10 +88,18 @@ export const Header = () => {
           <div className={clsx(style.accountContainer)}
             onClick={() => {
               if (isLogged) {
-                navigate('/personal')
+                navigate('/personal');
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                })
               }
               else {
                 navigate('/login')
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                })
               }
             }}
           >
@@ -105,6 +117,10 @@ export const Header = () => {
               localStorage.clear();
               dispatch(actions.logout());
               navigate('/')
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              })
             }}
           >
             <div className={style.logOutBtn}>

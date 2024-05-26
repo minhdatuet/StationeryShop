@@ -4,12 +4,17 @@ import style from './Information.module.scss'
 import { apiGetDetailInfoByID, apiUpdateUserInPersonalPage } from "../../../../../services/user";
 import { FaRegSave } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
+import * as actions from '../../../../../store/actions'
+import { useDispatch } from "react-redux";
 const bcrypt = require('bcryptjs');
 
 export const Information = (props) => {
 
     // const uId = localStorage.getItem('id');
     // console.log(uId);
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const [info, setInfo] = useState({
         aId: "",
@@ -221,6 +226,13 @@ export const Information = (props) => {
         // call api update and setInfo
         await apiUpdateUserInPersonalPage(inputForm);
         alert("Save successfully");
+        navigate('/login');
+        localStorage.clear();
+        dispatch(actions.logout());
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        })
     }
 
     const setDefaultValue = async() => {

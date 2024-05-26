@@ -64,6 +64,10 @@ const Product = () => {
 
   const handleBuyNow = () => {
     navigate('/payment', { state: { product, quantity } });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   };
 
   return (

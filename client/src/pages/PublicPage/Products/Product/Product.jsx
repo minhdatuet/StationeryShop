@@ -42,6 +42,10 @@ export const Product = (props) => {
         <div className={clsx(style.productContainer, )}
         onClick={()=> {
             navigate(`/product/${productData.id}`);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              })
         }}
         >
             <div className={clsx(style.productImg, )}>

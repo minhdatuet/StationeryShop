@@ -74,6 +74,10 @@ const ProductList = () => {
 
   const handleViewDetails = (productId) => {
     navigate(`/product/${productId}`);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
   };
 
   let filteredProducts = productData.filter(product =>
