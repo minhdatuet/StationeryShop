@@ -19,11 +19,13 @@
 .productImg {
     flex: 1;
     margin: 12px;
+    width: 100%;
 }
 
 .productImg img {
     width: auto;
     height: 100%;
+    width: 80%;
 }
 
 .productName {
