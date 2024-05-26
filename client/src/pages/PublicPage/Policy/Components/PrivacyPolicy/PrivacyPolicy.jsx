@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 const PrivacyPolicy = () => {
     return (
-        <div className={clsx(style.container)}>
+        <div className={clsx(style.container)} id="privacy-policy">
             <h1>Privacy Policy</h1>
             <div className={clsx(style.concept)}>
                 <ul>

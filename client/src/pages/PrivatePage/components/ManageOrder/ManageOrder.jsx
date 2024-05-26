@@ -19,6 +19,7 @@ function ManageOrder() {
     const lastIndex = currentPage * quantityItemsPerpage;
     const firstIndex = lastIndex - quantityItemsPerpage;
     const displayedOrder = orderInfoForAdmin.slice(firstIndex, lastIndex);
+    console.log(displayedOrder);
     const onPageChange = (page: number) => {
         setCurrentPage(page);
     }
@@ -29,6 +30,7 @@ function ManageOrder() {
             const orderInfo = await apiGetOrderInfoForAdmin();
             const orders = orderInfo.data.response;
             setOrderInfoForAdmin(orders);
+            console.log(orderInfoForAdmin);
             setIsFetchedData(true);
         }
         catch (err) {

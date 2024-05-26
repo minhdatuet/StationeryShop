@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 const OurPlans = () => {
     return (
-        <div className={clsx(style.container)}>
+        <div className={clsx(style.container)} id="our-plans">
             <h1>Our Future Plans</h1>
             <div className={clsx(style.concept)}>
                 <ul>
@@ -19,4 +19,4 @@ const OurPlans = () => {
     )
 }
 
-export default OurPlans
+export default OurPlans;
