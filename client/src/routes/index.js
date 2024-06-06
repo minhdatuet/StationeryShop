@@ -12,9 +12,9 @@ import Payment from "../components/Payment/Payment";
 import ProductList from "../pages/PublicPage/Product/ProductList";
 import Rate from "../pages/PublicPage/Rate/Rate"
 import AdminPage from "../pages/PrivatePage/AdminPage";
-import CreatePaymentLink from "../pages/PublicPage/TestPayOs/CreatePaymentLink";
 import PaymentCart from "../components/Payment/PaymentCart";
 import Policy from "../pages/PublicPage/Policy/Policy";
+import CheckoutForm from "../components/CheckoutForm/CheckoutForm";
 
 const publicRoutes = [
   {
@@ -66,10 +66,6 @@ const publicRoutes = [
     page: Rate
   },
   {
-    path: 'test-payment',
-    page: CreatePaymentLink
-  },
-  {
     path: 'productlist',
     page: ProductList
   },
@@ -80,7 +76,11 @@ const publicRoutes = [
   {
     path: 'policy',
     page: Policy
-  }
+  },
+  {
+    path: 'test-checkout-form',
+    page: CheckoutForm
+  },
 ];
 
 const adminRoutes = [
