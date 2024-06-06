@@ -4,7 +4,7 @@ export const apiCreatePaymentLink = (payload) => new Promise(async (resolve, rej
     try {
         const response = await axiosConfig({
             method: 'post',
-            url: '/api/v1/payment/post/create-payment-link',
+            url: '/api/v1/payos/post/create-payment-link',
             data: payload
         })
         resolve(response);
@@ -18,7 +18,7 @@ export const apiGetPaymentLinkInfomation = (orderId) => new Promise(async (resol
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: `/api/v1/payment/get/get-payment-link-infomation/${orderId}`,
+            url: `/api/v1/payos/get/get-payment-link-infomation/${orderId}`,
         })
         resolve(response);
     }
@@ -31,7 +31,7 @@ export const apiCancelPaymentLink = (payload) => new Promise(async (resolve, rej
     try {
         const response = await axiosConfig({
             method: 'put',
-            url: `/api/v1/payment/put/cancel-payment-link/${payload.orderId}`,
+            url: `/api/v1/payos/put/cancel-payment-link/${payload.orderId}`,
             data: payload
         })
         resolve(response);
@@ -45,7 +45,7 @@ export const apiConfirmWebHook = (payload) => new Promise(async (resolve, reject
     try {
         const response = await axiosConfig({
             method: 'post',
-            url: '/api/v1/payment/post/confirm-web-hook/web-hook',
+            url: '/api/v1/payos/post/confirm-web-hook/web-hook',
             data: payload
         })
         resolve(response);
@@ -59,7 +59,7 @@ export const apiVerifyPaymentWebhookData = (payload) => new Promise(async (resol
     try {
         const response = await axiosConfig({
             method: 'get',
-            url: `/api/v1/payment/get/verify-payment-web-hook-data/${payload}`,
+            url: `/api/v1/payos/get/verify-payment-web-hook-data/${payload}`,
         })
         resolve(response);
     }

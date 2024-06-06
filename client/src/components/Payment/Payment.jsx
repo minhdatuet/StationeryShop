@@ -7,6 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import * as actions from '../../store/actions';
 import { apiHandleWhenCustomerClickPayNow, apiAddToProductInOrder } from '../../services/order';
 import { apiGetPaymentLinkInfomation, apiCreatePaymentLink, apiVerifyPaymentWebhookData } from '../../services/payos';
+import {loadStripe} from '@stripe/stripe-js';
 
 const Payment = () => {
     const dispatch = useDispatch();
@@ -40,8 +41,8 @@ const Payment = () => {
         if (orderCode) {
             const response1 = await apiGetPaymentLinkInfomation(orderCode);
             console.log(response1);
-            if(response1.status === 200) {
-                setTotalPayFromHomePage((response1.data.data.amount)/100 - 5);
+            if (response1.status === 200) {
+                setTotalPayFromHomePage((response1.data.data.amount) / 100 - 5);
             }
         }
     }
@@ -49,9 +50,9 @@ const Payment = () => {
     useEffect(() => {
         checkCancel()
     }, [0]);
-    
 
-    const handleClickPayNow = async () => {
+
+    const handleClickPayByQR = async () => {
         try {
             let orderCode = Date.now();
             const productInOrderHomePage = [{
@@ -87,6 +88,12 @@ const Payment = () => {
         } catch (error) {
             console.error("Payment error:", error);
         }
+    }
+
+    const handleClickPayByCard = async () => {
+        console.log("Pay by card");
+        const stripe = await loadStripe('pk_test_51PMT0P086JXHzxnMi1v3P83iyqjqQtY5QCmjxqQNHJ1U8xLEjdWvvl2bSDwYILAWn0NgVmNjvHPyjG66XAxAsUzA00qPFN6aV9');
+        
     }
 
     useEffect(() => {
@@ -131,16 +138,27 @@ const Payment = () => {
                     <div className="p-total-cost-value">{totalPayFromHomePage + 5}$</div>
                 </div>
             </div>
-            
-            <div className='p-PayBtn'>
-                <div className=""
-                onClick={handleClickPayNow}
+
+            <div class='p-PayBtn'>
+                <div 
+                    class="pay-option" 
+                    onClick={handleClickPayByQR}
                 >
-                    <button >
-                        Pay now
+                    <button class="pay-button">
+                        Pay By QR
+                    </button>
+                </div>
+
+                <div 
+                    class="pay-option" 
+                    onClick={handleClickPayByCard}
+                >
+                    <button class="pay-button">
+                        Pay By Card
                     </button>
                 </div>
             </div>
+
         </div>
     );
 };

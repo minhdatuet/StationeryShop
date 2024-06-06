@@ -23,16 +23,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid black;
-    background-color: grey;
     color: #fff;
+    padding: 10px;
 }
 
-.p-PayBtn > div {
+.p-PayBtn > .pay-option {
     cursor: pointer;
     display: flex;
     margin-right: 3%;
-    /* border: 1px black solid; */
     padding: 5px;
     width: 200px;
     text-align: center;
@@ -40,14 +38,32 @@
     align-items: center;
 }
 
-.p-PayBtn button {
+.p-PayBtn > .pay-option:last-child {
+    margin-right: 0;
+}
+
+.pay-button {
     text-align: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.pay-button:hover {
+    background-color: #0056b3;
 }
 
 .p-PayBtn img {
     max-width: 30px;
     margin-right: 5px;
 }
+
 .cod-method {
     justify-content: center; /* Horizontally center the text */
     align-items: center;

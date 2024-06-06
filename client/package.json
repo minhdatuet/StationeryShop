@@ -10,6 +10,8 @@
     "@mui/styled-engine": "^5.15.14",
     "@mui/system": "^5.15.14",
     "@react-oauth/google": "^0.12.1",
+    "@stripe/react-stripe-js": "^2.7.1",
+    "@stripe/stripe-js": "^3.5.0",
     "aos": "^2.3.4",
     "apexcharts": "^3.48.0",
     "axios": "^1.6.1",

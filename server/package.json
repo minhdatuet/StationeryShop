@@ -26,6 +26,7 @@
     "mysql2": "^3.6.3",
     "nodemon": "^3.1.0",
     "sequelize": "^6.34.0",
+    "stripe": "^15.8.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
