@@ -8,6 +8,7 @@ import { apiGetDetailInfoByID } from "../../../services/user";
 import { apiGetPaymentLinkInfomation } from "../../../services/payos";
 import { apiAddToProductInOrder, apiHandleWhenCustomerClickPayNow } from "../../../services/order";
 import { apiAddToCart } from "../../../services/product";
+import { apiRetrieveASession } from "../../../services/stripe";
 import { useDispatch } from "react-redux";
 import * as actions from '../../../store/actions';
 
@@ -42,14 +43,16 @@ export const Personal = () => {
     const checkPayment = async () => {
         let url = new URL(window.location.href);
         const isCheck = url.searchParams.get('checkPayment');
-        console.log(isCheck);
+
+        const checkSuccessWithCard = url.searchParams.get('checkSuccessWithCard');
+        const sessionId = url.searchParams.get('sessionId');
+        console.log(checkSuccessWithCard);
+        console.log(sessionId);
+
         if (isCheck) {
             console.log(url.searchParams.get('checkPayment'));
             const orderId = url.searchParams.get('orderId');
-            const productsInOrder = JSON.parse(url.searchParams.get('productsInOrder'));
-            console.log(productsInOrder);
-            console.log(productsInOrder.length);
-            console.log(productsInOrder[0].quantity);
+            const productsInOrder = JSON.parse(sessionStorage.getItem('productsInOrder'));
             const response1 = await apiGetPaymentLinkInfomation(orderId);
             console.log(response1);
 
@@ -73,6 +76,35 @@ export const Personal = () => {
                         console.log(payloadAPIAddToProductInOrder);
                         await apiAddToProductInOrder(payloadAPIAddToProductInOrder);
                     }
+                }
+            }
+        }
+
+        if (checkSuccessWithCard === "true") {
+            const productsInOrder = JSON.parse(sessionStorage.getItem('productsInOrder'));
+            console.log(productsInOrder);
+
+            const responseRetrieveSesstion = await apiRetrieveASession(sessionId);
+            console.log(responseRetrieveSesstion);
+
+            if (responseRetrieveSesstion.data.payment_status === "paid") {
+                const payloadAPIiHandleWhenCustomerClickPayNow = {
+                    status: "WAITING",
+                    totalPrice: responseRetrieveSesstion.data.amount_total,
+                    accountId: localStorage.id
+                }
+
+                const response2 = await apiHandleWhenCustomerClickPayNow(payloadAPIiHandleWhenCustomerClickPayNow);
+                console.log(response2);
+
+                for (let i = 0; i < productsInOrder.length; i++) {
+                    const payloadAPIAddToProductInOrder = {
+                        productId: productsInOrder[i].productId,
+                        orderId: response2.data.id,
+                        quantity: productsInOrder[i].productsInCartQuantity
+                    }
+                    console.log(payloadAPIAddToProductInOrder);
+                    await apiAddToProductInOrder(payloadAPIAddToProductInOrder);
                 }
             }
         }

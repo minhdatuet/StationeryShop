@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import * as actions from '../../store/actions';
 import { apiHandleWhenCustomerClickPayNow, apiAddToProductInOrder } from '../../services/order';
 import { apiGetPaymentLinkInfomation, apiCreatePaymentLink, apiVerifyPaymentWebhookData } from '../../services/payos';
-import {loadStripe} from '@stripe/stripe-js';
+import { apiCreateCheckoutSession, apiRetrieveASession } from '../../services/stripe';
 
 const Payment = () => {
     const dispatch = useDispatch();
@@ -38,6 +38,8 @@ const Payment = () => {
     const checkCancel = async () => {
         let url = new URL(window.location.href);
         const orderCode = url.searchParams.get('orderCode');
+        const checkSuccessWithCard = url.searchParams.get('checkSuccessWithCard');
+    
         if (orderCode) {
             const response1 = await apiGetPaymentLinkInfomation(orderCode);
             console.log(response1);
@@ -45,13 +47,20 @@ const Payment = () => {
                 setTotalPayFromHomePage((response1.data.data.amount) / 100 - 5);
             }
         }
-    }
-
+    
+        if (checkSuccessWithCard === "false") {
+            const sessionId = url.searchParams.get('sessionId');
+            if (sessionId) {
+                const response = await apiRetrieveASession(sessionId);
+                setTotalPayFromHomePage(response.data.amount_total);
+            }
+        }
+    };
+    
     useEffect(() => {
         checkCancel()
-    }, [0]);
-
-
+    }, []);
+    
     const handleClickPayByQR = async () => {
         try {
             let orderCode = Date.now();
@@ -59,8 +68,6 @@ const Payment = () => {
                 productId: productListFromHomePage[0].id,
                 productsInCartQuantity: quantity
             }]
-            // console.log(JSON.stringify(productInOrderHomePage));
-            // alert();
             const orderTest = {
                 orderCode: orderCode,
                 amount: (totalPayFromHomePage + 5) * 100,
@@ -79,22 +86,34 @@ const Payment = () => {
             console.log(responseCreatePaymentLink);
             window.location.href = responseCreatePaymentLink.data.data.checkoutUrl;
 
-            // const responseGetPaymentLinkInfomation = await apiGetPaymentLinkInfomation(orderId);
-            // console.log(responseGetPaymentLinkInfomation);
-
-            // const responseVerifyPaymentWebhookData = await apiVerifyPaymentWebhookData(responseCreatePaymentLink.data.data.checkoutUrl);
-            // console.log(responseVerifyPaymentWebhookData);
-
         } catch (error) {
             console.error("Payment error:", error);
         }
     }
 
     const handleClickPayByCard = async () => {
-        console.log("Pay by card");
-        const stripe = await loadStripe('pk_test_51PMT0P086JXHzxnMi1v3P83iyqjqQtY5QCmjxqQNHJ1U8xLEjdWvvl2bSDwYILAWn0NgVmNjvHPyjG66XAxAsUzA00qPFN6aV9');
+        const productInOrderHomePage = [{
+            productId: productListFromHomePage[0].id,
+            productsInCartQuantity: quantity
+        }]
         
-    }
+        const session = {
+            name: "Pay for those items", 
+            amount: totalPayFromHomePage, 
+            success_url: "http://localhost:3000/personal?checkSuccessWithCard=true&sessionId={CHECKOUT_SESSION_ID}" + "&productsInOrder=" + JSON.stringify(productInOrderHomePage), 
+            cancel_url: "http://localhost:3000/payment?checkSuccessWithCard=false&sessionId={CHECKOUT_SESSION_ID}"
+        }
+        
+        try {
+            const response = await apiCreateCheckoutSession(session);
+            console.log(response);
+    
+            window.location.href = response.data.url;
+        } catch (error) {
+            console.error("Error during API call:", error);
+        }
+    };
+    
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -140,20 +159,20 @@ const Payment = () => {
             </div>
 
             <div class='p-PayBtn'>
-                <div 
-                    class="pay-option" 
-                    onClick={handleClickPayByQR}
-                >
-                    <button class="pay-button">
+                <div class="pay-option" >
+                    <button 
+                        class="pay-button"
+                        onClick={handleClickPayByQR}
+                    >
                         Pay By QR
                     </button>
                 </div>
 
-                <div 
-                    class="pay-option" 
-                    onClick={handleClickPayByCard}
-                >
-                    <button class="pay-button">
+                <div class="pay-option">
+                    <button 
+                        class="pay-button"
+                        onClick={handleClickPayByCard}
+                    >
                         Pay By Card
                     </button>
                 </div>

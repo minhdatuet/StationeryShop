@@ -7,6 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import * as actions from '../../store/actions';
 import { apiHandleWhenCustomerClickPayNow, apiAddToProductInOrder } from '../../services/order';
 import { apiGetPaymentLinkInfomation, apiCreatePaymentLink, apiVerifyPaymentWebhookData } from '../../services/payos';
+import { apiCreateCheckoutSession, apiRetrieveASession } from '../../services/stripe';
 
 const PaymentCart = () => {
     
@@ -14,18 +15,27 @@ const PaymentCart = () => {
     const [cartProducts, setCartProducts] = useState([]);
     const [totalPay, setTotalPay] = useState(0)
 
-    
     const checkCancel = async () => {
         let url = new URL(window.location.href);
         const orderCode = url.searchParams.get('orderCode');
+        const checkSuccessWithCard = url.searchParams.get('checkSuccessWithCard');
+    
         if (orderCode) {
             const response1 = await apiGetPaymentLinkInfomation(orderCode);
             console.log(response1);
-            if(response1.status === 200) {
-                setTotalPay((response1.data.data.amount)/100 - 5);
+            if (response1.status === 200) {
+                setTotalPay((response1.data.data.amount) / 100 - 5);
             }
         }
-    }
+    
+        if (checkSuccessWithCard === "false") {
+            const sessionId = url.searchParams.get('sessionId');
+            if (sessionId) {
+                const response = await apiRetrieveASession(sessionId);
+                setTotalPay(response.data.amount_total);
+            }
+        }
+    };
 
     useEffect(() => {
         checkCancel()
@@ -33,20 +43,22 @@ const PaymentCart = () => {
     
     useEffect(() => {
         const cartData = JSON.parse(new URL(window.location.href).searchParams.get('cartData'));
-        // console.log(cartProducts);
         setCartProducts(cartData);
+        console.log(cartData);
         let total = 0
-        for(let i = 0; i < cartData.length; i++) {
+        for (let i = 0; i < cartData.length; i++) {
+            console.log(cartData[i].Product.productCost);
+            console.log(cartData[i].productsInCartQuantity);
             total += cartData[i].Product.productCost * cartData[i].productsInCartQuantity
         }
+        console.log(total);
         setTotalPay(total);
 
     }, [0])
 
-    const handleClickPayNow = async () => {
+    const handleClickPayByQR = async () => {
         try {
             let orderCode = Date.now();
-            // alert();
             const orderTest = {
                 orderCode: orderCode,
                 amount: (totalPay + 5) * 100,
@@ -54,7 +66,6 @@ const PaymentCart = () => {
                 items: [
                     {
                         name: "Mì tôm hảo hảo ly",
-                        // quantity: quantity,
                         price: (totalPay + 5) * 100,
                     }
                 ],
@@ -65,18 +76,28 @@ const PaymentCart = () => {
             console.log(responseCreatePaymentLink);
             window.location.href = responseCreatePaymentLink.data.data.checkoutUrl;
 
-            // const responseGetPaymentLinkInfomation = await apiGetPaymentLinkInfomation(orderId);
-            // console.log(responseGetPaymentLinkInfomation);
-
-            // const responseVerifyPaymentWebhookData = await apiVerifyPaymentWebhookData(responseCreatePaymentLink.data.data.checkoutUrl);
-            // console.log(responseVerifyPaymentWebhookData);
-
         } catch (error) {
             console.error("Payment error:", error);
         }
     }
 
+    const handleClickPayByCard = async () => {
+        sessionStorage.setItem('productsInOrder', JSON.stringify(cartProducts));
+        const successUrl = "http://localhost:3000/personal?checkSuccessWithCard=true&sessionId={CHECKOUT_SESSION_ID}";
+        const cancelUrl = "http://localhost:3000/payment?checkSuccessWithCard=false&sessionId={CHECKOUT_SESSION_ID}";
+
+        const session = {
+            name: "Pay for those items", 
+            amount: totalPay,
+            success_url: successUrl,
+            cancel_url: cancelUrl
+        }
+        
+        const response = await apiCreateCheckoutSession(session);
+        console.log(response);
     
+        window.location.href = response.data.url;
+    };
 
     return (
         <div className="pay">
@@ -96,15 +117,27 @@ const PaymentCart = () => {
                     <div className="p-total-cost-value">{totalPay + 5}$</div>
                 </div>
             </div>
-            <div className='p-PayBtn'>
-                <div className="">
+
+            <div class='p-PayBtn'>
+                <div class="pay-option" >
                     <button 
-                    onClick={handleClickPayNow}
+                        class="pay-button"
+                        onClick={handleClickPayByQR}
                     >
-                        Pay now
+                        Pay By QR
+                    </button>
+                </div>
+
+                <div class="pay-option">
+                    <button 
+                        class="pay-button"
+                        onClick={handleClickPayByCard}
+                    >
+                        Pay By Card
                     </button>
                 </div>
             </div>
+
         </div>
     );
 };
